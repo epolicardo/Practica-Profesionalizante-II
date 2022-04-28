@@ -9,5 +9,12 @@ namespace OrderNow.Tests
         {
 
         }
+
+        //AprobarComercio
+        //Vencimiento de Aprobacion
+        //Alta de usuario
+        //Alta Cuenta COmercial
+        //Alta Producto
+
     }
 }

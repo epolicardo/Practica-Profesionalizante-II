@@ -1,7 +1,7 @@
 ﻿
 namespace OrderNow.API.Data.Entities
 {
-    public class People : EntityBase
+    public abstract class People : EntityBase
     {
         [Display(Name = "Nombre")]
         [MaxLength(50)]
@@ -26,6 +26,8 @@ namespace OrderNow.API.Data.Entities
 
         [Display(Name = "Fecha Nacimiento")]
         public DateTime BirthDate { get; set; }
+
+       
 
     }
 }

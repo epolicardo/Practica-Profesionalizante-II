@@ -17,6 +17,7 @@
     {
         CreditCard,
         DebitCard,
+        GiftCard,
         Check,
         Cash,
         Transfer

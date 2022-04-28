@@ -18,7 +18,7 @@ namespace OrderNow.Data
         }
 
         public DbSet<Addresses> Addresses { get; set; }
-        public DbSet<Business> Business { get; set; }
+        public DbSet<Businesses> Business { get; set; }
         public DbSet<Cities> Cities { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<PaymentMethods> PaymentMethods { get; set; }

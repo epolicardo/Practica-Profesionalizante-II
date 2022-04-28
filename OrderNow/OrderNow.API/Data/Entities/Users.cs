@@ -4,7 +4,17 @@ namespace OrderNow.API.Data.Entities
 {
     public class Users : IdentityUser
     {
-        [Display(Name = "Correo Electrónico")]
-        public string Email { get; set; }
+        public UserType UserType { get; set; }
+        public List<Businesses> Business { get; set; }
+
+
+    }
+
+    public enum UserType
+    {
+        Administrator,
+        Manager,
+        Colaborator,
+        User
     }
 }

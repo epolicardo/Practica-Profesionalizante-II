@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore.Storage;
-using OrderNow.Data;
-using System.Configuration;
+
 
 
 
@@ -13,7 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=OrderNow;Integrated Security=True"));
-   
+
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
