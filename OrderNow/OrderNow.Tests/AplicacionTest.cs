@@ -10,11 +10,20 @@ namespace OrderNow.Tests
 
         }
 
-        //AprobarComercio
-        //Vencimiento de Aprobacion
-        //Alta de usuario
-        //Alta Cuenta COmercial
-        //Alta Producto
 
+        [Fact]
+        public void ShouldApproveComerce_WhenDocumentationIsComplete()
+        {
+
+
+
+            //AprobarComercio
+            //Vencimiento de Aprobacion
+            //Alta de usuario
+            //Alta Cuenta COmercial
+            //Alta Producto
+
+        }
     }
+
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OrderNow.API.Migrations
 {
-    public partial class Initial : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,7 @@ namespace OrderNow.API.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserType = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -55,7 +56,7 @@ namespace OrderNow.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -65,17 +66,20 @@ namespace OrderNow.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Image",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Image", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -218,12 +222,12 @@ namespace OrderNow.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Floor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Apartment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Tower = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CityId = table.Column<int>(type: "int", nullable: true),
+                    CityId = table.Column<int>(type: "int", nullable: false),
                     Observations = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -235,36 +239,62 @@ namespace OrderNow.API.Migrations
                         name: "FK_Addresses_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Business",
+                name: "Businesses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: true),
-                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContractURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PromoMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    IconId = table.Column<int>(type: "int", nullable: false),
+                    RegularId = table.Column<int>(type: "int", nullable: false),
+                    ContractURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PromoMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsFrachise = table.Column<bool>(type: "bit", nullable: false),
-                    CUIT = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LegalName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CommercialContactId = table.Column<int>(type: "int", nullable: true),
+                    CUIT = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LegalName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommercialContactId = table.Column<int>(type: "int", nullable: false),
+                    IsValidated = table.Column<bool>(type: "bit", nullable: false),
+                    ValidationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ValidationExpires = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Score = table.Column<float>(type: "real", nullable: false),
+                    Qualification = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Business", x => x.Id);
+                    table.PrimaryKey("PK_Businesses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Business_Addresses_AddressId",
+                        name: "FK_Businesses_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Businesses_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Businesses_Image_IconId",
+                        column: x => x.IconId,
+                        principalTable: "Image",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Businesses_Image_RegularId",
+                        column: x => x.RegularId,
+                        principalTable: "Image",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -273,11 +303,11 @@ namespace OrderNow.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    BusinessId = table.Column<int>(type: "int", nullable: true),
+                    BusinessesId = table.Column<int>(type: "int", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -285,9 +315,9 @@ namespace OrderNow.API.Migrations
                 {
                     table.PrimaryKey("PK_PaymentMethods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PaymentMethods_Business_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Business",
+                        name: "FK_PaymentMethods_Businesses_BusinessesId",
+                        column: x => x.BusinessesId,
+                        principalTable: "Businesses",
                         principalColumn: "Id");
                 });
 
@@ -297,13 +327,15 @@ namespace OrderNow.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    CellPhone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
-                    Document = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CellPhone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
+                    Document = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BusinessId = table.Column<int>(type: "int", nullable: true),
+                    BusinessesId = table.Column<int>(type: "int", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MarkedAsVIP = table.Column<bool>(type: "bit", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -314,12 +346,80 @@ namespace OrderNow.API.Migrations
                         name: "FK_People_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_People_Business_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Business",
+                        name: "FK_People_Businesses_BusinessesId",
+                        column: x => x.BusinessesId,
+                        principalTable: "Businesses",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusinessesCustomers",
+                columns: table => new
+                {
+                    CustomersListId = table.Column<int>(type: "int", nullable: false),
+                    FavoriteBusinessesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessesCustomers", x => new { x.CustomersListId, x.FavoriteBusinessesId });
+                    table.ForeignKey(
+                        name: "FK_BusinessesCustomers_Businesses_FavoriteBusinessesId",
+                        column: x => x.FavoriteBusinessesId,
+                        principalTable: "Businesses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BusinessesCustomers_People_CustomersListId",
+                        column: x => x.CustomersListId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BusinessId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Businesses_BusinessId",
+                        column: x => x.BusinessId,
+                        principalTable: "Businesses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_People_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,9 +428,18 @@ namespace OrderNow.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BusinessId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    URLImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    URLIcon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Stock = table.Column<float>(type: "real", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    BusinessId = table.Column<int>(type: "int", nullable: false),
+                    Score = table.Column<float>(type: "real", nullable: false),
+                    Qualification = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
+                    CustomersId = table.Column<int>(type: "int", nullable: true),
+                    OrdersId = table.Column<int>(type: "int", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -338,28 +447,40 @@ namespace OrderNow.API.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Business_BusinessId",
+                        name: "FK_Products_Businesses_BusinessId",
                         column: x => x.BusinessId,
-                        principalTable: "Business",
+                        principalTable: "Businesses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_Orders_OrdersId",
+                        column: x => x.OrdersId,
+                        principalTable: "Orders",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Products_People_CustomersId",
+                        column: x => x.CustomersId,
+                        principalTable: "People",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "MyProperty",
+                name: "ProductOptions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductsId = table.Column<int>(type: "int", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MyProperty", x => x.Id);
+                    table.PrimaryKey("PK_ProductOptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MyProperty_Products_ProductsId",
+                        name: "FK_ProductOptions_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
                         principalColumn: "Id");
@@ -410,24 +531,59 @@ namespace OrderNow.API.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Business_AddressId",
-                table: "Business",
+                name: "IX_Businesses_AddressId",
+                table: "Businesses",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Business_CommercialContactId",
-                table: "Business",
+                name: "IX_Businesses_CommercialContactId",
+                table: "Businesses",
                 column: "CommercialContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MyProperty_ProductsId",
-                table: "MyProperty",
-                column: "ProductsId");
+                name: "IX_Businesses_IconId",
+                table: "Businesses",
+                column: "IconId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PaymentMethods_BusinessId",
-                table: "PaymentMethods",
+                name: "IX_Businesses_RegularId",
+                table: "Businesses",
+                column: "RegularId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Businesses_UsersId",
+                table: "Businesses",
+                column: "UsersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusinessesCustomers_FavoriteBusinessesId",
+                table: "BusinessesCustomers",
+                column: "FavoriteBusinessesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_BusinessId",
+                table: "Orders",
                 column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerId",
+                table: "Orders",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PaymentMethodId",
+                table: "Orders",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PaymentMethods_BusinessesId",
+                table: "PaymentMethods",
+                column: "BusinessesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_People_AddressId",
@@ -435,21 +591,37 @@ namespace OrderNow.API.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_People_BusinessId",
+                name: "IX_People_BusinessesId",
                 table: "People",
-                column: "BusinessId");
+                column: "BusinessesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductOptions_ProductsId",
+                table: "ProductOptions",
+                column: "ProductsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BusinessId",
                 table: "Products",
                 column: "BusinessId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CustomersId",
+                table: "Products",
+                column: "CustomersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_OrdersId",
+                table: "Products",
+                column: "OrdersId");
+
             migrationBuilder.AddForeignKey(
-                name: "FK_Business_People_CommercialContactId",
-                table: "Business",
+                name: "FK_Businesses_People_CommercialContactId",
+                table: "Businesses",
                 column: "CommercialContactId",
                 principalTable: "People",
-                principalColumn: "Id");
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -459,16 +631,28 @@ namespace OrderNow.API.Migrations
                 table: "Addresses");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Business_Addresses_AddressId",
-                table: "Business");
+                name: "FK_Businesses_AspNetUsers_UsersId",
+                table: "Businesses");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Businesses_Addresses_AddressId",
+                table: "Businesses");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_People_Addresses_AddressId",
                 table: "People");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Business_People_CommercialContactId",
-                table: "Business");
+                name: "FK_Businesses_Image_IconId",
+                table: "Businesses");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Businesses_Image_RegularId",
+                table: "Businesses");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Businesses_People_CommercialContactId",
+                table: "Businesses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -486,13 +670,10 @@ namespace OrderNow.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "MyProperty");
+                name: "BusinessesCustomers");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "PaymentMethods");
+                name: "ProductOptions");
 
             migrationBuilder.DropTable(
                 name: "SaleDetails");
@@ -504,22 +685,31 @@ namespace OrderNow.API.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethods");
 
             migrationBuilder.DropTable(
                 name: "Cities");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "Image");
 
             migrationBuilder.DropTable(
                 name: "People");
 
             migrationBuilder.DropTable(
-                name: "Business");
+                name: "Businesses");
         }
     }
 }

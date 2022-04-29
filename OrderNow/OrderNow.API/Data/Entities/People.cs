@@ -1,7 +1,9 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
+
 namespace OrderNow.API.Data.Entities
 {
-    public abstract class People : EntityBase
+    public abstract class People : IdentityUser
     {
         [Display(Name = "Nombre")]
         [MaxLength(50)]
@@ -14,10 +16,6 @@ namespace OrderNow.API.Data.Entities
         [Display(Name = "Celular")]
         [MaxLength(14)]
         public string CellPhone { get; set; }
-
-        [Display(Name = "Documento")]
-        [MaxLength(12)]
-        public string Document { get; set; }
 
         [Display(Name = "Domicilio")]
         [MaxLength(150)]

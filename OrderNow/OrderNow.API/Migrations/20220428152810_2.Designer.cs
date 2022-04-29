@@ -12,8 +12,8 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220426032342_Initial")]
-    partial class Initial
+    [Migration("20220428152810_2")]
+    partial class _2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace OrderNow.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("BusinessesCustomers", b =>
+                {
+                    b.Property<int>("CustomersListId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FavoriteBusinessesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomersListId", "FavoriteBusinessesId");
+
+                    b.HasIndex("FavoriteBusinessesId");
+
+                    b.ToTable("BusinessesCustomers");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -239,7 +254,7 @@ namespace OrderNow.API.Migrations
                     b.Property<string>("Apartment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CityId")
+                    b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
@@ -252,12 +267,14 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Observations")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tower")
@@ -270,7 +287,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("OrderNow.API.Data.Entities.Business", b =>
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Businesses", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,41 +295,68 @@ namespace OrderNow.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("CUIT")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CommercialContactId")
+                    b.Property<int>("CommercialContactId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContractURL")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IconId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsFrachise")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsValidated")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LegalName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PromoMessage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Qualification")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<int>("RegularId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Score")
+                        .HasColumnType("real");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ValidationExpires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ValidationTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -320,7 +364,13 @@ namespace OrderNow.API.Migrations
 
                     b.HasIndex("CommercialContactId");
 
-                    b.ToTable("Business");
+                    b.HasIndex("IconId");
+
+                    b.HasIndex("RegularId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("Businesses");
                 });
 
             modelBuilder.Entity("OrderNow.API.Data.Entities.Cities", b =>
@@ -338,6 +388,7 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -345,7 +396,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("OrderNow.API.Data.Entities.Orders", b =>
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -359,7 +410,61 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("URL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.ToTable("Image");
+                });
+
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Orders", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BusinessId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -372,7 +477,7 @@ namespace OrderNow.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("BusinessId")
+                    b.Property<int?>("BusinessesId")
                         .HasColumnType("int");
 
                     b.Property<string>("CardNumber")
@@ -388,6 +493,7 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
@@ -395,7 +501,7 @@ namespace OrderNow.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusinessId");
+                    b.HasIndex("BusinessesId");
 
                     b.ToTable("PaymentMethods");
                 });
@@ -408,27 +514,34 @@ namespace OrderNow.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("BusinessId")
+                    b.Property<int?>("BusinessesId")
                         .HasColumnType("int");
 
                     b.Property<string>("CellPhone")
+                        .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Document")
+                        .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -436,6 +549,7 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -443,9 +557,11 @@ namespace OrderNow.API.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("BusinessId");
+                    b.HasIndex("BusinessesId");
 
                     b.ToTable("People");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("People");
                 });
 
             modelBuilder.Entity("OrderNow.API.Data.Entities.SaleDetails", b =>
@@ -497,10 +613,15 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProductsId")
@@ -510,7 +631,7 @@ namespace OrderNow.API.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("MyProperty");
+                    b.ToTable("ProductOptions");
                 });
 
             modelBuilder.Entity("OrderNow.API.Data.Products", b =>
@@ -521,33 +642,96 @@ namespace OrderNow.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("BusinessId")
+                    b.Property<int>("BusinessId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CustomersId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrdersId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Qualification")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<float>("Score")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("Stock")
+                        .HasColumnType("real");
+
+                    b.Property<string>("URLIcon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URLImage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessId");
 
+                    b.HasIndex("CustomersId");
+
+                    b.HasIndex("OrdersId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Customers", b =>
+                {
+                    b.HasBaseType("OrderNow.API.Data.Entities.People");
+
+                    b.Property<bool>("MarkedAsVIP")
+                        .HasColumnType("bit");
+
+                    b.HasDiscriminator().HasValue("Customers");
                 });
 
             modelBuilder.Entity("OrderNow.API.Data.Entities.Users", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
                     b.HasDiscriminator().HasValue("Users");
+                });
+
+            modelBuilder.Entity("BusinessesCustomers", b =>
+                {
+                    b.HasOne("OrderNow.API.Data.Entities.Customers", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.Businesses", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteBusinessesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -605,42 +789,105 @@ namespace OrderNow.API.Migrations
                 {
                     b.HasOne("OrderNow.API.Data.Entities.Cities", "City")
                         .WithMany()
-                        .HasForeignKey("CityId");
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("OrderNow.API.Data.Entities.Business", b =>
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Businesses", b =>
                 {
                     b.HasOne("OrderNow.API.Data.Entities.Addresses", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("OrderNow.API.Data.Entities.People", "CommercialContact")
                         .WithMany()
-                        .HasForeignKey("CommercialContactId");
+                        .HasForeignKey("CommercialContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.Image", "Icon")
+                        .WithMany()
+                        .HasForeignKey("IconId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.Image", "Regular")
+                        .WithMany()
+                        .HasForeignKey("RegularId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.Users", null)
+                        .WithMany("Business")
+                        .HasForeignKey("UsersId");
 
                     b.Navigation("Address");
 
                     b.Navigation("CommercialContact");
+
+                    b.Navigation("Icon");
+
+                    b.Navigation("Regular");
+                });
+
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Orders", b =>
+                {
+                    b.HasOne("OrderNow.API.Data.Entities.Businesses", "Business")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.Customers", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.PaymentMethods", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("PaymentMethod");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("OrderNow.API.Data.Entities.PaymentMethods", b =>
                 {
-                    b.HasOne("OrderNow.API.Data.Entities.Business", null)
+                    b.HasOne("OrderNow.API.Data.Entities.Businesses", null)
                         .WithMany("PaymentMethods")
-                        .HasForeignKey("BusinessId");
+                        .HasForeignKey("BusinessesId");
                 });
 
             modelBuilder.Entity("OrderNow.API.Data.Entities.People", b =>
                 {
                     b.HasOne("OrderNow.API.Data.Entities.Addresses", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("OrderNow.API.Data.Entities.Business", null)
+                    b.HasOne("OrderNow.API.Data.Entities.Businesses", null)
                         .WithMany("Users")
-                        .HasForeignKey("BusinessId");
+                        .HasForeignKey("BusinessesId");
 
                     b.Navigation("Address");
                 });
@@ -654,12 +901,24 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("OrderNow.API.Data.Products", b =>
                 {
-                    b.HasOne("OrderNow.API.Data.Entities.Business", null)
+                    b.HasOne("OrderNow.API.Data.Entities.Businesses", "Business")
                         .WithMany("ProductsList")
-                        .HasForeignKey("BusinessId");
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderNow.API.Data.Entities.Customers", null)
+                        .WithMany("FavoriteProducts")
+                        .HasForeignKey("CustomersId");
+
+                    b.HasOne("OrderNow.API.Data.Entities.Orders", null)
+                        .WithMany("ProductsList")
+                        .HasForeignKey("OrdersId");
+
+                    b.Navigation("Business");
                 });
 
-            modelBuilder.Entity("OrderNow.API.Data.Entities.Business", b =>
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Businesses", b =>
                 {
                     b.Navigation("PaymentMethods");
 
@@ -668,9 +927,24 @@ namespace OrderNow.API.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Orders", b =>
+                {
+                    b.Navigation("ProductsList");
+                });
+
             modelBuilder.Entity("OrderNow.API.Data.Products", b =>
                 {
                     b.Navigation("OptionsList");
+                });
+
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Customers", b =>
+                {
+                    b.Navigation("FavoriteProducts");
+                });
+
+            modelBuilder.Entity("OrderNow.API.Data.Entities.Users", b =>
+                {
+                    b.Navigation("Business");
                 });
 #pragma warning restore 612, 618
         }
