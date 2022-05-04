@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OrderNow.API.Data
+namespace OrderNow.Data.Entities
 {
     public class Products : EntityBase
     {

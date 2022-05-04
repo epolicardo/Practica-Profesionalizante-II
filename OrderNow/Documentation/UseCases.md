@@ -46,8 +46,8 @@ El MVP debe incluir las siguientes funcionalidades:
       - Realizar el pago de la orden mediante
       - Crear perfil del usuario
       - Editar el perfil del usuario
-- 
 
+- 
     * Desde el punto de vista de usuario comercial: *
       - Aplicación web responsive, que permita el acceso a la aplicación desde cualquier dispositivo.
       - Dashboard

@@ -1,4 +1,4 @@
-﻿using OrderNow.Data;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Serilog;
 
 namespace OrderNow.API.Controllers.Generic
@@ -71,11 +71,6 @@ namespace OrderNow.API.Controllers.Generic
             }
         }
 
-        public Task<bool> EditAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<int> SaveAsync()
         {
             return await _context.SaveChangesAsync();
@@ -85,6 +80,12 @@ namespace OrderNow.API.Controllers.Generic
         {
             return await _context.Set<T>().ToListAsync();
          
+        }
+
+        public async Task<bool> EditAsync(T entity)
+        {
+           EntityEntry<T> entityEntry = _context.Set<T>().Update(entity);
+           return entityEntry.State == EntityState.Modified;
         }
     }
 }

@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderNow.Tests", "OrderNow.Tests\OrderNow.Tests.csproj", "{2031E6CC-D36C-403A-84C1-7AED272E29F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.Tests", "OrderNow.Tests\OrderNow.Tests.csproj", "{2031E6CC-D36C-403A-84C1-7AED272E29F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.API", "OrderNow.API\OrderNow.API.csproj", "{6D6445FF-A759-498F-B381-03D1C0B101CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentarion", "Documentarion", "{788E4936-D4D8-454B-9553-B164061EE6CB}"
+	ProjectSection(SolutionItems) = preProject
+		Index.MD = Index.MD
+		Interview.MD = Interview.MD
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.Blazor", "OrderNow.Blazor\OrderNow.Blazor.csproj", "{FCF84E2A-E360-47D7-8A76-018C73EE9792}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,10 @@ Global
 		{6D6445FF-A759-498F-B381-03D1C0B101CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D6445FF-A759-498F-B381-03D1C0B101CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D6445FF-A759-498F-B381-03D1C0B101CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF84E2A-E360-47D7-8A76-018C73EE9792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF84E2A-E360-47D7-8A76-018C73EE9792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF84E2A-E360-47D7-8A76-018C73EE9792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF84E2A-E360-47D7-8A76-018C73EE9792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

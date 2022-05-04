@@ -1,6 +1,6 @@
 ﻿
 
-namespace OrderNow.API.Data
+namespace OrderNow.Data.Entities
 {
    
     public class ProductOptions : EntityBase

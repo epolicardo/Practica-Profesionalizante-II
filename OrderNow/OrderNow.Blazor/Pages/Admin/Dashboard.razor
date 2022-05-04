@@ -1,0 +1,27 @@
+﻿@page "/admin/dashboard"
+@layout MainLayout
+@using OrderNow.Data.Entities 
+
+
+<PageTitle>@Business.Name - Dashboard - OrderNow</PageTitle>
+<h1>Usted a ingresado al dashboard</h1>
+
+@code{
+    private Businesses Business;
+
+   private void OpenDashboard()
+    {
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Business = new Businesses
+            {
+                Name = "Pizzeria Popular",
+                ContractURL = "/pizzeria-popular"
+            };
+        //Business = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+
+}

@@ -1,4 +1,4 @@
-﻿namespace OrderNow.API.Data.Entities
+﻿namespace OrderNow.Data.Entities
 {
     public class Sales : EntityBase 
     {

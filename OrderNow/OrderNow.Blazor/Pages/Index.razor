@@ -1,0 +1,30 @@
+﻿@page "/"
+
+@inject NavigationManager NavManager
+
+<PageTitle>Order Now</PageTitle>
+
+
+<div class="img-hero">
+    <img src="/css/resources/hero.png" />
+</div>
+<div class="registry-button">
+    <a href="login" class="btn btn-primary">Registrarme</a>
+</div>
+
+<div>Businesses</div>
+<div>UseCases</div>
+<div>Contact</div>
+<div>Footer</div>
+
+
+
+
+
+@code {
+
+    protected void RedirectToPage()
+    {
+        NavManager.NavigateTo("user/UserProfile");
+    }
+}
