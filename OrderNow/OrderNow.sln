@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.Tests", "OrderNow.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.API", "OrderNow.API\OrderNow.API.csproj", "{6D6445FF-A759-498F-B381-03D1C0B101CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentarion", "Documentarion", "{788E4936-D4D8-454B-9553-B164061EE6CB}"
-	ProjectSection(SolutionItems) = preProject
-		Index.MD = Index.MD
-		Interview.MD = Interview.MD
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.Blazor", "OrderNow.Blazor\OrderNow.Blazor.csproj", "{FCF84E2A-E360-47D7-8A76-018C73EE9792}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3040C91-59D0-4EC6-8AF9-677D4E087E3E}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\datos_comercio.md = Documentation\datos_comercio.md
+		Documentation\Index.MD = Documentation\Index.MD
+		Documentation\Interview.MD = Documentation\Interview.MD
+		Documentation\UseCases.md = Documentation\UseCases.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

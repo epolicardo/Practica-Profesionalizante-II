@@ -19,6 +19,7 @@ namespace OrderNow.Tests
 
             //AprobarComercio
             //Vencimiento de Aprobacion
+            //Job para finalizar estados activos
             //Alta de usuario
             //Alta Cuenta COmercial
             //Alta Producto

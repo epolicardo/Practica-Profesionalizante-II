@@ -4,7 +4,7 @@ namespace Configuration
 {
     public interface IDemoService
     {
-        //void RunDemoTask();
+        void RunDemoTask();
     }
 
     public class DemoService : IDemoService

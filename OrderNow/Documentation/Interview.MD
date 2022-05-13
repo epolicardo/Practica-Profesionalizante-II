@@ -49,3 +49,12 @@ Dispongo de 4 notas para aprobar la materia.
 **Cual es el plazo estimado en que desea este proyecto?**
 
 Para el MVP, el plazo es de 7 meses.
+
+
+
+Desde el punto de vista operativo:
+
+Que hace el cocinero con el sistema?
+Que hace el mozo
+Que hace el administrativo
+QUe hace el propietario

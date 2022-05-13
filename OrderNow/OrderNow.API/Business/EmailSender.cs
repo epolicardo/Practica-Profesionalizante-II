@@ -1,5 +1,6 @@
 ﻿using Controllers;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 
@@ -25,15 +26,17 @@ namespace WebApi.Business
                     // Credentials are necessary if the server requires the client
                     // to authenticate before it will send email on the client's behalf.
                     client.UseDefaultCredentials = true;
+                    client.Credentials = CredentialCache.DefaultNetworkCredentials;
 
-                    try
-                    {
+
+
+                try
+                {
                         client.Send(message);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Exception caught in CreateTestMessage2(): {0}",
-                            ex.ToString());
+                    Log.Error("Exception caught in CreateTestMessage2(): {0})",ex.Message);
                     }
                
 

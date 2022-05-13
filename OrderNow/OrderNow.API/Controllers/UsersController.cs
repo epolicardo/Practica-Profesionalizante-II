@@ -4,9 +4,11 @@ using Data.Entities;
 using Hangfire;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.IdentityModel.Tokens;
+using Serilog.Core;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 
 namespace Controllers
 {
@@ -21,6 +23,7 @@ namespace Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly DataContext context;
         private readonly IGenericRepository<Users> genericRepository;
+        
         //private readonly IConfigurationHelper configHelper;
 
         public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager, DataContext _context,
@@ -30,6 +33,7 @@ namespace Controllers
             this.userManager = userManager;
             context = _context;
             genericRepository = _genericRepository;
+          
 
         }
 
@@ -38,7 +42,7 @@ namespace Controllers
         [Route("GetByMailAsync/{email}")]
         public IdentityUser GetByMailAsync(string email)
         {
-
+      
             return context.Users.FirstOrDefault(u=> u.Email == email);
             //return context.Users.Include(p => p.Person).ThenInclude(d => d.Domicilio).FirstOrDefault(x => x.Email == email);
 
@@ -193,6 +197,23 @@ namespace Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        [HttpGet]
+        [Route("CreateJob")]
+        public void CreateJob()
+        {
+            BackgroundJob.Enqueue(() => Console.WriteLine("Ejecutar algo luego de la creacion de un usuario"));
+           
+            Log.Information("Se ha creado el job");
+          
+            BackgroundJob.Enqueue<IEmailSender>(x =>
+            x.SendEmail(
+               "emilianopolicardo@gmail.com",
+               "hangfire@example.com",
+               "Hola Mundo Loco",
+               "Hola mundo"));
+
         }
     }
 }
