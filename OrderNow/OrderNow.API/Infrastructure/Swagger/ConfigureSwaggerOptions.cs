@@ -37,9 +37,9 @@ namespace Infrastructure.Swagger
         {
             var info = new OpenApiInfo()
             {
-                Title = "Full Base Project",
+                Title = "OrderNow-API",
                 Version = description.ApiVersion.ToString(),
-                Description = "A full features project, to use as start point for any other project.",
+                Description = "Practica Profesionalizante II project",
                 Contact = new OpenApiContact { Name = "Emiliano Policardo", Email = "emilianopolicardo@gmail.com" },
                 License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
                 

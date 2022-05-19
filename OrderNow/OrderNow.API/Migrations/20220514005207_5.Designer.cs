@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220514005207_5")]
+    partial class _5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -607,28 +609,38 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Brand")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EAN")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LegalName")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -647,12 +659,16 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("URLIcon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URLImage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("Products");
                 });
@@ -831,6 +847,17 @@ namespace OrderNow.API.Migrations
                     b.HasOne("Data.Entities.Products", null)
                         .WithMany("OptionsList")
                         .HasForeignKey("ProductsId");
+                });
+
+            modelBuilder.Entity("Data.Entities.Products", b =>
+                {
+                    b.HasOne("Data.Entities.Businesses", "Business")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("Data.Entities.Usuario", b =>

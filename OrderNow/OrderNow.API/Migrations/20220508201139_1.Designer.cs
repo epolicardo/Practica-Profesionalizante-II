@@ -222,7 +222,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Addresses", b =>
+            modelBuilder.Entity("Data.Entities.Addresses", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -263,7 +263,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Businesses", b =>
+            modelBuilder.Entity("Data.Entities.Businesses", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -332,7 +332,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Businesses");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Cities", b =>
+            modelBuilder.Entity("Data.Entities.Cities", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -352,7 +352,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Orders", b =>
+            modelBuilder.Entity("Data.Entities.Orders", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -368,7 +368,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.PaymentMethods", b =>
+            modelBuilder.Entity("Data.Entities.PaymentMethods", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -402,7 +402,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("PaymentMethods");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.People", b =>
+            modelBuilder.Entity("Data.Entities.People", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -442,7 +442,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.ProductOptions", b =>
+            modelBuilder.Entity("Data.Entities.ProductOptions", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -471,7 +471,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("ProductOptions");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Products", b =>
+            modelBuilder.Entity("Data.Entities.Products", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -524,7 +524,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.SaleDetails", b =>
+            modelBuilder.Entity("Data.Entities.SaleDetails", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -540,7 +540,7 @@ namespace OrderNow.API.Migrations
                     b.ToTable("SaleDetails");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Sales", b =>
+            modelBuilder.Entity("Data.Entities.Sales", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -607,18 +607,18 @@ namespace OrderNow.API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Addresses", b =>
+            modelBuilder.Entity("Data.Entities.Addresses", b =>
                 {
-                    b.HasOne("OrderNow.Data.Entities.Cities", "City")
+                    b.HasOne("Data.Entities.Cities", "City")
                         .WithMany()
                         .HasForeignKey("CityId");
 
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Businesses", b =>
+            modelBuilder.Entity("Data.Entities.Businesses", b =>
                 {
-                    b.HasOne("OrderNow.Data.Entities.Addresses", "Address")
+                    b.HasOne("Data.Entities.Addresses", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -627,38 +627,38 @@ namespace OrderNow.API.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.PaymentMethods", b =>
+            modelBuilder.Entity("Data.Entities.PaymentMethods", b =>
                 {
-                    b.HasOne("OrderNow.Data.Entities.Businesses", null)
+                    b.HasOne("Data.Entities.Businesses", null)
                         .WithMany("PaymentMethods")
                         .HasForeignKey("BusinessesId");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.People", b =>
+            modelBuilder.Entity("Data.Entities.People", b =>
                 {
-                    b.HasOne("OrderNow.Data.Entities.Addresses", "Address")
+                    b.HasOne("Data.Entities.Addresses", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OrderNow.Data.Entities.Businesses", null)
+                    b.HasOne("Data.Entities.Businesses", null)
                         .WithMany("Users")
                         .HasForeignKey("BusinessesId");
 
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.ProductOptions", b =>
+            modelBuilder.Entity("Data.Entities.ProductOptions", b =>
                 {
-                    b.HasOne("OrderNow.Data.Entities.Products", null)
+                    b.HasOne("Data.Entities.Products", null)
                         .WithMany("OptionsList")
                         .HasForeignKey("ProductsId");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Products", b =>
+            modelBuilder.Entity("Data.Entities.Products", b =>
                 {
-                    b.HasOne("OrderNow.Data.Entities.Businesses", "Business")
+                    b.HasOne("Data.Entities.Businesses", "Business")
                         .WithMany()
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -667,14 +667,14 @@ namespace OrderNow.API.Migrations
                     b.Navigation("Business");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Businesses", b =>
+            modelBuilder.Entity("Data.Entities.Businesses", b =>
                 {
                     b.Navigation("PaymentMethods");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("OrderNow.Data.Entities.Products", b =>
+            modelBuilder.Entity("Data.Entities.Products", b =>
                 {
                     b.Navigation("OptionsList");
                 });

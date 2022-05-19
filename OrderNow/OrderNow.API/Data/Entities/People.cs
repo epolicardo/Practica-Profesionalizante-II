@@ -1,32 +1,30 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
 
-namespace OrderNow.Data.Entities
+namespace Data.Entities
 {
     
-    public class People : EntityBase
+    public abstract class People : EntityBase
     {
         [Display(Name = "Nombre")]
         [MaxLength(50)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [Display(Name = "Apellido")]
         [MaxLength(50)]
-        public string LastName { get; set; }
-
-        //[Display(Name = "Celular")]
-        //[MaxLength(14)]
-        //public string CellPhone { get; set; }
+        public string? LastName { get; set; }
 
         [Display(Name = "Domicilio")]
         [MaxLength(150)]
-        public Addresses Address { get; set; }
+        public Addresses? Address { get; set; }
         [Required]
 
         [Display(Name = "Fecha Nacimiento")]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
-       
+        public IdentityUser User { get; set; }
+
+
 
     }
 }

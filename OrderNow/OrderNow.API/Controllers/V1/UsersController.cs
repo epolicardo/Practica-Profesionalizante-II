@@ -20,13 +20,13 @@ namespace Controllers
     {
 
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<Users> userManager;
         private readonly DataContext context;
         private readonly IGenericRepository<Users> genericRepository;
         
         //private readonly IConfigurationHelper configHelper;
 
-        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager, DataContext _context,
+        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext _context,
             IGenericRepository<Users> _genericRepository)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
@@ -54,11 +54,8 @@ namespace Controllers
         [Route("GetByIdAsync")]
         public async Task<Users> GetByIdAsync(string Id)
         {
-
-
-            return await genericRepository.GetByIdAsync(Id);
-
-        }
+              return await genericRepository.GetByIdAsync(Id);
+                    }
 
 
 
@@ -101,15 +98,16 @@ namespace Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register(Users Users)
+        public async Task<IActionResult> Register(Users user)
         {
-            if (!ModelState.IsValid || Users == null)
+            if (!ModelState.IsValid || user == null)
             {
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
-            //Users.Persona = new Persona();
-            //Users.Persona.FechaAlta = DateTime.Now;
-            var result = await userManager.CreateAsync(Users);
+          
+            user.UserType = UserType.User;
+            var result = await userManager.CreateAsync(user);
+            
             if (!result.Succeeded)
             {
                 var dictionary = new ModelStateDictionary();
@@ -120,15 +118,9 @@ namespace Controllers
 
                 return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
             }
+             
             await context.SaveChangesAsync();
-            BackgroundJob.Enqueue(() => Console.WriteLine("Ejecutar algo luego de la creacion de un Users"));
-
-            BackgroundJob.Enqueue<IEmailSender>(x =>
-            x.SendEmail(
-               "emilianopolicardo@gmail.com",
-               "hangfire@example.com",
-               "Hola Mundo Loco",
-               "Hola mundo"));
+           
 
             return Ok(new { Message = "User Registration Successful" });
         }

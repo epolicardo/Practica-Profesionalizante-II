@@ -1,13 +1,12 @@
 ﻿@page "/admin/dashboard"
+@*@using Data.Entities
 @layout MainLayout
-@using OrderNow.Data.Entities 
-
 
 <PageTitle>@Business.Name - Dashboard - OrderNow</PageTitle>
 <h1>Usted a ingresado al dashboard</h1>
 
 @code{
-    private Businesses Business;
+   public Businesses Business { get; set; }
 
    private void OpenDashboard()
     {
@@ -24,4 +23,4 @@
         //Business = await ForecastService.GetForecastAsync(DateTime.Now);
     }
 
-}
+}*@

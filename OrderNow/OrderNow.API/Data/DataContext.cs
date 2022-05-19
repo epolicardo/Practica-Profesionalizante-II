@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using OrderNow.Data.Entities;
+
 
 namespace OrderNow.Data
 {
@@ -23,9 +23,10 @@ namespace OrderNow.Data
         public DbSet<PaymentMethods> PaymentMethods { get; set; }
         public DbSet<People> People { get; set; }
         public DbSet<ProductOptions> ProductOptions { get; set; }
-        public DbSet<Products> Products { get; set; }
+        public DbSet<Groups> Products { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SaleDetails> SaleDetails { get; set; }
+        public DbSet<Groups> Grupos { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)

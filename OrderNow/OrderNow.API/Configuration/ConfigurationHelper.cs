@@ -8,7 +8,7 @@ namespace Configuration
 
         public string UrlServicio()
         {
-            return System.Configuration.ConfigurationManager.AppSettings.Get("API.Gastos");
+            return System.Configuration.ConfigurationManager.AppSettings.Get("OrderNow.API");
         }
 
         public bool UseMockup(string Servicio)

@@ -1,11 +1,14 @@
 ﻿@page "/login"
 @inject NavigationManager NavManager
+
 <div class="login-box">
-    
-<input type="text" name="username" />
-<input type="password" name="password" />
-<button onclick="@ValidateUser" class="btn-link">Login</button>
-<a href="user/UserProfile" class="btn-link">Profile</a>
+    <div class="container">
+
+        <input class="input-user" type="text" name="username" />
+        <input class="input-user" type="password" name="password" />
+        <button onclick="@ValidateUser" class="btn-hero">Login</button>
+        <a  class="btn-hero" href="user/UserProfile">Profile</a>
+    </div>
 </div>
 
 @code {

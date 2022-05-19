@@ -1,5 +1,5 @@
 ﻿global using Microsoft.EntityFrameworkCore;
-global using OrderNow.Data.Entities;
+global using Data.Entities;
 global using OrderNow.Data;
 global using System.ComponentModel.DataAnnotations;
 global using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -13,3 +13,5 @@ global using OrderNow.API.Controllers.Generic;
 global using Serilog;
 global using Serilog.Context;
 global using System.Reflection;
+global using Data.Entities;
+

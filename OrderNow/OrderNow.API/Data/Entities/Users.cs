@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace OrderNow.Data.Entities
+namespace Data.Entities
 {
     public class Users : IdentityUser
     {
         public UserType UserType { get; set; }
-        public List<Businesses> Business { get; set; }
+        public List<Businesses>? Business { get; set; }
        
 
 
-    }
+       
+     }
 
     public enum UserType
     {

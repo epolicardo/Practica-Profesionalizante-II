@@ -1,4 +1,4 @@
-﻿namespace OrderNow.Data.Entities
+﻿namespace Data.Entities
 {
     public class PublicityContract : EntityBase
     {

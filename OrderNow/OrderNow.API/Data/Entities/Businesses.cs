@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace OrderNow.Data.Entities
+﻿namespace Data.Entities
 {
     public class Businesses : EntityBase
     {
@@ -15,11 +13,11 @@ namespace OrderNow.Data.Entities
         public string CUIT { get; set; }
         public string LegalName { get; set; }
         public string Phone { get; set; }
-       // public People CommercialContact { get; set; }
+        // public People CommercialContact { get; set; }
         public List<People> Users { get; set; }
-       // public List<Products> ProductsList { get; set; }
-       // public List<Customers> CustomersList { get; set; }
-       //// public List<Customers> VIPCustomersList { get; set; }
+        // public List<Products> ProductsList { get; set; }
+        // public List<Customers> CustomersList { get; set; }
+        //// public List<Customers> VIPCustomersList { get; set; }
         public List<PaymentMethods> PaymentMethods { get; set; }
         public bool IsValidated { get; set; } = false;
         public DateTime ValidationTime { get; set; }

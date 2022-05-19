@@ -1,0 +1,2284 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "OrderNow-API",
+      "description": "Practica Profesionalizante II project",
+      "contact": {
+        "name": "Emiliano Policardo",
+        "email": "emilianopolicardo@gmail.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      },
+      "version": "1.0"
+    },
+    "paths": {
+      "/api/v1/Categorias/GetList": {
+        "get": {
+          "tags": [
+            "Categorias"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Categoria"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Categoria"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Categoria"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Categorias/GetByIdAsync": {
+        "get": {
+          "tags": [
+            "Categorias"
+          ],
+          "parameters": [
+            {
+              "name": "Id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Categoria"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Categoria"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Categoria"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Categorias/CreateAsync": {
+        "post": {
+          "tags": [
+            "Categorias"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Clientes/GetList": {
+        "get": {
+          "tags": [
+            "Clientes"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/v1/Clientes/GetByIdAsync": {
+        "get": {
+          "tags": [
+            "Clientes"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/v1/Comprobantes/GetList": {
+        "get": {
+          "tags": [
+            "Comprobantes"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Comprobante"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Comprobante"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Comprobante"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Comprobantes/GetById": {
+        "get": {
+          "tags": [
+            "Comprobantes"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Comprobante"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Comprobante"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Comprobante"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Comprobantes/CreateAsync": {
+        "post": {
+          "tags": [
+            "Comprobantes"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comprobante"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comprobante"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comprobante"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Cuentas/GetByIdAsync": {
+        "get": {
+          "tags": [
+            "Cuentas"
+          ],
+          "parameters": [
+            {
+              "name": "Id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Cuenta"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Cuenta"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Cuenta"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Familias/GetList": {
+        "get": {
+          "tags": [
+            "Familias"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Familia"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Familia"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Familia"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Familias/GetByIdAsync": {
+        "get": {
+          "tags": [
+            "Familias"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Familia"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Familia"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Familia"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Familias/ImportarFamilias": {
+        "get": {
+          "tags": [
+            "Familias"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Generic/UseMockup": {
+        "get": {
+          "tags": [
+            "Generic"
+          ],
+          "parameters": [
+            {
+              "name": "Servicio",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Grupos/GetByIdAsync": {
+        "get": {
+          "tags": [
+            "Grupos"
+          ],
+          "parameters": [
+            {
+              "name": "Id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Grupo"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Grupo"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Grupo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Grupos/GetList": {
+        "get": {
+          "tags": [
+            "Grupos"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Grupo"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Grupo"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Grupo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Grupos/GetListByUser": {
+        "get": {
+          "tags": [
+            "Grupos"
+          ],
+          "parameters": [
+            {
+              "name": "IdUsuario",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Grupo"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Grupo"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Grupo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Grupos/CreateAsync": {
+        "post": {
+          "tags": [
+            "Grupos"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Grupo"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Grupo"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Grupo"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Products/GetById": {
+        "get": {
+          "tags": [
+            "Products"
+          ],
+          "parameters": [
+            {
+              "name": "Id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Products"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Products"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Products"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Products/GetList": {
+        "get": {
+          "tags": [
+            "Products"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Products"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Products"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Products"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Products/CreateProduct": {
+        "post": {
+          "tags": [
+            "Products"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Products/UpdateProduct": {
+        "put": {
+          "tags": [
+            "Products"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Sales/CreateAsync": {
+        "post": {
+          "tags": [
+            "Sales"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Transacciones/CreateAsync": {
+        "post": {
+          "tags": [
+            "Transacciones"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaccion"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaccion"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaccion"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Transacciones/GetByIdAsync": {
+        "get": {
+          "tags": [
+            "Transacciones"
+          ],
+          "parameters": [
+            {
+              "name": "Id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Transaccion"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Transaccion"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Transaccion"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Transacciones/GetList": {
+        "get": {
+          "tags": [
+            "Transacciones"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Transaccion"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Transaccion"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Transaccion"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Users/GetByMailAsync/{email}": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/IdentityUser"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/IdentityUser"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/IdentityUser"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Users/GetByIdAsync": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "parameters": [
+            {
+              "name": "Id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Users"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Users"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Users"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Users/GetList": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Users/GetListByGroup": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "parameters": [
+            {
+              "name": "TituloGrupo",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/Users/Register": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/v1/Users/GetToken": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginCredentials"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginCredentials"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginCredentials"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/v1/Users/Logout": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/v1/Users/CreateJob": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Addresses": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "street": {
+              "type": "string",
+              "nullable": true
+            },
+            "number": {
+              "type": "string",
+              "nullable": true
+            },
+            "floor": {
+              "type": "string",
+              "nullable": true
+            },
+            "apartment": {
+              "type": "string",
+              "nullable": true
+            },
+            "tower": {
+              "type": "string",
+              "nullable": true
+            },
+            "city": {
+              "$ref": "#/components/schemas/Cities"
+            },
+            "observations": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Businesses": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "name": {
+              "type": "string",
+              "nullable": true
+            },
+            "address": {
+              "$ref": "#/components/schemas/Addresses"
+            },
+            "urlIconImage": {
+              "type": "string",
+              "nullable": true
+            },
+            "urlRegularImage": {
+              "type": "string",
+              "nullable": true
+            },
+            "contractURL": {
+              "type": "string",
+              "nullable": true
+            },
+            "promoMessage": {
+              "type": "string",
+              "nullable": true
+            },
+            "isFrachise": {
+              "type": "boolean"
+            },
+            "cuit": {
+              "type": "string",
+              "nullable": true
+            },
+            "legalName": {
+              "type": "string",
+              "nullable": true
+            },
+            "phone": {
+              "type": "string",
+              "nullable": true
+            },
+            "users": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/People"
+              },
+              "nullable": true
+            },
+            "paymentMethods": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PaymentMethods"
+              },
+              "nullable": true
+            },
+            "isValidated": {
+              "type": "boolean"
+            },
+            "validationTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "validationExpires": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "score": {
+              "type": "number",
+              "format": "float"
+            },
+            "qualification": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Categoria": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "nombre": {
+              "type": "string",
+              "nullable": true
+            },
+            "padre": {
+              "$ref": "#/components/schemas/Categoria"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Cities": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "name": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Comprobante": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "tipoComprobante": {
+              "$ref": "#/components/schemas/TipoComprobante"
+            },
+            "prefijoComprobante": {
+              "type": "string",
+              "nullable": true
+            },
+            "nroComprobante": {
+              "type": "string",
+              "nullable": true
+            },
+            "generacion": {
+              "$ref": "#/components/schemas/Usuario"
+            },
+            "modificacion": {
+              "$ref": "#/components/schemas/Usuario"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Cuenta": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "nombre": {
+              "type": "string",
+              "nullable": true
+            },
+            "descripcion": {
+              "type": "string",
+              "nullable": true
+            },
+            "saldoInicial": {
+              "type": "number",
+              "format": "double"
+            },
+            "saldoActual": {
+              "type": "number",
+              "format": "double"
+            },
+            "activa": {
+              "type": "boolean"
+            },
+            "moneda": {
+              "$ref": "#/components/schemas/TipoMoneda"
+            },
+            "tipoCuenta": {
+              "$ref": "#/components/schemas/TipoCuenta"
+            },
+            "padre": {
+              "$ref": "#/components/schemas/Cuenta"
+            },
+            "institucion": {
+              "$ref": "#/components/schemas/Institucion"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Domicilio": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "calle": {
+              "type": "string",
+              "nullable": true
+            },
+            "numero": {
+              "type": "string",
+              "nullable": true
+            },
+            "piso": {
+              "type": "string",
+              "nullable": true
+            },
+            "departamento": {
+              "type": "string",
+              "nullable": true
+            },
+            "localidad": {
+              "type": "string",
+              "nullable": true
+            },
+            "provincia": {
+              "type": "string",
+              "nullable": true
+            },
+            "pais": {
+              "type": "string",
+              "nullable": true
+            },
+            "codigoPostal": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Familia": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nombre": {
+              "type": "string",
+              "nullable": true
+            },
+            "idFamiliaPadre": {
+              "$ref": "#/components/schemas/Familia"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Grupo": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "nombre": {
+              "type": "string",
+              "nullable": true
+            },
+            "ugi": {
+              "type": "string",
+              "nullable": true
+            },
+            "integrantes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Usuario"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "IdentityUser": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "userName": {
+              "type": "string",
+              "nullable": true
+            },
+            "normalizedUserName": {
+              "type": "string",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": true
+            },
+            "normalizedEmail": {
+              "type": "string",
+              "nullable": true
+            },
+            "emailConfirmed": {
+              "type": "boolean"
+            },
+            "passwordHash": {
+              "type": "string",
+              "nullable": true
+            },
+            "securityStamp": {
+              "type": "string",
+              "nullable": true
+            },
+            "concurrencyStamp": {
+              "type": "string",
+              "nullable": true
+            },
+            "phoneNumber": {
+              "type": "string",
+              "nullable": true
+            },
+            "phoneNumberConfirmed": {
+              "type": "boolean"
+            },
+            "twoFactorEnabled": {
+              "type": "boolean"
+            },
+            "lockoutEnd": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            },
+            "lockoutEnabled": {
+              "type": "boolean"
+            },
+            "accessFailedCount": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Institucion": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "titulo": {
+              "type": "string",
+              "nullable": true
+            },
+            "urlImagen": {
+              "type": "string",
+              "nullable": true
+            },
+            "descripcion": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "LoginCredentials": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "nullable": true
+            },
+            "password": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "PaymentMethods": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "name": {
+              "type": "string",
+              "nullable": true
+            },
+            "type": {
+              "$ref": "#/components/schemas/PaymentType"
+            },
+            "cardNumber": {
+              "type": "string",
+              "nullable": true
+            },
+            "expiration": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "PaymentType": {
+          "enum": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "type": "integer",
+          "format": "int32"
+        },
+        "People": {
+          "required": [
+            "birthDate"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "firstName": {
+              "maxLength": 50,
+              "type": "string",
+              "nullable": true
+            },
+            "lastName": {
+              "maxLength": 50,
+              "type": "string",
+              "nullable": true
+            },
+            "address": {
+              "$ref": "#/components/schemas/Addresses"
+            },
+            "birthDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "user": {
+              "$ref": "#/components/schemas/IdentityUser"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Persona": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "documento": {
+              "type": "string",
+              "nullable": true
+            },
+            "nombre": {
+              "type": "string",
+              "nullable": true
+            },
+            "apellido": {
+              "type": "string",
+              "nullable": true
+            },
+            "domicilio": {
+              "$ref": "#/components/schemas/Domicilio"
+            },
+            "fechaNacimiento": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "ProductOptions": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "name": {
+              "type": "string",
+              "nullable": true
+            },
+            "description": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Products": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "code": {
+              "type": "string",
+              "nullable": true
+            },
+            "ean": {
+              "type": "string",
+              "nullable": true
+            },
+            "name": {
+              "type": "string",
+              "nullable": true
+            },
+            "legalName": {
+              "maxLength": 40,
+              "type": "string",
+              "nullable": true
+            },
+            "description": {
+              "type": "string",
+              "nullable": true
+            },
+            "urlImage": {
+              "type": "string",
+              "nullable": true
+            },
+            "urlIcon": {
+              "type": "string",
+              "nullable": true
+            },
+            "price": {
+              "type": "number",
+              "format": "double"
+            },
+            "stock": {
+              "type": "number",
+              "format": "float"
+            },
+            "status": {
+              "type": "boolean"
+            },
+            "business": {
+              "$ref": "#/components/schemas/Businesses"
+            },
+            "optionsList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ProductOptions"
+              },
+              "nullable": true
+            },
+            "score": {
+              "type": "number",
+              "format": "float"
+            },
+            "qualification": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "brand": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Repeticion": {
+          "enum": [
+            1,
+            2,
+            3
+          ],
+          "type": "integer",
+          "format": "int32"
+        },
+        "TipoComprobante": {
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "type": "integer",
+          "format": "int32"
+        },
+        "TipoCuenta": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "nombre": {
+              "type": "string",
+              "nullable": true
+            },
+            "icono": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "TipoMoneda": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "nombre": {
+              "type": "string",
+              "nullable": true
+            },
+            "simbolo": {
+              "type": "string",
+              "nullable": true
+            },
+            "equivalencia": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          "additionalProperties": false
+        },
+        "TipoTransaccion": {
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "type": "integer",
+          "format": "int32"
+        },
+        "Transaccion": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "titulo": {
+              "type": "string",
+              "nullable": true
+            },
+            "descripcion": {
+              "type": "string",
+              "nullable": true
+            },
+            "fechaRealizado": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "importe": {
+              "type": "number",
+              "format": "double"
+            },
+            "fechaVencimiento": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            },
+            "estado": {
+              "type": "boolean"
+            },
+            "cuenta": {
+              "$ref": "#/components/schemas/Cuenta"
+            },
+            "observaciones": {
+              "type": "string",
+              "nullable": true
+            },
+            "frecuencia": {
+              "$ref": "#/components/schemas/Repeticion"
+            },
+            "tipo": {
+              "$ref": "#/components/schemas/TipoTransaccion"
+            },
+            "repetirPorFecha": {
+              "type": "boolean"
+            },
+            "considerarEnEstadisticas": {
+              "type": "boolean"
+            },
+            "considerarEnEconomiaMensual": {
+              "type": "boolean"
+            },
+            "incorporarEnTotales": {
+              "type": "boolean"
+            },
+            "origen": {
+              "$ref": "#/components/schemas/Ubicacion"
+            },
+            "destino": {
+              "$ref": "#/components/schemas/Ubicacion"
+            },
+            "usuario": {
+              "$ref": "#/components/schemas/Usuario"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Ubicacion": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "fechaAlta": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "UserType": {
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "type": "integer",
+          "format": "int32"
+        },
+        "Users": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "userName": {
+              "type": "string",
+              "nullable": true
+            },
+            "normalizedUserName": {
+              "type": "string",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": true
+            },
+            "normalizedEmail": {
+              "type": "string",
+              "nullable": true
+            },
+            "emailConfirmed": {
+              "type": "boolean"
+            },
+            "passwordHash": {
+              "type": "string",
+              "nullable": true
+            },
+            "securityStamp": {
+              "type": "string",
+              "nullable": true
+            },
+            "concurrencyStamp": {
+              "type": "string",
+              "nullable": true
+            },
+            "phoneNumber": {
+              "type": "string",
+              "nullable": true
+            },
+            "phoneNumberConfirmed": {
+              "type": "boolean"
+            },
+            "twoFactorEnabled": {
+              "type": "boolean"
+            },
+            "lockoutEnd": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            },
+            "lockoutEnabled": {
+              "type": "boolean"
+            },
+            "accessFailedCount": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "userType": {
+              "$ref": "#/components/schemas/UserType"
+            },
+            "business": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Businesses"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Usuario": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": true
+            },
+            "userName": {
+              "type": "string",
+              "nullable": true
+            },
+            "normalizedUserName": {
+              "type": "string",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": true
+            },
+            "normalizedEmail": {
+              "type": "string",
+              "nullable": true
+            },
+            "emailConfirmed": {
+              "type": "boolean"
+            },
+            "passwordHash": {
+              "type": "string",
+              "nullable": true
+            },
+            "securityStamp": {
+              "type": "string",
+              "nullable": true
+            },
+            "concurrencyStamp": {
+              "type": "string",
+              "nullable": true
+            },
+            "phoneNumber": {
+              "type": "string",
+              "nullable": true
+            },
+            "phoneNumberConfirmed": {
+              "type": "boolean"
+            },
+            "twoFactorEnabled": {
+              "type": "boolean"
+            },
+            "lockoutEnd": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            },
+            "lockoutEnabled": {
+              "type": "boolean"
+            },
+            "accessFailedCount": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "persona": {
+              "$ref": "#/components/schemas/Persona"
+            },
+            "grupos": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Grupo"
+              },
+              "nullable": true
+            },
+            "avatar": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  }

@@ -1,6 +1,6 @@
 ﻿
 
-namespace OrderNow.Data.Entities
+namespace Data.Entities
 {
     public class Orders : EntityBase
     {

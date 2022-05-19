@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220513234501_3")]
+    partial class _3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,129 +23,6 @@ namespace OrderNow.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Data.Entities.Domicilio", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Calle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CodigoPostal")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Departamento")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Localidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Numero")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Pais")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Piso")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Provincia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Domicilio");
-                });
-
-            modelBuilder.Entity("Data.Entities.Grupo", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UGI")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Grupos");
-                });
-
-            modelBuilder.Entity("Data.Entities.Persona", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Documento")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DomicilioId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("FechaNacimiento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DomicilioId");
-
-                    b.ToTable("Persona");
-                });
-
-            modelBuilder.Entity("GrupoUsuario", b =>
-                {
-                    b.Property<string>("GruposId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IntegrantesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("GruposId", "IntegrantesId");
-
-                    b.HasIndex("IntegrantesId");
-
-                    b.ToTable("GrupoUsuario");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -209,10 +88,6 @@ namespace OrderNow.API.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -264,8 +139,6 @@ namespace OrderNow.API.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -606,29 +479,22 @@ namespace OrderNow.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EAN")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LegalName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -647,12 +513,16 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("URLIcon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URLImage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("Products");
                 });
@@ -687,46 +557,6 @@ namespace OrderNow.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sales");
-                });
-
-            modelBuilder.Entity("Data.Entities.Usuario", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Avatar")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PersonaId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("PersonaId");
-
-                    b.HasDiscriminator().HasValue("Usuario");
-                });
-
-            modelBuilder.Entity("Data.Entities.Persona", b =>
-                {
-                    b.HasOne("Data.Entities.Domicilio", "Domicilio")
-                        .WithMany()
-                        .HasForeignKey("DomicilioId");
-
-                    b.Navigation("Domicilio");
-                });
-
-            modelBuilder.Entity("GrupoUsuario", b =>
-                {
-                    b.HasOne("Data.Entities.Grupo", null)
-                        .WithMany()
-                        .HasForeignKey("GruposId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Entities.Usuario", null)
-                        .WithMany()
-                        .HasForeignKey("IntegrantesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -833,13 +663,15 @@ namespace OrderNow.API.Migrations
                         .HasForeignKey("ProductsId");
                 });
 
-            modelBuilder.Entity("Data.Entities.Usuario", b =>
+            modelBuilder.Entity("Data.Entities.Products", b =>
                 {
-                    b.HasOne("Data.Entities.Persona", "Persona")
+                    b.HasOne("Data.Entities.Businesses", "Business")
                         .WithMany()
-                        .HasForeignKey("PersonaId");
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Persona");
+                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("Data.Entities.Businesses", b =>

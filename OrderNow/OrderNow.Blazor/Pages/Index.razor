@@ -3,20 +3,73 @@
 @inject NavigationManager NavManager
 
 <PageTitle>Order Now</PageTitle>
+<header>
+    <div class="container">
+        <nav>
+            <a href="">QUienes somos</a>
+            <a href="">Nuestros comercios</a>
+            <a href="">OTra opcion</a>
+        </nav>
+    </div>
+</header>
 
 
-<div class="img-hero">
-    <img src="/css/resources/hero.png" />
-</div>
-<div class="registry-button">
-    <a href="login" class="btn btn-primary">Registrarme</a>
-</div>
+<section id="hero">
+    <h2>OrderNow</h2>
+    <h4>Where you can Order Right Now</h4>
 
-<div>Businesses</div>
-<div>UseCases</div>
-<div>Contact</div>
-<div>Footer</div>
+        <button class="btn-hero" @onclick="RedirectToPage">Registrate ahora</button>
+    
+</section>
 
+<section id="por-que">
+    <div class="container">
+        <div class="img-container"></div>
+        <h2>Porque usar OrderNow?</h2>
+        <p>
+            Un sistema de ordenes en comercios gastronómicos, que permita al cliente realizar su orden desde la web, con la opción de pagar con tarjeta de crédito, debito o efectivo y otros medios de pago, tanto para consumir en el local como para retirar desde el local.
+            Además, que este sistema tenga un apartado para la gestión en el comercio, tanto de las ordenes, los pagos y los productos.
+        </p>
+    </div>
+</section>
+
+<section id="comercios">
+    <div class="container">
+
+        <div class="card">
+            <h3>Titulo de Card</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae excepturi esse, corrupti alias
+                pariatur
+                explicabo quo itaque delectus eos aliquid consequatur sunt veritatis quae fugit minus ea ex. Veniam,
+                dolorem!
+            </p>
+        </div>
+        <div class="card">
+            <h3>Titulo de Card</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae excepturi esse, corrupti alias
+                pariatur
+                explicabo quo itaque delectus eos aliquid consequatur sunt veritatis quae fugit minus ea ex. Veniam,
+                dolorem!
+            </p>
+        </div>
+        <div class="card">
+            <h3>Titulo de Card</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae excepturi esse, corrupti alias
+                pariatur
+                explicabo quo itaque delectus eos aliquid consequatur sunt veritatis quae fugit minus ea ex. Veniam,
+                dolorem!
+            </p>
+        </div>
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <p>Copyright 2022</p>
+    </div>
+</footer>
 
 
 
@@ -25,6 +78,6 @@
 
     protected void RedirectToPage()
     {
-        NavManager.NavigateTo("user/UserProfile");
+        NavManager.NavigateTo("Login");
     }
 }
