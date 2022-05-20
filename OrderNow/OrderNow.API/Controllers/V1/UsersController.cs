@@ -137,7 +137,12 @@ namespace Controllers
                 || credentials == null
                 || (identityUser = await ValidateUser(credentials)) == null)
             {
-                return new BadRequestObjectResult(new { Token = "Not Generated", Message = "Error", Email = credentials.Username });
+                return new BadRequestObjectResult(
+                    new { 
+                        Token = "Not Generated", 
+                        Message = "Error", 
+                        Email = credentials.Username 
+                    });
             }
 
             var token = GenerateToken(identityUser);
@@ -164,6 +169,8 @@ namespace Controllers
                 return result == PasswordVerificationResult.Failed ? null : identityUser;
             }
 
+
+            //TODO: Corregir devolucion
             return null;
         }
 
@@ -191,21 +198,5 @@ namespace Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        [HttpGet]
-        [Route("CreateJob")]
-        public void CreateJob()
-        {
-            BackgroundJob.Enqueue(() => Console.WriteLine("Ejecutar algo luego de la creacion de un usuario"));
-           
-            Log.Information("Se ha creado el job");
-          
-            BackgroundJob.Enqueue<IEmailSender>(x =>
-            x.SendEmail(
-               "emilianopolicardo@gmail.com",
-               "hangfire@example.com",
-               "Hola Mundo Loco",
-               "Hola mundo"));
-
-        }
     }
 }

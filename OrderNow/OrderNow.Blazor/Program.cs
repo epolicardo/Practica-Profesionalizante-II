@@ -28,3 +28,6 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+
+//https://dev.to/adevintaspain/desplegando-tu-api-de-net-core-gratis-en-heroku-5552

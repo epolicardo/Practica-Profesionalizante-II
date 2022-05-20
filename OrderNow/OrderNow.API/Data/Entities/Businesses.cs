@@ -13,8 +13,9 @@
         public string CUIT { get; set; }
         public string LegalName { get; set; }
         public string Phone { get; set; }
-        public List<Customers> CustomersList { get; set; }
-        public List<PaymentType> PaymentsType { get; set; }
+        //public List<Customers> CustomersList { get; set; }
+        [NotMapped]
+        public PaymentType[] PaymentsType { get; set; }
         public bool IsValidated { get; set; } = false;
         public DateTime ValidationTime { get; set; }
         public DateTime ValidationExpires { get; set; }

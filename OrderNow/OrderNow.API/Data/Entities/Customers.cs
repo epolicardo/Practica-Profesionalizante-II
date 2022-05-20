@@ -3,14 +3,16 @@
     public class Customers : EntityBase
     {
         public bool IsMarkedAsVIP { get; set; }
-        //public List<Products> FavoriteProducts { get; set; }
-        // public List<Products> LastOrdered { get; set; }
-        // public List<Businesses> FavoriteBusinesses { get; set; }
-        //  public List<Businesses> LastVisited { get; set; }
+        //[ForeignKey("FavoriteProducts")]
+        ////public List<Products> FavoriteProducts { get; set; }
+        //[ForeignKey("LastOrdered")]
+        //public List<Products> LastOrdered { get; set; }
+        //public List<Businesses> FavoriteBusinesses { get; set; }
+        //public List<Businesses> LastVisited { get; set; }
 
 
-        public People Person { get; set; }
-        public Status Status { get; set; }
+        public Users User { get; set; }
+       
     }
 
     public enum Status

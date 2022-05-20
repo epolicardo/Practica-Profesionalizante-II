@@ -51,13 +51,13 @@
 
 
         [HttpPost]
-        [Route("CreateProduct")]
-        public async Task<bool> CreateProduct(Groups producto)
+        [Route("Create")]
+        public async Task<bool> Create(Groups entity)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            Log.Information("Productos: {@Productos}", producto);
-            await _genericRepository.CreateAsync(producto);
+            Log.Information("Productos: {@Productos}", entity);
+            await _genericRepository.CreateAsync(entity);
 
             return _genericRepository.SaveAsync().IsCompleted;
 
@@ -65,18 +65,34 @@
         }
 
         [HttpPut]
-        [Route("UpdateProduct")]
-        public async Task<bool> UpdateProducto(Groups producto)
+        [Route("Update")]
+        public async Task<bool> Update(Groups entity)
         {
-            if (producto == null)
+            if (entity == null)
             {
                 return false;
             }
 
-            await _genericRepository.EditAsync(producto);
+            await _genericRepository.EditAsync(entity);
             return _genericRepository.SaveAsync().IsCompletedSuccessfully;
         }
 
+        [HttpDelete]
+        [Route("Delete")]
+        public bool Delete (Groups entity)
+        {
+            try
+            {
+            _genericRepository.Delete(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "No se pudo eliminar la entidad de tipo {0}", entity.GetType);
+
+                throw new Exception("No se pudo eliminar la entidad", ex);
+            }
+        }
 
     }
 }

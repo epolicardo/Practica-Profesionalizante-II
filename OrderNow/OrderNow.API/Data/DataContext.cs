@@ -19,8 +19,11 @@ namespace OrderNow.Data
         public DbSet<Addresses> Addresses { get; set; }
         public DbSet<Businesses> Businesses { get; set; }
         public DbSet<Categories> Categories { get; set; }
+        public DbSet<CustomersBusinesses> CustomersBusinesses { get; set; }
         public DbSet<Cities> Cities { get; set; }
         public DbSet<Documents> Documents { get; set; }
+        public DbSet<FavoriteBusiness> FavoriteBusinessesByCustomer { get; set; }
+        public DbSet<FavoriteProducts> FavoriteProductsByCustomer { get; set; }
         public DbSet<Groups> Grupos { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<OrdersDetail> OrdersDetail { get; set; }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220520092229_10")]
+    partial class _10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -201,33 +203,6 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Data.Entities.CustomersBusinesses", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IdBusinessId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdCustomerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdBusinessId");
-
-                    b.HasIndex("IdCustomerId");
-
-                    b.ToTable("CustomersBusinesses");
-                });
-
             modelBuilder.Entity("Data.Entities.DetalleReceta", b =>
                 {
                     b.Property<int>("Id")
@@ -286,59 +261,6 @@ namespace OrderNow.API.Migrations
                     b.HasIndex("GeneratedById");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("Data.Entities.FavoriteBusiness", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IdBusinessId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdCustomerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdBusinessId");
-
-                    b.HasIndex("IdCustomerId");
-
-                    b.ToTable("FavoriteBusinessesByCustomer");
-                });
-
-            modelBuilder.Entity("Data.Entities.FavoriteProducts", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IdCustomerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdProductId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdCustomerId");
-
-                    b.HasIndex("IdProductId");
-
-                    b.ToTable("FavoriteProductsByCustomer");
                 });
 
             modelBuilder.Entity("Data.Entities.Groups", b =>
@@ -979,23 +901,6 @@ namespace OrderNow.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Data.Entities.CustomersBusinesses", b =>
-                {
-                    b.HasOne("Data.Entities.Businesses", "IdBusiness")
-                        .WithMany()
-                        .HasForeignKey("IdBusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Entities.Customers", "IdCustomer")
-                        .WithMany()
-                        .HasForeignKey("IdCustomerId");
-
-                    b.Navigation("IdBusiness");
-
-                    b.Navigation("IdCustomer");
-                });
-
             modelBuilder.Entity("Data.Entities.DetalleReceta", b =>
                 {
                     b.HasOne("Data.Entities.Products", "Product")
@@ -1020,38 +925,6 @@ namespace OrderNow.API.Migrations
                         .IsRequired();
 
                     b.Navigation("GeneratedBy");
-                });
-
-            modelBuilder.Entity("Data.Entities.FavoriteBusiness", b =>
-                {
-                    b.HasOne("Data.Entities.Businesses", "IdBusiness")
-                        .WithMany()
-                        .HasForeignKey("IdBusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Entities.Customers", "IdCustomer")
-                        .WithMany()
-                        .HasForeignKey("IdCustomerId");
-
-                    b.Navigation("IdBusiness");
-
-                    b.Navigation("IdCustomer");
-                });
-
-            modelBuilder.Entity("Data.Entities.FavoriteProducts", b =>
-                {
-                    b.HasOne("Data.Entities.Customers", "IdCustomer")
-                        .WithMany()
-                        .HasForeignKey("IdCustomerId");
-
-                    b.HasOne("Data.Entities.Products", "IdProduct")
-                        .WithMany()
-                        .HasForeignKey("IdProductId");
-
-                    b.Navigation("IdCustomer");
-
-                    b.Navigation("IdProduct");
                 });
 
             modelBuilder.Entity("Data.Entities.Orders", b =>
