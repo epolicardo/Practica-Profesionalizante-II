@@ -108,4 +108,66 @@ Casos para probar de la api con respecto al cliente:
 Referencia: https://datosgobar.github.io/georef-ar-api/
 - https://apis.datos.gob.ar/georef/api/provincias
     
+    Los productos seran cargados como unidades o porciones, para asi poder hacer el descuento correspondiente del stock.
+    Por ejemplo, para una pizza cuatro quesos de 8 porciones, voy a utilizar los siguientes productos:
+    1 Masa de pizza grande
+    1 Porcion de salsa de pizza
+    1 porcion de muzarella
+    1 porcion de roquefort
+    1 porcion de gruyere
+    1 porcion de fontina
+
+    Si pidio con bordes rellenos, se utiliza 
+    1 porcion adicional de muzarella
+
+
+  EN el ejemplo de Canelones, es una porcion de canelones mas una de salsa.
+
+
+
+
+
+  Recetas con porciones:
+
+  ### Pizza Muzarella
+    1 Masa de pizza grande
+    1 Porcion de salsa de pizza
+    4 porcion de muzarella
+    1 Porcion de Aceitunas
+    Oregano
+
+  
+  ### Pizza Napolitana
+    1 Masa de pizza grande
+    1 Porcion de salsa de pizza
+    4 porcion de muzarella
+    1 Porcion de Aceitunas
+    1 porcion de tomate
+    Albaca
+
+    
+  ### Canelones
+    1 Porcion de Canelones
+    1 Porcion de Queso Rallado
+
+    - Salsa Adicional
+      - 1 Porcion de Filetto
+
+
+
+RecetaProducto  
+id
+Nombre
+List<Product>
+
+
+DetalleReceta
+IdReceta
+IdProducto
+Cantidad
+
+
+
+    
+
     

@@ -15,6 +15,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
+// https://joonasw.net/view/aspnet-core-data-annotation-localization-shared-resx-file
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();

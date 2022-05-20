@@ -1,6 +1,6 @@
 namespace Data.Entities
 {
-    public enum DocumentType
+    public enum DocumentsType
     {
         Factura = 1,
         Remito = 2,

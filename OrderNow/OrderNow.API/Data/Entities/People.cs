@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 namespace Data.Entities
 {
     
-    public abstract class People : EntityBase
+    public class People : EntityBase
     {
         [Display(Name = "Nombre")]
         [MaxLength(50)]
@@ -22,7 +22,7 @@ namespace Data.Entities
         [Display(Name = "Fecha Nacimiento")]
         public DateTime? BirthDate { get; set; }
 
-        public IdentityUser User { get; set; }
+     
 
 
 

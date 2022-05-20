@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="wwwroot\css\resources\SPA-Languages.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OrderNow.API\OrderNow.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="wwwroot\css\resources\" />
   </ItemGroup>
 
 </Project>

@@ -25,20 +25,36 @@ namespace Data.Entities
         public UInt64 Qualification { get; set; }
 
         public string? Brand { get; set; } //Raid
-        //public bool? IsItExpires { get; set; } //True 
-        //public UnidadMedida UnidadMedida { get; set; }
-        //public Familia Familia { get; set; }
-        //public double StockActual { get; set; }
-        //public double StockMinimo { get; set; }
-        //public double StockOptimo { get; set; }
-        //public decimal PrecioVenta { get; set; }
-        //public decimal UltimoPrecioCompra { get; set; }
-        //public int ListaPrecio { get; set; }
-        //public Color Color { get; set; }
-        //public Size Size { get; set; }
-       
+                                           //public bool? IsItExpires { get; set; } //True 
+                                           //public UnidadMedida UnidadMedida { get; set; }
+                                           //public Familia Familia { get; set; }
+                                           //public double StockActual { get; set; }
+                                           //public double StockMinimo { get; set; }
+                                           //public double StockOptimo { get; set; }
+                                           //public decimal PrecioVenta { get; set; }
+                                           //public decimal UltimoPrecioCompra { get; set; }
+                                           //public int ListaPrecio { get; set; }
+                                           //public Color Color { get; set; }
+                                           //public Size Size { get; set; }
+
+        public Receta? Receta { get; set; }
+
+        public bool Selleable { get; set; } // Indica si es un producto a la venta, o un ingrediente para preparar otros productos.
+    }
+
+    public class Receta
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public List<DetalleReceta> Detalle { get; set; }
 
     }
 
+    public class DetalleReceta
+    {
 
+        public int Id { get; set; }
+        public Products Product { get; set; }
+        public float Quantity { get; set; }
+    }
 }

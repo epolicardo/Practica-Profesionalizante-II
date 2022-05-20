@@ -55,6 +55,56 @@ Para el MVP, el plazo es de 7 meses.
 Desde el punto de vista operativo:
 
 Que hace el cocinero con el sistema?
-Que hace el mozo
-Que hace el administrativo
-QUe hace el propietario
+Solo recibe un ticket impreso con una comanda por duplicado, que luego de completar el pedido, entrega una parte de la comanda a administracion, y la otra la guarda para control.
+Que hace el mozo con la app?
+No utiliza la app.
+Que hace el administrativo?
+En el modulo de administracion, se reciben las ordenes realiadas por los clientes.
+Cada orden sera puesta en cola de espera, para luego ser preparada.
+Cuando llega una orden, se imprime automaticamente un ticket de [Comanda](Comanda.md), el cual incluye 3 cuerpos iguales, 
+uno para la barra/administracion para preparar copas, utensillos y bebidas, y las otras dos para la cocina, de las cuales, una vez completada la preparacion, devolveran los platos con una parte de ese comprobante, quedando para control uno en la cocina y uno en la adm. para verificacion.
+(Discriminar productos de cocina y de barra)
+Se preparan las bebidas y los utensillos, se entregan al mozo para entregar en mesa.
+El mozo va y entrega los productos de barra, 
+
+Cuando la cocina completa el producto, lo entrega en barra y ahi se marca como completada la preparacion y entrega del pedido. (Al confirmar la saco de cola de espera para mover las posteriores ordenes, Podria existir una marca de entrega paracial en la orden.)
+Permitir que la orden tenga estado de 
+preparacion, 
+parcialmente entregada,
+ completada, 
+ en espera o 
+ cancelada.
+ luego vuelve con los productos de cocina
+
+Errores 
+
+
+-Entrega parcial en curso (Entrego primero la bebida)
+
+Que hace el propietario?
+Como propietario, me interesa poder utilizar el sistema para ver estadisticas, datos de venta, y a partir de este
+tipo de informacion, ser capaz de realizar toma de deciciones para mejorar la calidad de la atencion e incrementar las 
+ganancias.
+- Necesito ver:
+	- Los productos mas vendidos del ultimo mes
+	- Los productos menos vendidos
+    - Los horarios en que mas ordenes se generan
+    - Promedio de tiempo para la entrega de ordenes.
+
+Ingreso en www.ordernow.com.ar
+Selecciono el boton Registrarme
+Ingreso mis credenciales
+De esta forma, estaria viendo los datos de mi usuario personal.
+Seleccionando la opcion correspondiente seria enviado al "Perfil Comercial".
+A continuacion veo la informacion mas relevante en un dashboard relativa al comercio.
+Si quiero ver informacion especifica de los productos por ejemplo, ingresando a la seccion de productos, deberia ver un dashboard
+exclusivo para los productos, lo mismo para cada seccion del sistema.
+Los primeros pasos son: 
+Cargar los diferentes productos.
+CArgar empleados?
+Cargar mesas?
+Cargar formas de pago?
+Puntos de venta?
+
+
+
