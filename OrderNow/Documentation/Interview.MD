@@ -51,15 +51,22 @@ Dispongo de 4 notas para aprobar la materia.
 Para el MVP, el plazo es de 7 meses.
 
 
+Los productos seran gestionados mediante recetas a base de porciones. Es decir que cada producto a vender estara compuesto de "partes", las cuales estaran cargadas en el sistema como productos no vendibles, ademas un producto estara disponible si los subproductos que lo componen son suficientes para "generar" dicho producto.
 
+
+Quiero llamar al mozo diretamtne
 Desde el punto de vista operativo:
 
-Que hace el cocinero con el sistema?
+**Que hace el cocinero con el sistema?**
 Solo recibe un ticket impreso con una comanda por duplicado, que luego de completar el pedido, entrega una parte de la comanda a administracion, y la otra la guarda para control.
-Que hace el mozo con la app?
+**Que hace el mozo con la app?**
 No utiliza la app.
-Que hace el administrativo?
-En el modulo de administracion, se reciben las ordenes realiadas por los clientes.
+**Que hace el administrativo?**
+- Podra cargar y editar los productos
+- Podra ver, editar y gestionar los clientes
+- Podra gestionar las ordenes de sus clientes
+
+Con respecto a la gestion de sus ordenes, en el modulo de administracion, se recibiran las ordenes realizadas por los clientes.
 Cada orden sera puesta en cola de espera, para luego ser preparada.
 Cuando llega una orden, se imprime automaticamente un ticket de [Comanda](Comanda.md), el cual incluye 3 cuerpos iguales, 
 uno para la barra/administracion para preparar copas, utensillos y bebidas, y las otras dos para la cocina, de las cuales, una vez completada la preparacion, devolveran los platos con una parte de ese comprobante, quedando para control uno en la cocina y uno en la adm. para verificacion.
@@ -76,7 +83,6 @@ parcialmente entregada,
  cancelada.
  luego vuelve con los productos de cocina
 
-Errores 
 
 
 -Entrega parcial en curso (Entrego primero la bebida)

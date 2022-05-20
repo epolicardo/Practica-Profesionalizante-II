@@ -110,6 +110,9 @@ Referencia: https://datosgobar.github.io/georef-ar-api/
     
     Los productos seran cargados como unidades o porciones, para asi poder hacer el descuento correspondiente del stock.
     Por ejemplo, para una pizza cuatro quesos de 8 porciones, voy a utilizar los siguientes productos:
+   
+   
+   ### Cuatro quesos
     1 Masa de pizza grande
     1 Porcion de salsa de pizza
     1 porcion de muzarella
@@ -152,6 +155,8 @@ Referencia: https://datosgobar.github.io/georef-ar-api/
 
     - Salsa Adicional
       - 1 Porcion de Filetto
+
+  ## Locro
 
 
 
