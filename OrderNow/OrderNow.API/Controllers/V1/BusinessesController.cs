@@ -3,13 +3,11 @@
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    //[Authorize]
+    [Authorize]
 
     public class BusinessesController : ControllerBase
     {
         private readonly IGenericRepository<Businesses> _genericRepository;
-
-
 
         public BusinessesController(IGenericRepository<Businesses> genericRepository, DataContext dataContext)
         {
@@ -18,7 +16,7 @@
         }
 
         [HttpGet]
-        [Route("GetById")]
+        [Route("BusinessId")]
         public async Task<Businesses> GetById(string Id)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
@@ -38,20 +36,20 @@
         /// [SwaggerResponse("400", typeof(HttpError))]
         /// [SwaggerResponse("401", typeof(HttpError))]
         [HttpGet]
-        [Route("GetList")]
-        public async Task<IEnumerable<Businesses>> GetList()
+        [Route("")]
+        public async Task<IEnumerable<Businesses>> GetListAsync()
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
 
-            IEnumerable<Businesses> Business = await _genericRepository.GetAll();
-            return Business;
+            IEnumerable<Businesses> Data = await _genericRepository.GetAll();
+            return Data;
         }
 
 
         [HttpPost]
-        [Route("CreateProduct")]
-        public async Task<bool> CreateProduct(Businesses Business)
+        [Route("Business")]
+        public async Task<bool> CreateAsync(Businesses Business)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
@@ -64,8 +62,8 @@
         }
 
         [HttpPut]
-        [Route("UpdateBusiness")]
-        public async Task<bool> UpdateBusiness(Businesses Business)
+        [Route("BusinessId")]
+        public async Task<bool> UpdateAsync(Businesses Business)
         {
             if (Business == null)
             {

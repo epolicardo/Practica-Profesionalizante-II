@@ -1,10 +1,5 @@
-﻿
-
-using Data.Entities;
-using Hangfire;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.IdentityModel.Tokens;
-using Serilog.Core;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -23,7 +18,7 @@ namespace Controllers
         private readonly UserManager<Users> userManager;
         private readonly DataContext context;
         private readonly IGenericRepository<Users> genericRepository;
-        
+
         //private readonly IConfigurationHelper configHelper;
 
         public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext _context,
@@ -33,7 +28,7 @@ namespace Controllers
             this.userManager = userManager;
             context = _context;
             genericRepository = _genericRepository;
-          
+
 
         }
 
@@ -42,8 +37,8 @@ namespace Controllers
         [Route("GetByMailAsync/{email}")]
         public IdentityUser GetByMailAsync(string email)
         {
-      
-            return context.Users.FirstOrDefault(u=> u.Email == email);
+
+            return context.Users.FirstOrDefault(u => u.Email == email);
             //return context.Users.Include(p => p.Person).ThenInclude(d => d.Domicilio).FirstOrDefault(x => x.Email == email);
 
         }
@@ -54,8 +49,8 @@ namespace Controllers
         [Route("GetByIdAsync")]
         public async Task<Users> GetByIdAsync(string Id)
         {
-              return await genericRepository.GetByIdAsync(Id);
-                    }
+            return await genericRepository.GetByIdAsync(Id);
+        }
 
 
 
@@ -104,10 +99,10 @@ namespace Controllers
             {
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
-          
+
             user.UserType = UserType.User;
             var result = await userManager.CreateAsync(user);
-            
+
             if (!result.Succeeded)
             {
                 var dictionary = new ModelStateDictionary();
@@ -118,9 +113,9 @@ namespace Controllers
 
                 return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
             }
-             
+
             await context.SaveChangesAsync();
-           
+
 
             return Ok(new { Message = "User Registration Successful" });
         }
@@ -138,10 +133,11 @@ namespace Controllers
                 || (identityUser = await ValidateUser(credentials)) == null)
             {
                 return new BadRequestObjectResult(
-                    new { 
-                        Token = "Not Generated", 
-                        Message = "Error", 
-                        Email = credentials.Username 
+                    new
+                    {
+                        Token = "Not Generated",
+                        Message = "Error",
+                        Email = credentials.Username
                     });
             }
 

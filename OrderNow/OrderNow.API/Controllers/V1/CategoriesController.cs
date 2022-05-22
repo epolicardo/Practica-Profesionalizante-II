@@ -1,6 +1,4 @@
-﻿using Data.Entities;
-
-namespace Controllers
+﻿namespace Controllers
 {
     [Authorize]
     [ApiController]
@@ -9,60 +7,80 @@ namespace Controllers
     public class CategoriesController : ControllerBase
     {
 
-        private readonly IGenericRepository<Categories> genericRepository;
-        private readonly DataContext context;
-        private readonly IConfigurationHelper configHelper;
+        private readonly IGenericRepository<Customers> _genericRepository;
+        private readonly DataContext _context;
+        private readonly IConfigurationHelper _configHelper;
 
-        public CategoriesController(IGenericRepository<Categories> _genericRepository, DataContext _context, IConfigurationHelper configHelper)
+        public CategoriesController(IGenericRepository<Customers> genericRepository, DataContext context, IConfigurationHelper configHelper)
         {
-            genericRepository = _genericRepository;
-            this.context = _context;
-            this.configHelper = configHelper;
+            _genericRepository = genericRepository;
+            _context = context;
+            _configHelper = configHelper;
         }
 
         [HttpGet]
-        [Route("GetList")]
-        public async Task<IEnumerable<Categories>> GetList()
+        [Route("Categories")]
+        public async Task<IEnumerable<Customers>> GetListAsync()
         {
-            if (configHelper.UseMockup("Categorias"))
+            if (_configHelper.UseMockup("Categorias"))
             {
                 return null;
             }
             Log.Information("Categorias: ");
-            return await genericRepository.GetAll();
+            return await _genericRepository.GetAll();
         }
 
 
         [HttpGet]
-        [Route("GetByIdAsync")]
-        public async Task<Categories> GetByIdAsync(string Id)
+        [Route("CategoryId")]
+        public async Task<Customers> GetByIdAsync(string Id)
         {
-            //if (configHelper.UseMockup("Categorias"))
-            //{
-            //    Categoria categoria = new Categoria()
-            //    {
-            //        FechaAlta = DateTime.Now,
-            //        UltimaModificacion = DateTime.Now,
-            //        Nombre = "MockCategroia"
-            //    };
-            //    return categoria;
-            //}
-            return await genericRepository.GetByIdAsync(Id);
-
+            return await _genericRepository.GetByIdAsync(Id);
         }
 
 
         [HttpPost]
-        [Route("CreateAsync")]
+        [Route("Category")]
 
-        public async Task<bool> CreateAsync(Categories entity)
+        public async Task<bool> CreateAsync(Customers entity)
         {
-            if (configHelper.UseMockup("Categorias"))
+            if (_configHelper.UseMockup("Categorias"))
             {
                 return false;
             }
-            return await genericRepository.CreateAsync(entity);
+            return await _genericRepository.CreateAsync(entity);
 
         }
+
+        [HttpPut]
+        [Route("AddressId")]
+        public async Task<bool> UpdateAsync(Customers entity)
+        {
+            if (entity == null)
+            {
+                return false;
+            }
+
+            await _genericRepository.EditAsync(entity);
+            return _genericRepository.SaveAsync().IsCompletedSuccessfully;
+        }
+
+        [HttpDelete]
+        [Route("AddressId")]
+        public bool Delete(Customers entity)
+        {
+            try
+            {
+                _genericRepository.Delete(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "No se pudo eliminar la entidad de tipo {0}", entity.GetType);
+
+                throw new Exception("No se pudo eliminar la entidad", ex);
+            }
+        }
+
     }
 }

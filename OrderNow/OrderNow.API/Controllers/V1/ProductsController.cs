@@ -3,23 +3,23 @@
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    //[Authorize]
+    [Authorize]
 
     public class ProductsController : ControllerBase
     {
-        private readonly IGenericRepository<Groups> _genericRepository;
-   
- 
+        private readonly IGenericRepository<Products> _genericRepository;
+        private readonly DataContext _dataContext;
 
-        public ProductsController(IGenericRepository<Groups> genericRepository, DataContext dataContext)
+        public ProductsController(IGenericRepository<Products> genericRepository, DataContext dataContext)
         {
-            this._genericRepository = genericRepository;
-          
+            _genericRepository = genericRepository;
+            _dataContext = dataContext;
         }
 
+
         [HttpGet]
-        [Route("GetById")]
-        public async Task<Groups> GetById(string Id)
+        [Route("ProductId")]
+        public async Task<Products> GetById(string Id)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
@@ -38,25 +38,25 @@
         /// [SwaggerResponse("400", typeof(HttpError))]
         /// [SwaggerResponse("401", typeof(HttpError))]
         [HttpGet]
-        [Route("GetList")]
-        public async Task<IEnumerable<Groups>> GetList()
+        [Route("")]
+        public async Task<IEnumerable<Products>> GetListAsync()
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
 
-            IEnumerable<Groups> Productos = await _genericRepository.GetAll();
-            return Productos;
+            IEnumerable<Products> Data = await _genericRepository.GetAll();
+            return Data;
         }
 
 
         [HttpPost]
-        [Route("CreateProduct")]
-        public async Task<bool> CreateProduct(Groups producto)
+        [Route("Product")]
+        public async Task<bool> CreateAsync(Products entity)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            Log.Information("Productos: {@Productos}", producto);
-            await _genericRepository.CreateAsync(producto);
+            Log.Information("Productos: {@Productos}", entity);
+            await _genericRepository.CreateAsync(entity);
 
             return _genericRepository.SaveAsync().IsCompleted;
 
@@ -64,16 +64,18 @@
         }
 
         [HttpPut]
-        [Route("UpdateProduct")]
-        public async Task<bool> UpdateProducto(Groups producto)
+        [Route("ProductId")]
+        public async Task<bool> UpdateAsync(Products entity)
         {
-            if (producto == null)
+            if (entity == null)
             {
                 return false;
             }
 
-            await _genericRepository.EditAsync(producto);
+            await _genericRepository.EditAsync(entity);
             return _genericRepository.SaveAsync().IsCompletedSuccessfully;
         }
+
+
     }
 }

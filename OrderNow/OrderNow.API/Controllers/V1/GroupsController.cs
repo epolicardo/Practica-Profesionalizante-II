@@ -19,7 +19,7 @@
 
         }
         [HttpGet]
-        [Route("GetById")]
+        [Route("GroupId")]
         public async Task<Groups> GetById(string Id)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
@@ -39,19 +39,19 @@
         /// [SwaggerResponse("400", typeof(HttpError))]
         /// [SwaggerResponse("401", typeof(HttpError))]
         [HttpGet]
-        [Route("GetList")]
+        [Route("")]
         public async Task<IEnumerable<Groups>> GetList()
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
 
-            IEnumerable<Groups> Groups = await _genericRepository.GetAll();
-            return Groups;
+            IEnumerable<Groups> Data = await _genericRepository.GetAll();
+            return Data;
         }
 
 
         [HttpPost]
-        [Route("Create")]
+        [Route("Group")]
         public async Task<bool> Create(Groups entity)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
@@ -65,7 +65,7 @@
         }
 
         [HttpPut]
-        [Route("Update")]
+        [Route("Group")]
         public async Task<bool> Update(Groups entity)
         {
             if (entity == null)
@@ -78,7 +78,7 @@
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("Group")]
         public bool Delete (Groups entity)
         {
             try

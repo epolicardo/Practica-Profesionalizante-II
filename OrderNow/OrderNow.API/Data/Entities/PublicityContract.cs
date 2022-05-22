@@ -8,6 +8,7 @@
         public DateTime Aquired { get; set; }
         public DateTime Expire { get; set; }
         public int Credits { get; set; }
+        public Businesses Business { get; set; }
 
     }
 }

@@ -6,9 +6,10 @@
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AddressesController : ControllerBase
     {
-        private readonly DataContext _context;
+        
         private readonly IGenericRepository<Addresses> _genericRepository;
         private readonly IConfigurationHelper _configHelper;
+      
 
         public AddressesController(IGenericRepository<Addresses> genericRepository, IConfigurationHelper configHelper)
         {
@@ -18,27 +19,16 @@
         }
         [HttpGet]
         [Route("AddressId")]
-        public async Task<Addresses> GetById(string Id)
+        public async Task<Addresses> GetByIdAsync(Guid Id)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            return await _genericRepository.GetByIdAsync(Id);
+            return await _genericRepository.GetByIdAsync(Id.ToString());
         }
 
-
-
-        /// <summary>
-        /// Obtain the list of Products
-        /// </summary>
-        /// <response code="200">Ok</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Not Authorized</response>
-        /// <response code="500">Internal Server error</response>
-        /// [SwaggerResponse("400", typeof(HttpError))]
-        /// [SwaggerResponse("401", typeof(HttpError))]
         [HttpGet]
         [Route("")]
-        public async Task<IEnumerable<Addresses>> GetList()
+        public async Task<IEnumerable<Addresses>> GetListAsync()
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
@@ -50,7 +40,7 @@
 
         [HttpPost]
         [Route("Address")]
-        public async Task<bool> Create(Addresses entity)
+        public async Task<bool> CreateAsync(Addresses entity)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
@@ -64,7 +54,7 @@
 
         [HttpPut]
         [Route("AddressId")]
-        public async Task<bool> Update(Addresses entity)
+        public async Task<bool> UpdateAsync(Addresses entity)
         {
             if (entity == null)
             {
