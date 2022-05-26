@@ -1,18 +1,21 @@
-﻿namespace Controllers
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [Authorize]
+    //[Authorize]
 
     public class BusinessesController : ControllerBase
     {
         private readonly IGenericRepository<Businesses> _genericRepository;
+        private readonly DataContext _context;
 
         public BusinessesController(IGenericRepository<Businesses> genericRepository, DataContext dataContext)
         {
             this._genericRepository = genericRepository;
-
+            _context = dataContext;
         }
 
         [HttpGet]
@@ -24,7 +27,24 @@
             return await _genericRepository.GetByIdAsync(Id);
         }
 
+        [HttpGet]
+        [Route("BusinessURL")]
+        public async Task<IActionResult> GetByURLAsync(string URL)
+        {
+            LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
+            LogContext.PushProperty("Server", Environment.MachineName);
+            Businesses? businesses = await _context.Businesses.Include(x=>x.Address).Include(x=>x.Address.City).FirstOrDefaultAsync(x => x.ContractURL.Equals(URL));
+            if (businesses == null)
+            {
+                return Ok(URL);
+            }
+            if(businesses.ValidationExpires > DateTime.Today)
+            {
+            return Ok(businesses);
 
+            }
+            return NoContent();
+        }
 
         /// <summary>
         /// Obtain the list of Products
@@ -73,5 +93,7 @@
             await _genericRepository.EditAsync(Business);
             return _genericRepository.SaveAsync().IsCompletedSuccessfully;
         }
+
+      
     }
 }

@@ -13,7 +13,6 @@
         public string CUIT { get; set; }
         public string LegalName { get; set; }
         public string Phone { get; set; }
-        //public List<Customers> CustomersList { get; set; }
         [NotMapped]
         public PaymentType[] PaymentsType { get; set; }
         public bool IsValidated { get; set; } = false;
@@ -21,6 +20,7 @@
         public DateTime ValidationExpires { get; set; }
         public float Score { get; set; }
         public UInt64 Qualification { get; set; }
+        public List<Users> CustomersList { get; set; }
 
 
 

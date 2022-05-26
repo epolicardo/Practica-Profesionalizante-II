@@ -15,13 +15,13 @@ namespace Controllers
     {
 
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
-        private readonly UserManager<Users> userManager;
+        private readonly UserManager<IdentityUser> userManager;
         private readonly DataContext context;
         private readonly IGenericRepository<Users> genericRepository;
 
         //private readonly IConfigurationHelper configHelper;
 
-        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext _context,
+        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager, DataContext _context,
             IGenericRepository<Users> _genericRepository)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
@@ -37,6 +37,8 @@ namespace Controllers
         [Route("GetByMailAsync/{email}")]
         public IdentityUser GetByMailAsync(string email)
         {
+
+           
 
             return context.Users.FirstOrDefault(u => u.Email == email);
             //return context.Users.Include(p => p.Person).ThenInclude(d => d.Domicilio).FirstOrDefault(x => x.Email == email);
@@ -56,16 +58,16 @@ namespace Controllers
 
         [HttpGet]
         [Route("GetList")]
-        public IEnumerable<Users> GetList()
+        public IEnumerable<IdentityUser> GetList()
         {
 
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            IEnumerable<Users> Users = null;
+            IEnumerable<IdentityUser> Users = null;
             try
             {
 
-                Users = (IEnumerable<Users>?)context.Users.ToList();
+                Users = context.Users.ToList();
                 Log.Information("Users: {@Users}", Users);
             }
             catch (Exception ex)
@@ -93,15 +95,24 @@ namespace Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register(Users user)
+        public async Task<IActionResult> Register(LoginCredentials user)
         {
             if (!ModelState.IsValid || user == null)
             {
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
+            
+            Users newUser = new Users();
+            
+            var ph = userManager.PasswordHasher.HashPassword(newUser, user.Password);
 
-            user.UserType = UserType.User;
-            var result = await userManager.CreateAsync(user);
+            newUser.UserType = UserType.User;
+            newUser.UserName = user.Username;
+            newUser.PasswordHash = ph;
+            
+
+            
+            var result = await userManager.CreateAsync(newUser);
 
             if (!result.Succeeded)
             {

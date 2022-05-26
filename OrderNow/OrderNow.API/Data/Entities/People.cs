@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace Data.Entities
 {
@@ -22,7 +23,7 @@ namespace Data.Entities
         [Display(Name = "Fecha Nacimiento")]
         public DateTime? BirthDate { get; set; }
 
-     
+
 
 
 

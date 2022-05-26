@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220523234430_14")]
+    partial class _14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,7 +201,6 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdUsersId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("LastModified")
@@ -258,7 +259,6 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GeneratedById")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("LastModified")
@@ -287,7 +287,6 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdUsersId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("LastModified")
@@ -314,7 +313,6 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdUsersId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("LastModified")
@@ -391,7 +389,6 @@ namespace OrderNow.API.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -976,9 +973,7 @@ namespace OrderNow.API.Migrations
 
                     b.HasOne("Data.Entities.Users", "IdUsers")
                         .WithMany()
-                        .HasForeignKey("IdUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdUsersId");
 
                     b.Navigation("IdBusiness");
 
@@ -1004,9 +999,7 @@ namespace OrderNow.API.Migrations
                 {
                     b.HasOne("Data.Entities.Users", "GeneratedBy")
                         .WithMany()
-                        .HasForeignKey("GeneratedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GeneratedById");
 
                     b.Navigation("GeneratedBy");
                 });
@@ -1021,9 +1014,7 @@ namespace OrderNow.API.Migrations
 
                     b.HasOne("Data.Entities.Users", "IdUsers")
                         .WithMany()
-                        .HasForeignKey("IdUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdUsersId");
 
                     b.Navigation("IdBusiness");
 
@@ -1038,9 +1029,7 @@ namespace OrderNow.API.Migrations
 
                     b.HasOne("Data.Entities.Users", "IdUsers")
                         .WithMany()
-                        .HasForeignKey("IdUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdUsersId");
 
                     b.Navigation("IdProduct");
 
@@ -1065,9 +1054,7 @@ namespace OrderNow.API.Migrations
 
                     b.HasOne("Data.Entities.Users", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Business");
 

@@ -18,7 +18,7 @@ namespace OrderNow.Data
 
         public DbSet<Addresses> Addresses { get; set; }
         public DbSet<Businesses> Businesses { get; set; }
-        public DbSet<Customers> Categories { get; set; }
+        public DbSet<Categories> Categories { get; set; }
         public DbSet<CustomersBusinesses> CustomersBusinesses { get; set; }
         public DbSet<Cities> Cities { get; set; }
         public DbSet<Documents> Documents { get; set; }
@@ -35,6 +35,7 @@ namespace OrderNow.Data
         public DbSet<OrderQueue> Queues { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SaleDetails> SaleDetails { get; set; }
+        //public DbSet<Users> Users { get; set; }
 
 
     }

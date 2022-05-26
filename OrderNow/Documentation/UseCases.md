@@ -1,5 +1,25 @@
 ## Casos de uso
 
+- [Registrar Usuario](CU-RegistrarUsuario.md)
+- [Registrar Comercio](CU-RegistrarComercio.md)
+- [Crear Producto](CU-CrearProducto.md)
+- [Realizar Venta](CU-RealizarVenta.md)
+- [Marcar Orden Entregada](CU-MarcarOrdenEntregada.md)
+- [Mostrar Dashboard Comercial](CU-MostrarDashboardComercial.md)
+- [Mostrar Dashboard Usuario](CU-MostrarDashboardUsuario.md)
+- [Asignar Usuario a Comercio](CU-AsignarUsuarioAComercio.md)
+- [Modificar Perfil Usuario](CU-ModificarPerfilUsuario.md)
+- [Modificar Perfil Comercial](CU-ModificarPerfilComercial.md)
+- [Verificar Comercio](CU-VerificarComercio.md)
+- [Registrar Formas de Pago](CU-FormasPago.md)
+- [Calificar Comercio](CU-CalificarComercio.md)
+- [Elegir Producto Favorito](CU-ElegirProductoFavorito.md)
+- [Elegir Comercio Favorito](CU-ElegirComercioFavorito.md)
+- [Modificar Producto](CU-ModificarProducto.md)
+- [Eliminar Producto](CU-EliminarProducto.md)
+- [Enviar link de activacion de cuenta](CU-EnviarLinkActivacion.md)
+- [Recuperar Acceso](CU-RecuperarAcceso.md)
+
 - **Cualquier persona puede darse de alta como usuario de la plataforma.**
     
     Un usuario se puede dar de alta automaticamente para crear su perfil de usuario. Solo será necesaria una 

@@ -17,7 +17,7 @@ namespace Data.Entities
         public decimal DiscountsAmount { get; set; }
         public PaymentMethods PaymentMethod { get; set; }
         public Businesses Business { get; set; }
-        public Customers Customer { get; set; }
+        public Users User { get; set; }
         public OrdersDetail Details { get; set; }
 
     }

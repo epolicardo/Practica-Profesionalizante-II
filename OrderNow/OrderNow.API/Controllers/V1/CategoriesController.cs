@@ -7,11 +7,11 @@
     public class CategoriesController : ControllerBase
     {
 
-        private readonly IGenericRepository<Customers> _genericRepository;
+        private readonly IGenericRepository<Categories> _genericRepository;
         private readonly DataContext _context;
         private readonly IConfigurationHelper _configHelper;
 
-        public CategoriesController(IGenericRepository<Customers> genericRepository, DataContext context, IConfigurationHelper configHelper)
+        public CategoriesController(IGenericRepository<Categories> genericRepository, DataContext context, IConfigurationHelper configHelper)
         {
             _genericRepository = genericRepository;
             _context = context;
@@ -20,7 +20,7 @@
 
         [HttpGet]
         [Route("Categories")]
-        public async Task<IEnumerable<Customers>> GetListAsync()
+        public async Task<IEnumerable<Categories>> GetListAsync()
         {
             if (_configHelper.UseMockup("Categorias"))
             {
@@ -33,7 +33,7 @@
 
         [HttpGet]
         [Route("CategoryId")]
-        public async Task<Customers> GetByIdAsync(string Id)
+        public async Task<Categories> GetByIdAsync(string Id)
         {
             return await _genericRepository.GetByIdAsync(Id);
         }
@@ -42,19 +42,20 @@
         [HttpPost]
         [Route("Category")]
 
-        public async Task<bool> CreateAsync(Customers entity)
+        public async Task<bool> CreateAsync(Categories entity)
         {
             if (_configHelper.UseMockup("Categorias"))
             {
                 return false;
             }
+            entity.Id = Guid.NewGuid().ToString();
             return await _genericRepository.CreateAsync(entity);
 
         }
 
         [HttpPut]
-        [Route("AddressId")]
-        public async Task<bool> UpdateAsync(Customers entity)
+        [Route("CategoryId")]
+        public async Task<bool> UpdateAsync(Categories entity)
         {
             if (entity == null)
             {
@@ -66,8 +67,8 @@
         }
 
         [HttpDelete]
-        [Route("AddressId")]
-        public bool Delete(Customers entity)
+        [Route("CategoryId")]
+        public bool Delete(Categories entity)
         {
             try
             {

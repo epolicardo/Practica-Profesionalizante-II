@@ -16,10 +16,11 @@ namespace Data.Entities
         public string? URLIcon { get; set; } //Imagen Chica
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; } = 0;
-        
+
         public float Stock { get; set; }
         public bool Status { get; set; } //Activo-Inactivo
-        //public Businesses Business { get; set; }
+        public Businesses? Business { get; set; }
+        public Categories? Category { get; set; }
         public List<ProductOptions>? OptionsList { get; set; }
         public float Score { get; set; }
         public UInt64 Qualification { get; set; }
@@ -27,7 +28,6 @@ namespace Data.Entities
         public string? Brand { get; set; } //Raid
                                            //public bool? IsItExpires { get; set; } //True 
                                            //public UnidadMedida UnidadMedida { get; set; }
-                                           //public Familia Familia { get; set; }
                                            //public double StockActual { get; set; }
                                            //public double StockMinimo { get; set; }
                                            //public double StockOptimo { get; set; }
