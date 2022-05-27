@@ -11,11 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrderNow.API\OrderNow.API.csproj" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\OrderNow.API\OrderNow.API.csproj" />
+    <ProjectReference Include="..\OrderNow.Tests\OrderNow.Tests.csproj" />
   </ItemGroup>
 
 </Project>

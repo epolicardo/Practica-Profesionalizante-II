@@ -10,6 +10,7 @@ namespace Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
+ 
 
     public class UsersController : ControllerBase
     {
@@ -17,12 +18,12 @@ namespace Controllers
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<IdentityUser> userManager;
         private readonly DataContext context;
-        private readonly IGenericRepository<Users> genericRepository;
+        private readonly IGenericRepository<User> genericRepository;
 
         //private readonly IConfigurationHelper configHelper;
 
         public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager, DataContext _context,
-            IGenericRepository<Users> _genericRepository)
+            IGenericRepository<User> _genericRepository)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
             this.userManager = userManager;
@@ -32,59 +33,59 @@ namespace Controllers
 
         }
 
-        [Authorize]
-        [HttpGet]
+       
+        [HttpPost]
         [Route("GetByMailAsync/{email}")]
-        public IdentityUser GetByMailAsync(string email)
+        public User GetByMailAsync(string email)
         {
 
-           
 
-            return context.Users.FirstOrDefault(u => u.Email == email);
+
+            return context.User.FirstOrDefault(u => u.Email == email);
             //return context.Users.Include(p => p.Person).ThenInclude(d => d.Domicilio).FirstOrDefault(x => x.Email == email);
 
         }
 
-
+     //   [Authorize(Policy = "GetToken")]
         [Authorize]
         [HttpGet]
         [Route("GetByIdAsync")]
-        public async Task<Users> GetByIdAsync(string Id)
+        public async Task<User> GetByIdAsync(string Id)
         {
             return await genericRepository.GetByIdAsync(Id);
         }
 
 
-
+        
         [HttpGet]
         [Route("GetList")]
-        public IEnumerable<IdentityUser> GetList()
+        public IEnumerable<User> GetList()
         {
 
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            IEnumerable<IdentityUser> Users = null;
+            IEnumerable<User> User= null;
             try
             {
 
-                Users = context.Users.ToList();
-                Log.Information("Users: {@Users}", Users);
+                User = context.User.Include(p=>p.person).ToList();
+                Log.Information("Users: {@Users}", User);
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Sucedio un error");
             }
-            return Users;
+            return User;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetListByGroup")]
-        public IEnumerable<Users> GetListByGroup(string TituloGrupo)
+        public IEnumerable<User> GetListByGroup(string TituloGrupo)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            IEnumerable<Users> Users = (IEnumerable<Users>)context.Users.ToList();
+            IEnumerable<User> Users = (IEnumerable<User>)context.Users.ToList();
             //IEnumerable<Users> Users = context.Users.Include(x => x.Persona).Where(x => x.Persona.Apellido == TituloGrupo).ToList();
             Log.Information("Users: {@Users}", Users);
             return Users;
@@ -92,27 +93,19 @@ namespace Controllers
         }
 
 
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register(LoginCredentials user)
+        public async Task<IActionResult> Register(User user)
         {
             if (!ModelState.IsValid || user == null)
             {
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
-            
-            Users newUser = new Users();
-            
-            var ph = userManager.PasswordHasher.HashPassword(newUser, user.Password);
 
-            newUser.UserType = UserType.User;
-            newUser.UserName = user.Username;
-            newUser.PasswordHash = ph;
+            var result = await userManager.CreateAsync(user, user.Password);
+            user.Password = userManager.PasswordHasher.HashPassword(user, user.Password);
             
-
-            
-            var result = await userManager.CreateAsync(newUser);
 
             if (!result.Succeeded)
             {
@@ -124,7 +117,6 @@ namespace Controllers
 
                 return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
             }
-
             await context.SaveChangesAsync();
 
 
@@ -136,7 +128,7 @@ namespace Controllers
         [Route("GetToken")]
         public async Task<IActionResult> GetToken(LoginCredentials credentials)
         {
-            Log.Information("Users ingresado: {@Credenciales}", credentials.Username);
+            Log.Information("User ingresado: {@Credenciales}", credentials.Username);
             IdentityUser identityUser;
 
             if (!ModelState.IsValid
@@ -154,7 +146,12 @@ namespace Controllers
 
             var token = GenerateToken(identityUser);
             Log.Information("Token granted to {@Email}", identityUser.Email);
-            return Ok(new { Token = token, Message = "Success", Email = identityUser.Email });
+            return Ok(new
+            {
+                Token = token,
+                Message = "Success",
+                Email = identityUser.Email,
+            });
         }
 
         [HttpPost]

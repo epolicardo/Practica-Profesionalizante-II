@@ -3,19 +3,19 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:37145",
-      "sslPort": 44355
+      "applicationUrl": "http://localhost:54223/",
+      "sslPort": 44380
     }
   },
   "profiles": {
     "OrderNow.Blazor": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7167;http://localhost:5167",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:7167;http://localhost:5167",
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",

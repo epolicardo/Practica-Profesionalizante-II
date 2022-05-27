@@ -1,7 +1,7 @@
 [Atras](UseCases.md)
 
 ### Código: CU-002
-# Titulo: <span style="color:#1ce868">Alta de Cliente</span>.
+# Titulo: <span style="color:#1ce868">Modificar perfil de Usuario</span>.
 - **Versión del documento:** 1.0.0
 - **Descripción:** Se dará de alta un cliente en el sistema.
 - **Secuencia Normal:** 

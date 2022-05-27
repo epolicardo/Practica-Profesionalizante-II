@@ -2,8 +2,33 @@
 @layout UserLayout 
 @inject NavigationManager NavManager
 
-<h3>UserProfile</h3>
+@*<h3>UserProfile</h3>
 <button onclick="@ValidateUser" class="btn-hero">Login</button>
+
+*@
+<div class=container-fluid>
+
+<button onclick="@ValidateUser" class="boton-regular">Perfil Comercial</button>
+
+<div>
+
+<img class="profile-circle" src=/css/resources/hero.png/>
+<p class="username">Emiliano Policardo</p>
+<p class="lastConexion">Ultima conexion: 22/05/22</p>
+</div>
+
+<div>
+    <p class="section-title">Mis Comercios Favoritos</p>
+</div>
+
+<div>
+    <p class="section-title">Mis Productos Favoritos</p>
+</div>
+<div>
+    <p class="section-title">Mis ultimos consumos</p>
+</div>
+
+</div>
 
 @code {
       private void ValidateUser()

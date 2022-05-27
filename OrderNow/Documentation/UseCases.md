@@ -1,6 +1,7 @@
 ## Casos de uso
 
 - [Registrar Usuario](CU-RegistrarUsuario.md)
+- [Activar Usuario](CU-ActivarUsuario.md)
 - [Registrar Comercio](CU-RegistrarComercio.md)
 - [Crear Producto](CU-CrearProducto.md)
 - [Realizar Venta](CU-RealizarVenta.md)
@@ -19,7 +20,8 @@
 - [Eliminar Producto](CU-EliminarProducto.md)
 - [Enviar link de activacion de cuenta](CU-EnviarLinkActivacion.md)
 - [Recuperar Acceso](CU-RecuperarAcceso.md)
-
+- [Validar Usuario Comercial](CU-ValidarUsuarioComercial.md)
+- [Cancelar Orden](CU-CancelarOrden.md)
 - **Cualquier persona puede darse de alta como usuario de la plataforma.**
     
     Un usuario se puede dar de alta automaticamente para crear su perfil de usuario. Solo será necesaria una 

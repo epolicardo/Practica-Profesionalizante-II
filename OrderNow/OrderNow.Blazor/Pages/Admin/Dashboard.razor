@@ -1,12 +1,44 @@
 ﻿@page "/admin/dashboard"
-@layout AdminLayout
-@*@using Data.Entities
 
-<PageTitle>@Business.Name - Dashboard - OrderNow</PageTitle>
-<h1>Usted a ingresado al dashboard</h1>
+@layout AdminLayout
+
+<PageTitle> Dashboard - OrderNow</PageTitle>
+<div>
+
+<img class="profile-circle" src=/css/resources/hero.png/>
+<p class="username">Emiliano Policardo</p>
+<p class="lastConexion">Ultima conexion: 22/05/22</p>
+</div>
+<div>
+    <p class="section-title">Mis Comercios Favoritos</p>
+</div>
+
+<div>
+    <p class="section-title">Mis Productos Favoritos</p>
+</div>
+<div>
+    <p class="section-title">Mis ultimos consumos</p>
+</div>
+
+<div>
+    <p class="section-title">Estadisticas Rapidas</p>
+
+
+<div>
+    <p class="section-title">Ordenes</p>
+    <p class="section-title">Ticket promedio</p>
+    <p class="section-title">Clientes nuevos</p>
+</div>
+</div>
+<div>
+    <p class="section-title">Mis ultimos consumos</p>
+</div>
+
+
 
 @code{
-   public Businesses Business { get; set; }
+
+    //public Businesses businesses { get; set; }
 
    private void OpenDashboard()
     {
@@ -15,12 +47,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Business = new Businesses
-            {
-                Name = "Pizzeria Popular",
-                ContractURL = "/pizzeria-popular"
-            };
+        //Business = new Businesses
+        //    {
+        //        Name = "Pizzeria Popular",
+        //        ContractURL = "/pizzeria-popular-rc"
+        //    };
         //Business = await ForecastService.GetForecastAsync(DateTime.Now);
     }
 
-}*@
+}

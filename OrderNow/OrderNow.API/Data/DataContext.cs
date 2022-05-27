@@ -35,7 +35,7 @@ namespace OrderNow.Data
         public DbSet<OrderQueue> Queues { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SaleDetails> SaleDetails { get; set; }
-        //public DbSet<Users> Users { get; set; }
+        public DbSet<User> User { get; set; }
 
 
     }

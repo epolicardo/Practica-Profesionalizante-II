@@ -1,9 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
 <PageTitle>OrderNow.Blazor</PageTitle>
-<div>
-   <main>
-       <Topbar />
+
+<div class="page">
+    <div class="sidebar">
+        <UserNavMenu />
+    </div>
+
+    <main>
         <article class="content px-4">
             @Body
         </article>

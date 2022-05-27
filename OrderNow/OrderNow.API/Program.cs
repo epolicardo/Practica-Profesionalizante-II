@@ -1,141 +1,97 @@
 using Hangfire;
-using Hangfire.SqlServer;
 using Infrastructure.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=OrderNow;Integrated Security=True"));
-
-builder.Services.AddHttpClient();
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Conexion")));
 
 //https://www.campusmvp.es/recursos/post/como-guardar-secretos-en-nuestras-aplicaciones-de-net-core-sin-peligro-de-enviarlos-a-github-por-error.aspx
 IConfiguration config = new ConfigurationBuilder()
         .AddUserSecrets("32ad9ec7-e1d8-4419-8ee0-da8bd840bc0f") //Nombre de la carpeta que hemos creado
             .Build();
 
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(config.GetConnectionString("Conexion")));
-
-
-
-//builder.Services.AddHangfire(configuration =>
-//{
-//    configuration.UseLiteDbStorage("./hf.db");
-
-//});
-//builder.Services.AddHangfireServer();
-
-//builder.Services.AddHangfire(config =>
-//{
-//    var options = new SqlServerStorageOptions
-//    {
-//        PrepareSchemaIfNecessary = true,
-//        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-//        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-//        UseRecommendedIsolationLevel = true,
-//        UsePageLocksOnDequeue = true,
-//        DisableGlobalLocks = true
-//    };
-//    config.UseSqlServerStorage(Configuration.ConfigurationHelper.GetConnectionString("Conexion_Hangfire"), options).WithJobExpirationTimeout(TimeSpan.FromHours(6));
-//}
-
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(config.GetConnectionString("Conexion_Hangfire")));
-
-
-
-
-
-
 builder.Services.AddHangfireServer();
 builder.Services.AddCors();
 builder.Services.AddControllers();
 
-//builder.Services.AddHttpClient("WebApi", c =>
-//{
-//    c.BaseAddress = new Uri("http://localhost:44365/api/");
-//});
-
-
-//// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-5.0#named-clients
-//services.AddHttpClient("github", c =>
-//{
-//    c.BaseAddress = new Uri("https://api.github.com/");
-//    // Github API versioning
-//    c.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
-//    // Github requires a user-agent
-//    c.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactory-Sample");
-//});
-
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IDemoService, DemoService>();
+builder.Services.AddScoped<IConfigurationHelper, ConfigurationHelper>();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+    options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DataContext>();
+
+
+
 builder.Services.AddSwaggerGen(options =>
 {
-    // add a custom operation filter which sets default values
     options.OperationFilter<SwaggerDefaultValues>();
+    //options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    //{
+    //    Name = "Authorization",
+    //    Type = SecuritySchemeType.ApiKey,
+    //    Scheme = "Bearer",
+    //    BearerFormat = "JWT",
+    //    In = ParameterLocation.Header,
+    //    Description = "JWT Authorization header using the Bearer scheme."
+    //});
+    //options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    //{{
+    //    new OpenApiSecurityScheme
+    //    {
+    //        Reference = new OpenApiReference
+    //        {
+    //            Type = ReferenceType.SecurityScheme,Id = "Bearer"
+    //        }
+    //    },new string[] {}
+    //}
+    //});
 });
 
-
-//https://dev.to/moesmp/what-every-asp-net-core-web-api-project-needs-part-2-api-versioning-and-swagger-3nfm
 builder.Services.AddApiVersioning(options =>
 {
-    // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
     options.ReportApiVersions = true;
 });
 
 builder.Services.AddVersionedApiExplorer(options =>
 {
-    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-    // note: the specified format code will format the version as "'v'major[.minor][-status]"
     options.GroupNameFormat = "'v'VVV";
-
-    // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
-    // can also be used to control the format of the API version in route templates
     options.SubstituteApiVersionInUrl = true;
 });
 
 
-
-
-
-
-
-
-
-
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IDemoService, DemoService>();
-builder.Services.AddScoped<IConfigurationHelper, ConfigurationHelper>();
-
-
-//  services.AddApiVersioning(o => o.ApiVersionReader = new UrlSegmentApiVersionReader());
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-.AddEntityFrameworkStores<DataContext>();
-
-// configure strongly typed settings objects
 var jwtSection = config.GetSection("JwtBearerTokenSettings");
 jwtSection = config.GetSection("JwtBearerTokenSettings");
 builder.Services.Configure<JwtBearerTokenSettings>(jwtSection);
 var jwtBearerTokenSettings = jwtSection.Get<JwtBearerTokenSettings>();
 var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
 
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    
 })
 .AddJwtBearer(options =>
 {
+    //TODO: Activar en produccion
     options.RequireHttpsMetadata = false;
     options.SaveToken = true;
+    options.IncludeErrorDetails = true;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidIssuer = jwtBearerTokenSettings.Issuer,
@@ -144,49 +100,74 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
-
-
-
-
-
-//https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//await SeedData();
+
+app.UseCors(x => x
+          .AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader());
+
+
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHangfireDashboard("/jobs");
-//BackgroundJob.Enqueue(() => Console.WriteLine("Tarea generada en Startup"));
-
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+
+
 
 app.Run();
+
+
+async Task SeedData()
+{
+    var scopeFactory = app!.Services.GetRequiredService<IServiceScopeFactory>();
+    using var scope = scopeFactory.CreateScope();
+
+    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+    context.Database.EnsureCreated();
+
+    if (!userManager.Users.Any())
+    {
+        logger.LogInformation("Creando usuario de prueba");
+
+        var newUser = new User
+        {
+            Email = "test@demo.com",
+            UserName = "test.demo"
+        };
+
+        await userManager.CreateAsync(newUser, "P@ss.W0rd");
+        await roleManager.CreateAsync(new IdentityRole
+        {
+            Name = "Admin"
+        });
+        await roleManager.CreateAsync(new IdentityRole
+        {
+            Name = "AnotherRole"
+        });
+
+        await userManager.AddToRoleAsync(newUser, "Admin");
+        await userManager.AddToRoleAsync(newUser, "AnotherRole");
+    }
+}

@@ -2,7 +2,7 @@
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Authorize]
+    //[Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AddressesController : ControllerBase
     {
