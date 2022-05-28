@@ -4,7 +4,7 @@
     {
 
         public string Name { get; set; }
-        public Addresses Address { get; set; }
+        public Addresses? Address { get; set; }
         public string? URLIconImage { get; set; }
         public string? URLRegularImage { get; set; }
         public string ContractURL { get; set; } // /pizzeria-popular
@@ -14,13 +14,13 @@
         public string LegalName { get; set; }
         public string Phone { get; set; }
         [NotMapped]
-        public PaymentType[] PaymentsType { get; set; }
+        public PaymentType[]? PaymentsType { get; set; }
         public bool IsValidated { get; set; } = false;
         public DateTime ValidationTime { get; set; }
         public DateTime ValidationExpires { get; set; }
         public float Score { get; set; }
         public UInt64 Qualification { get; set; }
-        public List<User> CustomersList { get; set; }
+        //public List<User> CustomersList { get; set; }
 
 
 

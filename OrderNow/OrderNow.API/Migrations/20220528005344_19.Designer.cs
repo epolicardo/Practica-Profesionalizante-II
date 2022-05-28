@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220528005344_19")]
+    partial class _19
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,6 +177,33 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("Data.Entities.CustomersBusinesses", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IdBusinessId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdUsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdBusinessId");
+
+                    b.HasIndex("IdUsersId");
+
+                    b.ToTable("CustomersBusinesses");
+                });
+
             modelBuilder.Entity("Data.Entities.DetalleReceta", b =>
                 {
                     b.Property<int>("Id")
@@ -239,26 +268,26 @@ namespace OrderNow.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IdBusinessId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("IdUsersId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("BusinessId");
+                    b.HasIndex("IdBusinessId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("IdUsersId");
 
-                    b.ToTable("FavoriteBusinessesByUser");
+                    b.ToTable("FavoriteBusinessesByCustomer");
                 });
 
             modelBuilder.Entity("Data.Entities.FavoriteProducts", b =>
@@ -269,22 +298,22 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("IdProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdUsersId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("IdProductId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("IdUsersId");
 
-                    b.ToTable("FavoriteProductsByUser");
+                    b.ToTable("FavoriteProductsByCustomer");
                 });
 
             modelBuilder.Entity("Data.Entities.OrderQueue", b =>
@@ -669,34 +698,6 @@ namespace OrderNow.API.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("Data.Entities.UsersBusinesses", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UsersId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("UsersBusinesses");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -942,6 +943,23 @@ namespace OrderNow.API.Migrations
                     b.Navigation("Address");
                 });
 
+            modelBuilder.Entity("Data.Entities.CustomersBusinesses", b =>
+                {
+                    b.HasOne("Data.Entities.Businesses", "IdBusiness")
+                        .WithMany()
+                        .HasForeignKey("IdBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entities.User", "IdUsers")
+                        .WithMany()
+                        .HasForeignKey("IdUsersId");
+
+                    b.Navigation("IdBusiness");
+
+                    b.Navigation("IdUsers");
+                });
+
             modelBuilder.Entity("Data.Entities.DetalleReceta", b =>
                 {
                     b.HasOne("Data.Entities.Products", "Product")
@@ -968,34 +986,34 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.FavoriteBusiness", b =>
                 {
-                    b.HasOne("Data.Entities.Businesses", "Business")
+                    b.HasOne("Data.Entities.Businesses", "IdBusiness")
                         .WithMany()
-                        .HasForeignKey("BusinessId")
+                        .HasForeignKey("IdBusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.Entities.User", "Users")
+                    b.HasOne("Data.Entities.User", "IdUsers")
                         .WithMany()
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("IdUsersId");
 
-                    b.Navigation("Business");
+                    b.Navigation("IdBusiness");
 
-                    b.Navigation("Users");
+                    b.Navigation("IdUsers");
                 });
 
             modelBuilder.Entity("Data.Entities.FavoriteProducts", b =>
                 {
-                    b.HasOne("Data.Entities.Products", "Product")
+                    b.HasOne("Data.Entities.Products", "IdProduct")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("IdProductId");
 
-                    b.HasOne("Data.Entities.User", "Users")
+                    b.HasOne("Data.Entities.User", "IdUsers")
                         .WithMany()
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("IdUsersId");
 
-                    b.Navigation("Product");
+                    b.Navigation("IdProduct");
 
-                    b.Navigation("Users");
+                    b.Navigation("IdUsers");
                 });
 
             modelBuilder.Entity("Data.Entities.Orders", b =>
@@ -1094,25 +1112,6 @@ namespace OrderNow.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Business");
-                });
-
-            modelBuilder.Entity("Data.Entities.UsersBusinesses", b =>
-                {
-                    b.HasOne("Data.Entities.Businesses", "Business")
-                        .WithMany()
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Entities.User", "Users")
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Business");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

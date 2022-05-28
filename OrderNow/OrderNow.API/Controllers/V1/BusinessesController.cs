@@ -33,14 +33,14 @@ namespace Controllers
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            Businesses? businesses = await _context.Businesses.Include(x=>x.Address).Include(x=>x.Address.City).FirstOrDefaultAsync(x => x.ContractURL.Equals(URL));
+            Businesses? businesses = await _context.Businesses.Include(x => x.Address).Include(x => x.Address.City).FirstOrDefaultAsync(x => x.ContractURL.Equals(URL));
             if (businesses == null)
             {
                 return Ok(URL);
             }
-            if(businesses.ValidationExpires > DateTime.Today)
+            if (businesses.ValidationExpires > DateTime.Today)
             {
-            return Ok(businesses);
+                return Ok(businesses);
 
             }
             return NoContent();
@@ -66,14 +66,28 @@ namespace Controllers
             return Data;
         }
 
-
+        //{
+        //   "name": "Pizzeria Popular Unquillo",
+        //   "address": {
+        //       "street": "Ruta E-53",
+        //       "number": "Km 22.5"
+        //   },
+        //   "contractURL": "/pizzeria-popular-un",
+        //   "CUIT": "203078945632",
+        //   "Phone": "3516260981",
+        //   "LegalName": "Pizzerias Populares S.R.L"
+        //}
         [HttpPost]
         [Route("Business")]
         public async Task<bool> CreateAsync(Businesses Business)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            Log.Information("Productos: {@Productos}", Business);
+            Log.Information("Business: {@Business}", Business);
+            Business.Id = Guid.NewGuid().ToString();
+            Business.Created = DateTime.Now;
+            Business.LastModified = DateTime.Now;
+            Business.Address.Id = Guid.NewGuid().ToString();
             await _genericRepository.CreateAsync(Business);
 
             return _genericRepository.SaveAsync().IsCompleted;
@@ -94,6 +108,6 @@ namespace Controllers
             return _genericRepository.SaveAsync().IsCompletedSuccessfully;
         }
 
-      
+
     }
 }

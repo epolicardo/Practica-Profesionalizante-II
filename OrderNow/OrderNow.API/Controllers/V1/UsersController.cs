@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.IdentityModel.Tokens;
+using OrderNow.API.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -10,13 +11,14 @@ namespace Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
- 
+
 
     public class UsersController : ControllerBase
     {
 
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<User> _roleManager;
         private readonly DataContext context;
         private readonly IGenericRepository<User> genericRepository;
 
@@ -30,10 +32,9 @@ namespace Controllers
             context = _context;
             genericRepository = _genericRepository;
 
-
         }
 
-       
+
         [HttpPost]
         [Route("GetByMailAsync/{email}")]
         public User GetByMailAsync(string email)
@@ -46,7 +47,7 @@ namespace Controllers
 
         }
 
-     //   [Authorize(Policy = "GetToken")]
+        //   [Authorize(Policy = "GetToken")]
         [Authorize]
         [HttpGet]
         [Route("GetByIdAsync")]
@@ -56,7 +57,7 @@ namespace Controllers
         }
 
 
-        
+
         [HttpGet]
         [Route("GetList")]
         public IEnumerable<User> GetList()
@@ -64,11 +65,11 @@ namespace Controllers
 
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            IEnumerable<User> User= null;
+            IEnumerable<User> User = null;
             try
             {
 
-                User = context.User.Include(p=>p.person).ToList();
+                User = context.User.Include(f=>f.FavoriteBusiness).ToList();
                 Log.Information("Users: {@Users}", User);
             }
             catch (Exception ex)
@@ -105,7 +106,7 @@ namespace Controllers
 
             var result = await userManager.CreateAsync(user, user.Password);
             user.Password = userManager.PasswordHasher.HashPassword(user, user.Password);
-            
+
 
             if (!result.Succeeded)
             {
@@ -167,6 +168,7 @@ namespace Controllers
         private async Task<IdentityUser> ValidateUser(LoginCredentials credentials)
         {
             var identityUser = await userManager.FindByNameAsync(credentials.Username);
+
             if (identityUser != null)
             {
                 var result = userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
@@ -200,6 +202,36 @@ namespace Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+
+
+        [HttpPost]
+        [Route("FavoriteBusiness")]
+        public async Task<IActionResult> AssignFavoriteBusinessToUserAsync(string userId, string businessURL)
+        {
+
+            
+            User? user = await genericRepository.GetByIdAsync(userId);
+            Businesses? businesses = context.Businesses.FirstOrDefault(x => x.ContractURL == businessURL);
+
+            if (businesses == null)
+            {
+              
+                return new BadRequestObjectResult(new { Message = "Object Business null" });
+
+            }
+            if (user.FavoriteBusiness==null)
+            {
+                user.FavoriteBusiness = new List<Businesses>();
+            }
+            
+            user.FavoriteBusiness.Add(businesses);
+
+            await genericRepository.SaveAsync();
+            await context.SaveChangesAsync();
+
+            return Ok(new { Message = "User Registration Successful" });
         }
 
     }

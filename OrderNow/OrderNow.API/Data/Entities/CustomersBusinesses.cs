@@ -1,21 +1,21 @@
 ﻿namespace Data.Entities
 {
-    public class CustomersBusinesses : EntityBase
+    public class UsersBusinesses : EntityBase
     {
-        public User IdUsers { get; set; }
-        public Businesses IdBusiness { get; set; }
+        public User Users { get; set; }
+        public Businesses Business { get; set; }
     }
 
     public class FavoriteProducts:EntityBase{
-        public Products IdProduct { get; set; }
-        public User IdUsers { get; set; }
+        public Products Product { get; set; }
+        public User Users { get; set; }
     }
 
 
     public class FavoriteBusiness : EntityBase
     {
-        public Businesses IdBusiness { get; set; }
-        public User IdUsers  { get; set; }
+        public Businesses Business { get; set; }
+        public User Users  { get; set; }
     }
 
 
