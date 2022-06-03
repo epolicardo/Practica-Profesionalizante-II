@@ -35,7 +35,7 @@ namespace OrderNow.Tests
             var addressStreet = "Colon";
             var addressDto = new Addresses
             {
-                Id = addressId.ToString(),
+                Id = addressId,
                 Street = addressStreet
             };
 
@@ -49,7 +49,7 @@ namespace OrderNow.Tests
 
             //a
 
-            Assert.Equal(addressId.ToString(), result.Id);
+            Assert.Equal(addressId.ToString(), result.Id.ToString());
             Assert.Equal(addressStreet, result.Street);
 
         }
@@ -84,7 +84,6 @@ namespace OrderNow.Tests
             {
                 City = new Cities
                 {
-                    Id = Guid.NewGuid().ToString(),
                     Name = "Rio Ceballos"
                 },
                 Street = "Diaguitas"

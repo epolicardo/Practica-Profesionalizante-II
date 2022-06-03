@@ -2,6 +2,10 @@
 {
     public class UsersServices
     {
+        public UsersServices()
+        {
+
+        }
 
         public bool AssignFavoriteBusinessToUser(User user, Businesses business)
         {
@@ -31,5 +35,12 @@
             user.FavoriteProducts.Add(product);
             return true;
         }
+
+        public bool AddProductToOrder(User user, object order, Products product)
+        {
+            throw new NotImplementedException();
+        }
+
+      
     }
 }

@@ -20,5 +20,8 @@ namespace OrderNow.API.Services
             return true;
 
         }
+
+
+        public void ValidateBusiness() { }
     }
 }

@@ -3,7 +3,7 @@
     public class EntityBase
     {
         [Key]
-        public string? Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime LastModified { get; set; } = DateTime.Now;
     }

@@ -1,15 +1,10 @@
 ﻿@page "/login"
 @inject NavigationManager NavManager
 
-<div class="login-box">
-    
 
-        <input class="input-user" type="text" name="username" />
-        <input class="input-user" type="password" name="password" />
-        <button onclick="@ValidateUser" class="btn-hero">Login</button>
-        <a  class="btn-hero" href="user/UserProfile">Profile</a>
+<LoginForm></LoginForm>
 
-</div>
+
 
 @code {
     private void ValidateUser()

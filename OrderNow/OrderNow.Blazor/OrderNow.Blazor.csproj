@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="6.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OrderNow.API\OrderNow.API.csproj" />
     <ProjectReference Include="..\OrderNow.Tests\OrderNow.Tests.csproj" />
   </ItemGroup>

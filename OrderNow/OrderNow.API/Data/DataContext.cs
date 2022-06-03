@@ -24,7 +24,7 @@ namespace OrderNow.Data
         public DbSet<Documents> Documents { get; set; }
         public DbSet<FavoriteBusiness> FavoriteBusinessesByUser { get; set; }
         public DbSet<FavoriteProducts> FavoriteProductsByUser { get; set; }
-        public DbSet<Products> Grupos { get; set; }
+        public DbSet<Groups> Grupos { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<OrdersDetail> OrdersDetail { get; set; }
         public DbSet<PaymentMethods> PaymentMethods { get; set; }

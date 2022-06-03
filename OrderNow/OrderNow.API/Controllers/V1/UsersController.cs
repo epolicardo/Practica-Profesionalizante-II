@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Data.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.IdentityModel.Tokens;
-using OrderNow.API.Services;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 
@@ -18,11 +19,9 @@ namespace Controllers
 
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<IdentityUser> userManager;
-        private readonly RoleManager<User> _roleManager;
         private readonly DataContext context;
         private readonly IGenericRepository<User> genericRepository;
 
-        //private readonly IConfigurationHelper configHelper;
 
         public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager, DataContext _context,
             IGenericRepository<User> _genericRepository)
@@ -69,7 +68,7 @@ namespace Controllers
             try
             {
 
-                User = context.User.Include(f=>f.FavoriteBusiness).ToList();
+                User = context.User.Include(p => p.person).Include(f => f.FavoriteBusiness).Include(f => f.FavoriteProducts).ToList();
                 Log.Information("Users: {@Users}", User);
             }
             catch (Exception ex)
@@ -79,6 +78,7 @@ namespace Controllers
             return User;
         }
 
+        //TODO Investigar como manegar roles y claims
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetListByGroup")]
@@ -93,7 +93,11 @@ namespace Controllers
 
         }
 
-
+        /// <summary>
+        /// CU-001 - Registrar Usuario
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
@@ -103,7 +107,7 @@ namespace Controllers
             {
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
-
+            
             var result = await userManager.CreateAsync(user, user.Password);
             user.Password = userManager.PasswordHasher.HashPassword(user, user.Password);
 
@@ -120,8 +124,8 @@ namespace Controllers
             }
             await context.SaveChangesAsync();
 
-
-            return Ok(new { Message = "User Registration Successful" });
+            return CreatedAtAction(nameof(Register), new { id = user.Id }, user);
+            //return Ok(new { Message = "User Registration Successful" });
         }
 
 
@@ -211,27 +215,56 @@ namespace Controllers
         public async Task<IActionResult> AssignFavoriteBusinessToUserAsync(string userId, string businessURL)
         {
 
-            
+
             User? user = await genericRepository.GetByIdAsync(userId);
             Businesses? businesses = context.Businesses.FirstOrDefault(x => x.ContractURL == businessURL);
 
-            if (businesses == null)
+            if (businesses == null || user == null)
             {
-              
+
                 return new BadRequestObjectResult(new { Message = "Object Business null" });
 
             }
-            if (user.FavoriteBusiness==null)
+            if (user.FavoriteBusiness == null)
             {
                 user.FavoriteBusiness = new List<Businesses>();
             }
-            
+
             user.FavoriteBusiness.Add(businesses);
 
             await genericRepository.SaveAsync();
             await context.SaveChangesAsync();
 
             return Ok(new { Message = "User Registration Successful" });
+        }
+
+        [HttpGet]
+        [Route("Mail")]
+        public async Task SendMailAsync()
+        {
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.UseDefaultCredentials = true;
+            smtpClient.EnableSsl = true;
+
+            IHost host = Host.CreateDefaultBuilder().Start();
+           
+
+            MailAddress mailAddress = new MailAddress("emilianopolicardo@gmail.com");
+            MailAddressCollection mailAddresses = new MailAddressCollection();
+            mailAddresses.Add(mailAddress);
+
+
+            MailMessage mailMessage = new MailMessage(mailAddress, mailAddress)
+            {
+                Subject = "Hello World",
+                Body = "",
+                From = mailAddress,
+                IsBodyHtml = true
+
+            };
+            await smtpClient.SendMailAsync(mailMessage);
+
+
         }
 
     }

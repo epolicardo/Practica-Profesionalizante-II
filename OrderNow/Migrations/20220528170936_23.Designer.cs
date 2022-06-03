@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220528170936_23")]
+    partial class _23
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,15 +26,14 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Addresses", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Apartment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("CityId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -66,12 +67,11 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Businesses", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("AddressId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("AddressId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CUIT")
                         .IsRequired()
@@ -140,9 +140,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Categories", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -160,9 +159,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Cities", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -187,8 +185,9 @@ namespace OrderNow.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("Quantity")
                         .HasColumnType("real");
@@ -207,9 +206,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Documents", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -240,12 +238,12 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.FavoriteBusiness", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -267,9 +265,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.FavoriteProducts", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -277,8 +274,8 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UsersId")
                         .HasColumnType("nvarchar(450)");
@@ -294,9 +291,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Groups", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -319,9 +315,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.OrderQueue", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -339,12 +334,12 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Orders", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CompletionOrderDate")
                         .HasColumnType("datetime2");
@@ -352,8 +347,8 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DetailsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("DetailsId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("DiscountsAmount")
                         .HasColumnType("decimal(18,2)");
@@ -370,8 +365,8 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime?>("PartialCompletionOrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("PaymentMethodId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("PaymentMethodId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TableNro")
                         .HasColumnType("int");
@@ -397,9 +392,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.OrdersDetail", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -407,8 +401,8 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("Quantity")
                         .HasColumnType("real");
@@ -422,9 +416,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.PaymentMethods", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CardNumber")
                         .HasColumnType("nvarchar(max)");
@@ -452,12 +445,11 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.People", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("AddressId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("AddressId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("BirthDate")
                         .IsRequired()
@@ -506,9 +498,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.ProductOptions", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -525,8 +516,8 @@ namespace OrderNow.API.Migrations
                     b.Property<int?>("OptionsId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductsId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -539,18 +530,17 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Products", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("BusinessId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
@@ -619,15 +609,15 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.PublicityContract", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Aquired")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -674,9 +664,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.SaleDetails", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -691,9 +680,8 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.Sales", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -708,12 +696,12 @@ namespace OrderNow.API.Migrations
 
             modelBuilder.Entity("Data.Entities.UsersBusinesses", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -942,8 +930,8 @@ namespace OrderNow.API.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<Guid?>("GroupsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("GroupsId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -952,8 +940,8 @@ namespace OrderNow.API.Migrations
                     b.Property<int?>("UserType")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("personId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("personId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasIndex("GroupsId");
 
@@ -1029,9 +1017,7 @@ namespace OrderNow.API.Migrations
                 {
                     b.HasOne("Data.Entities.Products", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.HasOne("Data.Entities.User", "Users")
                         .WithMany()
@@ -1052,15 +1038,11 @@ namespace OrderNow.API.Migrations
 
                     b.HasOne("Data.Entities.OrdersDetail", "Details")
                         .WithMany()
-                        .HasForeignKey("DetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DetailsId");
 
                     b.HasOne("Data.Entities.PaymentMethods", "PaymentMethod")
                         .WithMany()
-                        .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PaymentMethodId");
 
                     b.HasOne("Data.Entities.User", "User")
                         .WithMany("Orders")
@@ -1079,9 +1061,7 @@ namespace OrderNow.API.Migrations
                 {
                     b.HasOne("Data.Entities.Products", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });

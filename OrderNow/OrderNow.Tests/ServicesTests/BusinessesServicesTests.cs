@@ -22,13 +22,23 @@ namespace OrderNow.Tests.ServicesTests
 
         [Theory]
         [InlineData("/pizzeria-popular-rc", true)]
-        public void BusinessExists_ShouldReturnTrue_WhenBusinessExists(string URL, bool expected) {
+        public void BusinessExists_ShouldReturnTrue_WhenBusinessExists(string URL, bool expected)
+        {
 
             BusinessesServices _sut = new BusinessesServices(_dataContext.Object);
-            var result =_sut.BusinessesExists(URL);
+            var result = _sut.BusinessesExists(URL);
 
             result.Should().Be(expected);
-        
+
         }
+
+
+        [Fact]
+        public void ValidateBusiness() { }
+        [Fact]
+        public void PaymentForm() { }
+  
+
+
     }
 }

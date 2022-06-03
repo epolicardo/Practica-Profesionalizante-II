@@ -20,7 +20,6 @@
         public DateTime ValidationExpires { get; set; }
         public float Score { get; set; }
         public UInt64 Qualification { get; set; }
-        //public List<User> CustomersList { get; set; }
 
 
 

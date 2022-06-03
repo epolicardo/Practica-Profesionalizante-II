@@ -1,3 +1,5 @@
+[Atrás](Index.md)
+
 # Entrevista a cliente
 ## Alumno: Emiliano Policardo
 ## Fecha: 10/10/2018
@@ -7,7 +9,8 @@
  Titulo del proyecto: OrderNow
 </p>
 
-[Casos de uso](UseCases.pdf)
+[Casos de uso](UseCases.md)
+[Notas a ordenar](Notas.md)
 
 ## Que desea hacer?
 

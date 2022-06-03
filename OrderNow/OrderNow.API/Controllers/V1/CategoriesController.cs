@@ -48,7 +48,7 @@
             {
                 return false;
             }
-            entity.Id = Guid.NewGuid().ToString();
+            
             return await _genericRepository.CreateAsync(entity);
 
         }

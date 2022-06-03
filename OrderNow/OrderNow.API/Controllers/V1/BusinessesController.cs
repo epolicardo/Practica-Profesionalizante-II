@@ -5,7 +5,7 @@ namespace Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    //[Authorize]
+    [Authorize]
 
     public class BusinessesController : ControllerBase
     {
@@ -27,6 +27,7 @@ namespace Controllers
             return await _genericRepository.GetByIdAsync(Id);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("BusinessURL")]
         public async Task<IActionResult> GetByURLAsync(string URL)
@@ -79,33 +80,33 @@ namespace Controllers
         //}
         [HttpPost]
         [Route("Business")]
-        public async Task<bool> CreateAsync(Businesses Business)
+        public async Task<IActionResult> CreateAsync(Businesses Business)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
             Log.Information("Business: {@Business}", Business);
-            Business.Id = Guid.NewGuid().ToString();
+           
             Business.Created = DateTime.Now;
             Business.LastModified = DateTime.Now;
-            Business.Address.Id = Guid.NewGuid().ToString();
+           
             await _genericRepository.CreateAsync(Business);
 
-            return _genericRepository.SaveAsync().IsCompleted;
-
+            return Ok(new { Message = "Business Registration Successful" });
 
         }
 
         [HttpPut]
         [Route("BusinessId")]
-        public async Task<bool> UpdateAsync(Businesses Business)
+        public async Task<IActionResult> UpdateAsync(Businesses Business)
         {
             if (Business == null)
             {
-                return false;
+                return Ok("No business found");
             }
 
             await _genericRepository.EditAsync(Business);
-            return _genericRepository.SaveAsync().IsCompletedSuccessfully;
+            _genericRepository.SaveAsync();
+            return Ok(new { Message = "Business Updated Successful" } );
         }
 
 
