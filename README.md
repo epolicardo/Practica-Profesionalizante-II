@@ -6,9 +6,9 @@ Se realizará una validación de los datos ingresados, para que el cliente pueda
 Ofrecerá la posibilitad de agregar productos a la orden, y eliminar productos de la orden.
 
 
-[Entrevista con el cliente](Interview.md)
+[Entrevista con el cliente](/Documentation/Interview.MD)
 
-[Casos de uso](UseCases.md)
+[Casos de uso](/Documentation/UseCases.md)
 
 
 Llego al local, me pongo en espera, y el personal indica en donde debo ubicarme.
