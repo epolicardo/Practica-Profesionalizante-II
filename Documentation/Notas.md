@@ -1,4 +1,4 @@
-[Atrás](Index.md)
+[Atrás](/README.MD)
 Al leer el qr voy a la pagina del comercio.
   - Debo mostrar si el comercio ya esta aniadido a los favoritos del usuario
 
