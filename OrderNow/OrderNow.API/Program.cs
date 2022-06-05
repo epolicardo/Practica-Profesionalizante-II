@@ -4,11 +4,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OrderNow.API;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console()
+    .WriteTo.Seq("http://localhost:5341"));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -34,7 +39,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<DataContext>();
 
-
+builder.Services.AddLogging();
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -102,7 +107,17 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-await SeedData();
+try
+{
+
+await SeedData.SeedInitialData(app);
+}
+catch (Exception ex)
+{
+
+    throw;
+}
+
 
 app.UseCors(x => x
           .AllowAnyOrigin()
@@ -132,42 +147,15 @@ app.UseEndpoints(endpoints =>
 
 
 
+
+Log.Logger = new LoggerConfiguration()
+          .WriteTo.Seq("http://localhost:5341")
+          .CreateLogger();
+
+Log.Information("OrderNow Started by user, {Name}!", Environment.UserName);
+
+// Important to call at exit so that batched events are flushed.
+Log.CloseAndFlush();
+
+
 app.Run();
-
-
-async Task SeedData()
-{
-    //var scopeFactory = app!.Services.GetRequiredService<IServiceScopeFactory>();
-    //using var scope = scopeFactory.CreateScope();
-
-    //var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-    ////var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-    //var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    //var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-
-    //context.Database.EnsureCreated();
-
-    //if (!userManager.Users.Any())
-    //{
-    //    logger.LogInformation("Creando usuario de prueba");
-
-    //    var newUser = new User
-    //    {
-    //        Email = "test@demo.com",
-    //        UserName = "test.demo"
-    //    };
-
-    //    await userManager.CreateAsync(newUser, "P@ss.W0rd");
-    //    await roleManager.CreateAsync(new IdentityRole
-    //    {
-    //        Name = "Admin"
-    //    });
-    //    await roleManager.CreateAsync(new IdentityRole
-    //    {
-    //        Name = "AnotherRole"
-    //    });
-
-    //    await userManager.AddToRoleAsync(newUser, "Admin");
-    //    await userManager.AddToRoleAsync(newUser, "AnotherRole");
-    //}
-}

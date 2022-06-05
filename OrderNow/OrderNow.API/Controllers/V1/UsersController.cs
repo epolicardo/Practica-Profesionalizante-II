@@ -30,6 +30,8 @@ namespace Controllers
             this.userManager = userManager;
             context = _context;
             genericRepository = _genericRepository;
+            LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
+            LogContext.PushProperty("Server", Environment.MachineName);
 
         }
 
@@ -62,8 +64,6 @@ namespace Controllers
         public IEnumerable<User> GetList()
         {
 
-            LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
-            LogContext.PushProperty("Server", Environment.MachineName);
             IEnumerable<User> User = null;
             try
             {
