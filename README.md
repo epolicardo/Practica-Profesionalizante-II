@@ -1,6 +1,6 @@
 # Sistema de ordenes en comercios gastronómicos
 
-El mismo permite al cliente realizar su orden desde la web, con la opci�n de pagar con tarjeta de cr�dito o efectivo.
+El mismo permite al cliente realizar su orden desde la web, con la opcion de pagar con tarjeta de credito o efectivo.
 
 Se realizará una validación de los datos ingresados, para que el cliente pueda realizar su orden.
 Ofrecerá la posibilitad de agregar productos a la orden, y eliminar productos de la orden.
