@@ -1,5 +1,3 @@
-[Atrás](/README.MD)
-
 # Entrevista a cliente
 ## Alumno: Emiliano Policardo
 ## Fecha: 10/10/2018
