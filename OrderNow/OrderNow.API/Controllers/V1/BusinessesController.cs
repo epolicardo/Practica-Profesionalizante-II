@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrderNow.API.Services;
 
 namespace Controllers
 {
@@ -109,6 +110,13 @@ namespace Controllers
             return Ok(new { Message = "Business Updated Successful" } );
         }
 
+        [HttpGet]
+        [Route("SuggestedProducts")]
+        public async Task<IEnumerable<Products>> SuggestedProducts(string URL)
+        {
+           BusinessesServices businessesServices = new BusinessesServices(_context);
+            return businessesServices.SugestedProductsByBusiness(URL);
+        }
 
     }
 }

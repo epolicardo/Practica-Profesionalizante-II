@@ -133,7 +133,7 @@ namespace Controllers
         [Route("GetToken")]
         public async Task<IActionResult> GetToken(LoginCredentials credentials)
         {
-            Log.Information("User ingresado: {@Credenciales}", credentials.Username);
+            Log.Information("User ingresado: {@Credenciales}", credentials.email);
             IdentityUser identityUser;
 
             if (!ModelState.IsValid
@@ -145,7 +145,7 @@ namespace Controllers
                     {
                         Token = "Not Generated",
                         Message = "Error",
-                        Email = credentials.Username
+                        Email = credentials.email
                     });
             }
 
@@ -171,7 +171,7 @@ namespace Controllers
 
         private async Task<IdentityUser> ValidateUser(LoginCredentials credentials)
         {
-            var identityUser = await userManager.FindByNameAsync(credentials.Username);
+            var identityUser = await userManager.FindByEmailAsync(credentials.email);
 
             if (identityUser != null)
             {

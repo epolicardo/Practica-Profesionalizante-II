@@ -21,8 +21,6 @@
         [Route("ProductId")]
         public async Task<Products> GetById(string Id)
         {
-            LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
-            LogContext.PushProperty("Server", Environment.MachineName);
             return await _genericRepository.GetByIdAsync(Id);
         }
 

@@ -19,6 +19,7 @@ namespace Data.Entities
 
         public float Stock { get; set; }
         public bool Status { get; set; } //Activo-Inactivo
+        public bool IsSuggested { get; set; } //Activo-Inactivo
         public Businesses? Business { get; set; }
         public Categories? Category { get; set; }
         public List<ProductOptions>? OptionsList { get; set; }
