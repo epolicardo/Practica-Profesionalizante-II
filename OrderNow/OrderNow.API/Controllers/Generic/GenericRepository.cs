@@ -14,7 +14,6 @@ namespace OrderNow.API.Controllers.Generic
 
         }
 
-
         public IEnumerable<T> GetList()
         {
             return _context.Set<T>().ToList();

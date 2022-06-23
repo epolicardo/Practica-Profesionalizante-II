@@ -28,7 +28,7 @@ namespace OrderNow.API.Services
 
             if (business.IsValidated && business.ValidationExpires > DateTime.Today)
             {
-            return business;
+                return business;
 
             }
             return null;
@@ -43,8 +43,17 @@ namespace OrderNow.API.Services
         public List<Products> SugestedProductsByBusiness(string URL)
         {
 
-            var products = _context.Products.Where(x => x.Business.ContractURL == URL).Where(p=>p.IsSuggested==true).ToList();
-         
+            var products = _context.Products.Where(x => x.Business.ContractURL == URL).Where(p => p.IsSuggested == true).ToList();
+
+            return products;
+
+        }
+
+        public IEnumerable<Products> ProductsByBusiness(string URL)
+        {
+
+            var products = _context.Products.Where(x => x.Business.ContractURL == URL).ToList();
+
             return products;
 
         }
@@ -64,5 +73,21 @@ namespace OrderNow.API.Services
 
 
         public void ValidateBusiness() { }
+
+        internal bool SetAsFavorite(string URL, User user)
+        {
+            var business = _context.Businesses.FirstOrDefault(x => x.ContractURL.Equals(URL));
+           
+            if (business != null)
+            {
+                FavoriteBusiness favoriteBusiness = new FavoriteBusiness();
+                favoriteBusiness.Business = business;
+                favoriteBusiness.Users = user;
+
+                var res = _context.FavoriteBusinessesByUser.Add(favoriteBusiness);
+                return true ;
+            }
+            return false;
+        }
     }
 }

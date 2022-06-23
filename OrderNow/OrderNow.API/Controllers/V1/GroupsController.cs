@@ -24,6 +24,11 @@
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
+            if (ConfigHelper.UseMockup("Debug_Groups"))
+            {
+
+                return null;
+            }
             return await _genericRepository.GetByIdAsync(Id);
         }
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+using OrderNow.API.Data.Entities;
 
 namespace OrderNow.Data
 {
@@ -36,8 +36,7 @@ namespace OrderNow.Data
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SaleDetails> SaleDetails { get; set; }
         public DbSet<User> User { get; set; }
-
-
+        public DbSet<UsersOrders> UsersOrders { get; set; }
     }
 
 }

@@ -1,14 +1,27 @@
-﻿namespace OrderNow.API.Services
+﻿using OrderNow.API.Data.Entities;
+
+namespace OrderNow.API.Services
 {
     public class OrdersServices
     {
+        private readonly IGenericRepository<Orders> _genericRepository;
+        private readonly DataContext _context;
 
-
-        public Orders CreateOrder(Businesses businesses, User user)
+        public OrdersServices(DataContext context, IGenericRepository<Orders> genericRepository)
         {
-            Orders order = new Orders();
-            order.Business = businesses;
-            order.User = user;
+            _context = context;
+            _genericRepository = genericRepository;
+        }
+        public UsersOrders CreateOrder(Businesses businesses, User user)
+        {
+            Orders orders = new Orders();
+
+            UsersOrders order = new UsersOrders();
+         
+            orders.Business = businesses;
+            order.Orders = orders;
+            order.Users = user;
+            
             return order;
             
         }
@@ -26,5 +39,15 @@
         {
 
         }
+        public async Task<Orders> ShowFullOrder(string orderId)
+        {
+            return await _genericRepository.GetByIdAsync(orderId);
+        }
+
+        public async Task<IEnumerable<Orders>> GetPendingOrders(string businessId)
+        {
+            return await _context.Orders.Where(s => s.OrderStatus != OrderStatus.Completed).ToListAsync();
+        }
+
     }
 }

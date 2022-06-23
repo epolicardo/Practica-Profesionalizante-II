@@ -8,6 +8,7 @@ using OrderNow.API;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 using Serilog;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,11 @@ builder.Services.AddHangfire(x => x.UseSqlServerStorage(config.GetConnectionStri
 builder.Services.AddHangfireServer();
 builder.Services.AddCors();
 builder.Services.AddControllers();
+//builder.Services.AddControllers()
+//                .AddJsonOptions(x =>
+//                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
+
 
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -44,26 +50,26 @@ builder.Services.AddLogging();
 builder.Services.AddSwaggerGen(options =>
 {
     options.OperationFilter<SwaggerDefaultValues>();
-    //options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    //{
-    //    Name = "Authorization",
-    //    Type = SecuritySchemeType.ApiKey,
-    //    Scheme = "Bearer",
-    //    BearerFormat = "JWT",
-    //    In = ParameterLocation.Header,
-    //    Description = "JWT Authorization header using the Bearer scheme."
-    //});
-    //options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    //{{
-    //    new OpenApiSecurityScheme
-    //    {
-    //        Reference = new OpenApiReference
-    //        {
-    //            Type = ReferenceType.SecurityScheme,Id = "Bearer"
-    //        }
-    //    },new string[] {}
-    //}
-    //});
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme."
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {{
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference
+            {
+                Type = ReferenceType.SecurityScheme,Id = "Bearer"
+            }
+        },new string[] {}
+    }
+    });
 });
 
 builder.Services.AddApiVersioning(options =>

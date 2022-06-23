@@ -21,6 +21,14 @@ namespace OrderNow.API
 
 
 
+            if (!context.Cities.Any())
+            {
+                Cities cities = new Cities()
+                {
+                    Name = "Córdoba"
+                };
+                context.Cities.Add(cities);
+            }
 
 
             if (!context.Businesses.Any())
@@ -32,9 +40,15 @@ namespace OrderNow.API
                     ValidationTime = DateTime.UtcNow,
                     ContractURL = "pizzeria-popular-rc",
                     CUIT = "303078219599",
-                    LegalName = "PIzzerias Populares S.R.L. ",
+                    LegalName = "Pizzerias Populares S.R.L. ",
                     Phone = "3513416192"
 
+                };
+                businesses.Address = new Addresses()
+                {
+                    Street = "Ruta E-53",
+                    Number = "Km 22.5",
+                    City = context.Cities.FirstOrDefault(x => x.Name.Equals("Córdoba"))
                 };
 
                 context.Businesses.Add(businesses);
@@ -92,7 +106,6 @@ namespace OrderNow.API
                     Email = "emilianopolicardo@gmail.com",
                     UserName = "epolicardo",
                     Password = "Em1Li4N*",
-
                     person = new People
                     {
                         BirthDate = new DateTime(1984, 12, 17),

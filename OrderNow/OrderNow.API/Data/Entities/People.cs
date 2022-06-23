@@ -5,7 +5,7 @@ using System.Globalization;
 namespace Data.Entities
 {
     
-    public class People : EntityBase
+    public  class People : EntityBase
     {
         [Display(Name = "Nombre")]
         [MaxLength(50)]

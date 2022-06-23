@@ -379,9 +379,6 @@ namespace OrderNow.API.Migrations
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessId");
@@ -389,8 +386,6 @@ namespace OrderNow.API.Migrations
                     b.HasIndex("DetailsId");
 
                     b.HasIndex("PaymentMethodId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -941,6 +936,34 @@ namespace OrderNow.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("OrderNow.API.Data.Entities.UsersOrders", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("OrdersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UsersId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrdersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("UsersOrders");
+                });
+
             modelBuilder.Entity("Data.Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -1065,17 +1088,11 @@ namespace OrderNow.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.Entities.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Business");
 
                     b.Navigation("Details");
 
                     b.Navigation("PaymentMethod");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Data.Entities.OrdersDetail", b =>
@@ -1217,6 +1234,25 @@ namespace OrderNow.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OrderNow.API.Data.Entities.UsersOrders", b =>
+                {
+                    b.HasOne("Data.Entities.Orders", "Orders")
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entities.User", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("Data.Entities.User", b =>
                 {
                     b.HasOne("Data.Entities.Groups", null)
@@ -1250,8 +1286,6 @@ namespace OrderNow.API.Migrations
                     b.Navigation("FavoriteBusiness");
 
                     b.Navigation("FavoriteProducts");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

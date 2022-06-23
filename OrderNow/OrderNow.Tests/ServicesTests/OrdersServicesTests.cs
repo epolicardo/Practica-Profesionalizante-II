@@ -14,11 +14,12 @@ namespace OrderNow.Tests.ServicesTests
         private readonly OrdersServices _sut; 
         private readonly Mock<IGenericRepository<Businesses>> _businessRepositoryMock = new Mock<IGenericRepository<Businesses>>();
         private readonly Mock<IGenericRepository<User>> _userRepositoryMock = new Mock<IGenericRepository<User>>();
+        private readonly Mock<IGenericRepository<Orders>> _orderRepositoryMock = new Mock<IGenericRepository<Orders>>();
 
 
         public OrdersServicesTests()
         {
-           _sut = new OrdersServices();
+           _sut = new OrdersServices(_dataContext, _orderRepositoryMock.Object);
         }
 
         [Fact]

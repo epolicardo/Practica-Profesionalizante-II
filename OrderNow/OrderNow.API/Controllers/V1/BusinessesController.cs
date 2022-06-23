@@ -15,7 +15,7 @@ namespace Controllers
 
         public BusinessesController(IGenericRepository<Businesses> genericRepository, DataContext dataContext)
         {
-            this._genericRepository = genericRepository;
+           _genericRepository = genericRepository;
             _context = dataContext;
         }
 
@@ -116,6 +116,24 @@ namespace Controllers
         {
            BusinessesServices businessesServices = new BusinessesServices(_context);
             return businessesServices.SugestedProductsByBusiness(URL);
+        }
+
+        [HttpGet]
+        [Route("ProductsByBusiness")]
+        public async Task<IEnumerable<Products>> ProductsByBusiness(string URL)
+        {
+            BusinessesServices businessesServices = new BusinessesServices(_context);
+            return businessesServices.ProductsByBusiness(URL);
+        }
+
+
+
+        [HttpGet]
+        [Route("SetAsFavorite")]
+        public bool SetAsFavorite(string URL, User user)
+        {
+            BusinessesServices businessesServices = new BusinessesServices(_context);
+            return businessesServices.SetAsFavorite(URL, user);
         }
 
     }

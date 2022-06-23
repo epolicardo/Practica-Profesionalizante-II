@@ -1,8 +1,10 @@
 ﻿using Data.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 
@@ -49,7 +51,8 @@ namespace Controllers
         }
 
         //   [Authorize(Policy = "GetToken")]
-        [Authorize]
+      //TODO Revisar autenticacion
+      //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = JwtBearerExt)]
         [HttpGet]
         [Route("GetByIdAsync")]
         public async Task<User> GetByIdAsync(string Id)
@@ -98,6 +101,12 @@ namespace Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
+        /// 
+
+
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
