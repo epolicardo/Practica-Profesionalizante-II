@@ -1,8 +1,4 @@
-﻿using Data.Entities;
-using Services;
-using Xunit;
-
-namespace OrderNow.Tests.ServicesTests
+﻿namespace OrderNow.Tests.ServicesTests
 {
     public class UsersServicesTest
     {
@@ -20,7 +16,7 @@ namespace OrderNow.Tests.ServicesTests
         public void AssingAFavoriteBusinessToAUser()
         {
 
-            var user = new User();
+            var user = new Users();
             var business = new Businesses();
             //Act
             var result = _sut.AssignFavoriteBusinessToUser(user, business);
@@ -34,8 +30,8 @@ namespace OrderNow.Tests.ServicesTests
         public void AssingAFavoriteProductToAUser()
         {
 
-           // UsersServices _sut = new UsersServices();
-            var user = new User();
+            // UsersServices _sut = new UsersServices();
+            var user = new Users();
             var product = new Products();
             //Act
             var result = _sut.AssignFavoriteProductsToUsers(user, product);
@@ -60,7 +56,7 @@ namespace OrderNow.Tests.ServicesTests
 
 
 
-            var user = new User();
+            var user = new Users();
             var product = new Products();
             var order = new Orders();
             //Act
@@ -77,7 +73,8 @@ namespace OrderNow.Tests.ServicesTests
 
 
         [Fact]
-        public void ValidateUser() {
+        public void ValidateUser()
+        {
             //https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-web-app-with-email-confirmation-and-password-reset
         }
         //[Fact]

@@ -1,8 +1,4 @@
-﻿
-
-using OrderNow.API;
-
-namespace Data.Entities
+﻿namespace Data.Entities
 {
     public class Orders : EntityBase
     {
@@ -15,10 +11,10 @@ namespace Data.Entities
         public decimal TotalAmount { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal DiscountsAmount { get; set; }
-        public PaymentMethods PaymentMethod { get; set; } 
+        public PaymentMethods PaymentMethod { get; set; }
         public Businesses Business { get; set; }
         public OrdersDetail Details { get; set; }
-      
+
 
     }
 

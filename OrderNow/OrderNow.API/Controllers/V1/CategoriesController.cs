@@ -48,7 +48,7 @@
             {
                 return false;
             }
-            
+
             return await _genericRepository.CreateAsync(entity);
 
         }

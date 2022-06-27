@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Configuration
+﻿namespace Configuration
 {
     public interface IDemoService
     {

@@ -1,14 +1,7 @@
-﻿using Configuration;
-using Controllers;
-using Data.Entities;
-using Moq;
-using OrderNow.API.Controllers.Generic;
+﻿using Controllers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace OrderNow.Tests
 {
@@ -59,10 +52,10 @@ namespace OrderNow.Tests
 
 
             //Arrange
-         
+
 
             _addressesRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<string>()))
-                .ReturnsAsync(()=> null);
+                .ReturnsAsync(() => null);
 
             //Act
             var result = await _sut.GetByIdAsync(Guid.NewGuid());
@@ -96,7 +89,7 @@ namespace OrderNow.Tests
 
             //Assert
             Assert.Equal(addressList, result.Result);
-            
+
         }
 
 

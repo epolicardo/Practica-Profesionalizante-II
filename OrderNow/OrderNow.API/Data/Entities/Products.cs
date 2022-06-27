@@ -1,7 +1,4 @@
-﻿using Data.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Data.Entities
+﻿namespace Data.Entities
 {
     public class Products : EntityBase
     {

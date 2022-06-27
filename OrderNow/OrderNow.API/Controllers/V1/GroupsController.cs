@@ -84,11 +84,11 @@
 
         [HttpDelete]
         [Route("Group")]
-        public bool Delete (Groups entity)
+        public bool Delete(Groups entity)
         {
             try
             {
-            _genericRepository.Delete(entity);
+                _genericRepository.Delete(entity);
                 return true;
             }
             catch (Exception ex)

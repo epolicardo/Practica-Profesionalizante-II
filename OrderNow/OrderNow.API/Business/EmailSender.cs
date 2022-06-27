@@ -1,7 +1,5 @@
 ﻿using Controllers;
-using System;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 
 namespace WebApi.Business
@@ -16,34 +14,34 @@ namespace WebApi.Business
                 return;
             else
             {
-               
-                    string to = emailto;
-                    string from = emailfrom;
-                    MailMessage message = new MailMessage(from, to);
-                    message.Subject = subject;
-                    message.Body = @body;
-                    SmtpClient client = new SmtpClient("server");
-                    // Credentials are necessary if the server requires the client
-                    // to authenticate before it will send email on the client's behalf.
-                    client.UseDefaultCredentials = true;
-                    client.Credentials = CredentialCache.DefaultNetworkCredentials;
+
+                string to = emailto;
+                string from = emailfrom;
+                MailMessage message = new MailMessage(from, to);
+                message.Subject = subject;
+                message.Body = @body;
+                SmtpClient client = new SmtpClient("server");
+                // Credentials are necessary if the server requires the client
+                // to authenticate before it will send email on the client's behalf.
+                client.UseDefaultCredentials = true;
+                client.Credentials = CredentialCache.DefaultNetworkCredentials;
 
 
 
                 try
                 {
-                        client.Send(message);
-                    }
-                    catch (Exception ex)
-                    {
-                    Log.Error("Exception caught in CreateTestMessage2(): {0})",ex.Message);
-                    }
-               
+                    client.Send(message);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Exception caught in CreateTestMessage2(): {0})", ex.Message);
+                }
+
 
             }
 
-        
-        
+
+
         }
     }
 }

@@ -1,32 +1,33 @@
-﻿using Data.Entities;
-using FluentAssertions;
-using Moq;
-using OrderNow.API.Services;
-using OrderNow.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace OrderNow.Tests.ServicesTests
+﻿namespace OrderNow.Tests.ServicesTests
 {
     public class BusinessesServicesTests
     {
-        private readonly Mock<DataContext> _dataContext = new Mock<DataContext>();
+
+        private readonly BusinessesServices _sut;
+        private readonly Mock<DataContext> _dataContextMock;
+        private readonly Mock<IBusinessesRepository> _businessRepoMock =
+            new Mock<IBusinessesRepository>();
+
         public BusinessesServicesTests()
         {
-
+            _sut = new BusinessesServices(_businessRepoMock.Object, _dataContextMock.Object);
         }
 
         [Theory]
-        [InlineData("/pizzeria-popular-rc", true)]
+        [InlineData("pizzeria-popular-rc", true)]
         public void BusinessExists_ShouldReturnTrue_WhenBusinessExists(string URL, bool expected)
         {
 
-            BusinessesServices _sut = new BusinessesServices(_dataContext.Object);
-            var result = _sut.BusinessesExists(URL);
+            var business = new Businesses()
+            {
+                ContractURL = "pizzeria-popular-rc"
+            };
+
+            _businessRepoMock.Setup(x => x.Exists(business.ContractURL))
+                .Returns(true);
+
+
+            var result = _sut.Exists(URL);
 
             result.Should().Be(expected);
 
@@ -37,7 +38,7 @@ namespace OrderNow.Tests.ServicesTests
         public void ValidateBusiness() { }
         [Fact]
         public void PaymentForm() { }
-  
+
 
 
     }

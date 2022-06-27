@@ -1,14 +1,5 @@
-﻿using Configuration;
-using Controllers;
-using Data.Entities;
-using FluentAssertions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Moq;
-using OrderNow.API.Controllers.Generic;
-using OrderNow.Data;
+﻿using Controllers;
 using System;
-using Xunit;
 
 namespace OrderNow.Tests
 {
@@ -17,13 +8,13 @@ namespace OrderNow.Tests
 
         private readonly UsersController _sut;
 
-        private readonly Mock<IGenericRepository<User>> _genericRepositoryMock = new Mock<IGenericRepository<User>>();
+        private readonly Mock<IGenericRepository<Users>> _genericRepositoryMock = new Mock<IGenericRepository<Users>>();
         private readonly Mock<IOptions<JwtBearerTokenSettings>> _jwtToken = new Mock<IOptions<JwtBearerTokenSettings>>();
         private readonly Mock<DataContext> _dataContext = new Mock<DataContext>();
-        private readonly Mock<UserManager<IdentityUser>> _userManager = new Mock<UserManager<IdentityUser>>();
+        private readonly Mock<UserManager<Users>> _userManager = new Mock<UserManager<Users>>();
 
         Guid userIdMocked;
-        User userMocked;
+        Users userMocked;
 
         //Arrange
         public UsersControllerTests()
@@ -38,7 +29,7 @@ namespace OrderNow.Tests
 
 
             userIdMocked = Guid.NewGuid();
-            userMocked = new User()
+            userMocked = new Users()
             {
                 Id = userIdMocked.ToString(),
             };
@@ -59,7 +50,7 @@ namespace OrderNow.Tests
         public void GetByIdAsync_ShouldReturnAUser_WhenUserExists()
         {
             //Act
-            System.Threading.Tasks.Task<User>? result = _sut.GetByIdAsync(userIdMocked.ToString());
+            System.Threading.Tasks.Task<Users>? result = _sut.GetByIdAsync(userIdMocked.ToString());
             var response = result.Result;
             //Assert
             Assert.Equal(userIdMocked.ToString(), response.Id);
@@ -71,7 +62,7 @@ namespace OrderNow.Tests
         public void GetByListAsync_ShouldReturnUsers_WhenUsersExists()
         {
             //Act
-            System.Threading.Tasks.Task<User>? result = _sut.GetByIdAsync(userIdMocked.ToString());
+            System.Threading.Tasks.Task<Users>? result = _sut.GetByIdAsync(userIdMocked.ToString());
             var response = result.Result;
             //Assert
             Assert.Equal(userIdMocked.ToString(), response.Id);
@@ -82,7 +73,7 @@ namespace OrderNow.Tests
         public void GetByEmailAsync_ShouldReturnAUser_WhenEmailExists()
         {
             //Act
-            System.Threading.Tasks.Task<User>? result = _sut.GetByIdAsync(userIdMocked.ToString());
+            System.Threading.Tasks.Task<Users>? result = _sut.GetByIdAsync(userIdMocked.ToString());
             var response = result.Result;
             //Assert
             Assert.Equal(userIdMocked.ToString(), response.Id);

@@ -1,11 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Identity;
-using System.Globalization;
-
-namespace Data.Entities
+﻿namespace Data.Entities
 {
-    
-    public  class People : EntityBase
+
+    public class People : EntityBase
     {
         [Display(Name = "Nombre")]
         [MaxLength(50)]

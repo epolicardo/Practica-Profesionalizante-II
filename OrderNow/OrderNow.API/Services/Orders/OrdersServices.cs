@@ -1,6 +1,6 @@
 ﻿using OrderNow.API.Data.Entities;
 
-namespace OrderNow.API.Services
+namespace Services
 {
     public class OrdersServices
     {
@@ -12,18 +12,18 @@ namespace OrderNow.API.Services
             _context = context;
             _genericRepository = genericRepository;
         }
-        public UsersOrders CreateOrder(Businesses businesses, User user)
+        public UsersOrders CreateOrder(Businesses businesses, Users user)
         {
             Orders orders = new Orders();
 
             UsersOrders order = new UsersOrders();
-         
+
             orders.Business = businesses;
             order.Orders = orders;
             order.Users = user;
-            
+
             return order;
-            
+
         }
         public void AddProductToOrder(Orders orders, Products product, float quantity)
         {

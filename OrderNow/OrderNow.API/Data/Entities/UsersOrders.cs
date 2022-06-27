@@ -2,9 +2,9 @@
 {
     public class UsersOrders : EntityBase
     {
-       
-            public Orders Orders { get; set; }
-            public User Users { get; set; }
-        
+
+        public Orders Orders { get; set; }
+        public Users Users { get; set; }
+
     }
 }

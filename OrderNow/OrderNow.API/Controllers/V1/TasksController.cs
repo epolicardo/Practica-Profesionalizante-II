@@ -1,6 +1,4 @@
 ﻿using Controllers;
-using Hangfire;
-using Microsoft.AspNetCore.Mvc;
 
 namespace OrderNow.API.Controllers.V1
 {

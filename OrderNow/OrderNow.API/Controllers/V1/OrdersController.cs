@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OrderNow.API.Services;
-
-namespace Controllers
+﻿namespace Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -18,7 +15,7 @@ namespace Controllers
         {
             _genericRepository = genericRepository;
             _dataContext = dataContext;
-            _ordersServices = new OrdersServices(_dataContext, _genericRepository); 
+            _ordersServices = new OrdersServices(_dataContext, _genericRepository);
         }
 
         [HttpPost]
@@ -26,14 +23,20 @@ namespace Controllers
         public ActionResult<Orders> CreateOrder(string URL, string email)
         {
             var b = _dataContext.Businesses.FirstOrDefault(x => x.ContractURL == URL);
-            var u = _dataContext.User.FirstOrDefault(x => x.Email == email);
+            var u = _dataContext.Users.FirstOrDefault(x => x.Email == email);
 
-           var order = _ordersServices.CreateOrder(b,u);
+            var order = _ordersServices.CreateOrder(b, u);
             _dataContext.Orders.Add(order.Orders);
             _dataContext.UsersOrders.Add(order);
             _dataContext.SaveChangesAsync();
             return Ok(order);
 
+        }
+        [HttpGet]
+        [Route("Orders")]
+        public async Task<IEnumerable<Orders>> GetOrders()
+        {
+            return await _genericRepository.GetAll();
         }
         [HttpGet]
         [Route("AddProductToOrder/Id:{orderId}")]

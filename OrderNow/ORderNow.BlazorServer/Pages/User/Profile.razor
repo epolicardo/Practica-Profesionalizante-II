@@ -1,76 +1,29 @@
 ﻿@page "/user/profile"
 @layout UserLayout
 
-<h3>Profile</h3>
-
-<div class="flex-container">
-	<div class="top-bar">
+<div class="container">
+	<div class="Header">
 		<div class="btn-action">
-			<button name="SwitchProfile">Perfil Comercial</button>
+			<button>Perfil Comercial</button>
 		</div>
-		<div class="profile-img">
-			<img src="~/assets/img/team/1.jpg" alt="" />
+		<div>
+			<img id="profile-img"
+				src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+				alt="" />
+			<p id="customer-name">Emiliano Policardo</p>
 		</div>
-		<p class="last-connection">Ultima Conexion 12/05/2022</p>
+		<p id="last-connection-text">Ultima Conexion 12/05/2022</p>
 	</div>
 
-	<div class="favorites">
-		<div class="favorites-search-bar">
-			<p class="title">Mis Favoritos</p>
-			<input type="text" value="Search here" class="search-box" />
-			<button class="filter-btn">Filter</button>
-		</div>
-		<table class="favorites-list">
-			<thead>
-				<tr>
-					<th>
-						<p class="fav-title">Cliente</p>
-					</th>
-					<th>
-						<p class="fav-title">Estado</p>
-					</th>
-					<th>
-						<p class="fav-title">Demora actual</p>
-					</th>
-					<th>
-						<p class="fav-title">Items</p>
-					</th>
-					<th>
-						<p class="fav-title">Total</p>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<div>
-
-							<img src="~/assets/img/team/2.jpg" alt="" />
-							<p class="name">Emiliano</p>
-						</div>
-					</td>
-					<td>
-						<div class="status-box">
-							<p>In process</p>
-						</div>
-					</td>
-					<td>
-						<div class="status-progress-bar">
-						</div>
-						<p class="order-time-delay">28 min</p>
-					</td>
-					<td>
-						<p class="order-items">10</p>
-					</td>
-					<td>
-						<p class="order-amount">$589,68</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
+	<div class="Main">
+			<TablaDinamica TableName="Favoritos"></TablaDinamica>
 	</div>
-
+	<div class="Products">
+			<TablaDinamica TableName="Olvidados"></TablaDinamica>
+	</div>
+	<div class="Footer">Footer
+		
+	</div>
 </div>
 
 @code {

@@ -34,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Repositories\Users\" />
+    <Folder Include="Repositories\Orders\" />
+    <Folder Include="Repositories\Products\" />
     <Folder Include="Migrations\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>

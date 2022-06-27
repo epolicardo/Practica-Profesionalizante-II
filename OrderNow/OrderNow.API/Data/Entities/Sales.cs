@@ -1,6 +1,6 @@
 ﻿namespace Data.Entities
 {
-    public class Sales : EntityBase 
+    public class Sales : EntityBase
     {
     }
 }

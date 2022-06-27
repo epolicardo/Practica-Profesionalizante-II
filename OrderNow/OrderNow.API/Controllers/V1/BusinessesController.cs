@@ -1,62 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OrderNow.API.Services;
-
-namespace Controllers
+﻿namespace Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize]
-
     public class BusinessesController : ControllerBase
     {
-        private readonly IGenericRepository<Businesses> _genericRepository;
-        private readonly DataContext _context;
+        private readonly IBusinessesServices _businessesServices;
 
-        public BusinessesController(IGenericRepository<Businesses> genericRepository, DataContext dataContext)
+
+        public BusinessesController(IBusinessesServices businessesServices)
         {
-           _genericRepository = genericRepository;
-            _context = dataContext;
+            LogContext.PushProperty($"Method", MethodBase.GetCurrentMethod());
+            LogContext.PushProperty($"Server", Environment.MachineName);
+            _businessesServices = businessesServices;
         }
 
         [HttpGet]
         [Route("BusinessId")]
-        public async Task<Businesses> GetById(string Id)
+        public async Task<Businesses> GetById(string id)
         {
-            LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
-            LogContext.PushProperty("Server", Environment.MachineName);
-            return await _genericRepository.GetByIdAsync(Id);
+            return await _businessesServices.GetByIdAsync(id);
         }
 
         [AllowAnonymous]
         [HttpGet]
         [Route("BusinessURL")]
-        public async Task<IActionResult> GetByURLAsync(string URL)
+        public async Task<Businesses> GetByUrlAsync(string url)
         {
-            LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
-            LogContext.PushProperty("Server", Environment.MachineName);
-            Businesses? businesses = await _context.Businesses.Include(x => x.Address).Include(x => x.Address.City).FirstOrDefaultAsync(x => x.ContractURL.Equals(URL));
-            if (businesses == null)
-            {
-                return Ok(URL);
-            }
-            if (businesses.ValidationExpires > DateTime.Today)
-            {
-                return Ok(businesses);
-
-            }
-            return NoContent();
+            return await _businessesServices.GetBusinessIfActive(url);
         }
 
-        /// <summary>
-        /// Obtain the list of Products
-        /// </summary>
-        /// <response code="200">Ok</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Not Authorized</response>
-        /// <response code="500">Internal Server error</response>
-        /// [SwaggerResponse("400", typeof(HttpError))]
-        /// [SwaggerResponse("401", typeof(HttpError))]
         [HttpGet]
         [Route("")]
         public async Task<IEnumerable<Businesses>> GetListAsync()
@@ -64,77 +38,61 @@ namespace Controllers
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
 
-            IEnumerable<Businesses> Data = await _genericRepository.GetAll();
-            return Data;
+            IEnumerable<Businesses> data = await _businessesServices.GetAll();
+            return data;
         }
 
-        //{
-        //   "name": "Pizzeria Popular Unquillo",
-        //   "address": {
-        //       "street": "Ruta E-53",
-        //       "number": "Km 22.5"
-        //   },
-        //   "contractURL": "/pizzeria-popular-un",
-        //   "CUIT": "203078945632",
-        //   "Phone": "3516260981",
-        //   "LegalName": "Pizzerias Populares S.R.L"
-        //}
+
         [HttpPost]
         [Route("Business")]
-        public async Task<IActionResult> CreateAsync(Businesses Business)
+        public async Task<IActionResult> CreateAsync(Businesses business)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            Log.Information("Business: {@Business}", Business);
-           
-            Business.Created = DateTime.Now;
-            Business.LastModified = DateTime.Now;
-           
-            await _genericRepository.CreateAsync(Business);
+            Log.Information("Business: {@Business}", business);
+
+            business.Created = DateTime.Now;
+            business.LastModified = DateTime.Now;
+
+            await _businessesServices.CreateAsync(business);
 
             return Ok(new { Message = "Business Registration Successful" });
-
         }
 
         [HttpPut]
         [Route("BusinessId")]
-        public async Task<IActionResult> UpdateAsync(Businesses Business)
+        public async Task<IActionResult> UpdateAsync(Businesses business)
         {
-            if (Business == null)
+            if (business == null)
             {
                 return Ok("No business found");
             }
 
-            await _genericRepository.EditAsync(Business);
-            _genericRepository.SaveAsync();
-            return Ok(new { Message = "Business Updated Successful" } );
+            await _businessesServices.EditAsync(business);
+            await _businessesServices.SaveAsync();
+            return Ok(new { Message = "Business Updated Successful" });
         }
 
         [HttpGet]
         [Route("SuggestedProducts")]
-        public async Task<IEnumerable<Products>> SuggestedProducts(string URL)
+        public async Task<IEnumerable<Products>> SuggestedProducts(string url)
         {
-           BusinessesServices businessesServices = new BusinessesServices(_context);
-            return businessesServices.SugestedProductsByBusiness(URL);
+            return _businessesServices.SugestedProductsByBusiness(url);
         }
 
         [HttpGet]
         [Route("ProductsByBusiness")]
-        public async Task<IEnumerable<Products>> ProductsByBusiness(string URL)
+        public async Task<IEnumerable<Products>> ProductsByBusiness(string url)
         {
-            BusinessesServices businessesServices = new BusinessesServices(_context);
-            return businessesServices.ProductsByBusiness(URL);
+            return _businessesServices.ProductsByBusiness(url);
         }
-
 
 
         [HttpGet]
         [Route("SetAsFavorite")]
-        public bool SetAsFavorite(string URL, User user)
+        public bool SetAsFavorite(string url, Guid userId)
         {
-            BusinessesServices businessesServices = new BusinessesServices(_context);
-            return businessesServices.SetAsFavorite(URL, user);
+            return _businessesServices.SetAsFavorite(url, userId);
         }
-
     }
 }

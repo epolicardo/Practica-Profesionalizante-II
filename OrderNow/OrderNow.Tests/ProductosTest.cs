@@ -1,6 +1,4 @@
-﻿using System;
-using Xunit;
-namespace OrderNow.Tests
+﻿namespace OrderNow.Tests
 {
 
     public class ProductosTest
@@ -20,7 +18,7 @@ namespace OrderNow.Tests
         //- Mostrar favoritos
         //- Listar metodos de pago habilitados en el comercio
         //- Investigar plataformas de pago(MP, Lemon, Paypal, etc)
-     
+
         //[Theory]
         //public void UnitOfWork_StateUnderTest_ExpectedBehavior()
         //{

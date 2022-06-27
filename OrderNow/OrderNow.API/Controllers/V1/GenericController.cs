@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Controllers
+﻿namespace Controllers
 {
     [Authorize]
     [ApiController]
@@ -9,7 +7,7 @@ namespace Controllers
     {
         private readonly IConfiguration configuration;
 
-       
+
         [HttpGet]
         [Route("UseMockup")]
         public bool UseMockup(string Servicio)

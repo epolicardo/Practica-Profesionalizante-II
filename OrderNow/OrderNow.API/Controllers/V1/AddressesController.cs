@@ -6,10 +6,10 @@
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AddressesController : ControllerBase
     {
-        
+
         private readonly IGenericRepository<Addresses> _genericRepository;
         private readonly IConfigurationHelper _configHelper;
-      
+
 
         public AddressesController(IGenericRepository<Addresses> genericRepository, IConfigurationHelper configHelper)
         {
