@@ -94,5 +94,16 @@
         {
             return _businessesServices.SetAsFavorite(url, userId);
         }
+
+        //[HttpGet]
+        //[Route("GetDashboard")]
+        //public async Task<BusinessDashboard> GetDashboard(string url)
+        //{
+        //    return await _businessesServices.GetDashboard(url);
+        //}
+
+
+
+
     }
 }

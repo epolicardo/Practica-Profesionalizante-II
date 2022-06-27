@@ -5,27 +5,48 @@ namespace OrderNow.Tests.ServicesTests
 {
     public class OrdersServicesTests
     {
-        private readonly DataContext _dataContext = new DataContext();
+        private readonly Mock<DataContext> _dataContextMock = new Mock<DataContext>();
+        private readonly Mock<BusinessesServices> _businessServicesMock = new Mock<BusinessesServices>();
+        private readonly Mock<UsersServices> _userServicesMock = new Mock<UsersServices>();
+        private readonly Mock<OrdersRepository> _ordersRepositoryMock = new Mock<OrdersRepository>();
+
         private readonly OrdersServices _sut;
-        private readonly Mock<IGenericRepository<Businesses>> _businessRepositoryMock = new Mock<IGenericRepository<Businesses>>();
-        private readonly Mock<IGenericRepository<Users>> _userRepositoryMock = new Mock<IGenericRepository<Users>>();
-        private readonly Mock<IGenericRepository<Orders>> _orderRepositoryMock = new Mock<IGenericRepository<Orders>>();
 
-
-        public OrdersServicesTests()
+        public OrdersServicesTests(Mock<DataContext> dataContextMock, Mock<BusinessesServices> businessServicesMock, Mock<UsersServices> userServicesMock)
         {
-            _sut = new OrdersServices(_dataContext, _orderRepositoryMock.Object);
+            _sut = new OrdersServices(_ordersRepositoryMock.Object, _dataContextMock.Object);
+            _dataContextMock = dataContextMock;
+            _businessServicesMock = businessServicesMock;
+            _userServicesMock = userServicesMock;
         }
+
+        //public OrdersServicesTests(Mock<BusinessesServices> _businessServicesMock, Mock<UsersServices> _userServicesMock)
+        //{
+        //    _sut = new OrdersServices(_dataContextMock.Object);
+        //    _businessServicesMock = _businessServicesMock;
+        //    _userServicesMock = userServicesMock;
+
+        //}
 
         [Fact]
         public void CreateOrder_ShouldCreateANewOrder()
         {
 
+            Businesses business = new Businesses()
+            {
+                ContractURL = "La-pizzeria",
+                IsValidated = true
+               
+            };
 
-            //var business = _dataContext.Businesses.
-            //var user = _userRepositoryMock.Object;
-            //var result = _sut.CreateOrder(business, user);
-            //result.Should().BeTrue();
+            Users users = new Users()
+            {
+                Email = "emilianopolicardo@gmail.com"
+            };
+
+            var res = _sut.CreateOrder(business, users);
+
+            res.Should().BeOfType<Orders>();
         }
 
     }

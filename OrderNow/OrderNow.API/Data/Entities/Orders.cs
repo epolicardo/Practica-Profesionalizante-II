@@ -13,6 +13,7 @@
         public decimal DiscountsAmount { get; set; }
         public PaymentMethods PaymentMethod { get; set; }
         public Businesses Business { get; set; }
+        public Users User { get; set; }
         public OrdersDetail Details { get; set; }
 
 

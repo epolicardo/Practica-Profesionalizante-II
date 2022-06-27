@@ -2,7 +2,7 @@
 
 namespace Services
 {
-    public class GenericServices<T> : IGenericRepository<T> where T : class
+    public class GenericServices<T> : IGenericServices<T> where T : class
     {
 
         private readonly IGenericRepository<T> _genericRepository;
@@ -10,7 +10,7 @@ namespace Services
         public GenericServices(IGenericRepository<T> genericRepository)
         {
             _genericRepository = genericRepository;
-        }
+        }  
 
         public Task<bool> CreateAsync(T entity)
         {

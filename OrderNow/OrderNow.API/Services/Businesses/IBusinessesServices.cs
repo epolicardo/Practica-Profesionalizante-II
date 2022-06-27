@@ -1,4 +1,6 @@
-﻿namespace Services
+﻿using Controllers;
+
+namespace Services
 {
     public interface IBusinessesServices : IGenericServices<Businesses>
     {

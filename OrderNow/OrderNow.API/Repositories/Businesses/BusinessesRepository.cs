@@ -2,36 +2,20 @@
 
 namespace Repositories
 {
-
-
-    //Controlador
-    //Servicipo
-    //Repositorio
-
-
-
     public class BusinessesRepository : GenericRepository<Businesses>, IBusinessesRepository
     {
         private readonly DataContext _dataContext;
 
-        public BusinessesRepository(DataContext context) : base(context)
+        public BusinessesRepository(DataContext dataContext) : base(dataContext)
         {
-            _dataContext = context;
+            _dataContext = dataContext;
         }
 
         public async Task<bool> CreateAsync(Businesses entity)
         {
-            try
-            {
-                await base.CreateAsync(entity);
-                await base.SaveAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Error al crear entidad");
-                throw;
-            }
+
+            return await base.CreateAsync(entity);
+
         }
 
         public bool Delete(Businesses entity)
@@ -107,18 +91,6 @@ namespace Repositories
 
 
 
-        //public async Task<ActionResult<Businesses>> BusinessPortal(string URL)
-        //{
-        //    Businesses? business = await _dataContext.FindByConditionAsync(x => x.ContractURL == URL);
-
-        //    if (business.IsValidated && business.ValidationExpires > DateTime.Today)
-        //    {
-        //        return business;
-
-        //    }
-        //    return null;
-
-        //}
 
         //[HttpGet]
         //[Route("GetCustomerByName/{customerName}")]

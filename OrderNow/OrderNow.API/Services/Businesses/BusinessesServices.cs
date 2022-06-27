@@ -1,9 +1,12 @@
-﻿namespace Services
+﻿using Controllers;
+
+namespace Services
 {
     public class BusinessesServices : GenericServices<Businesses>, IBusinessesServices
     {
         private readonly IBusinessesRepository _businessesRepository;
         private readonly IUsersRepository _userRepository;
+        
         private readonly IProductsRepository _productsRepository;
         private readonly DataContext _dataContext;
 
@@ -17,7 +20,7 @@
 
         public Task<Businesses> GetBusinessIfActive(string url)
         {
-            return _businessesRepository.GetByIdAsync(url);
+            return _businessesRepository.FindByConditionAsync(x=>x.ContractURL == url);
         }
 
         public IEnumerable<Products> ProductsByBusiness(string url)
@@ -61,6 +64,21 @@
         public bool Exists(string url)
         {
             return _businessesRepository.Exists(url);
+        }
+
+        public async Task<BusinessDashboard> GetDashboard(string url)
+        {
+            /* Debo obtener la siguiente info:
+             * Listado de Ordenes en curso
+             * Bloque de estadisticas
+             * Top Clientes
+             * Top Productos*/
+                var b = await _businessesRepository.FindByConditionAsync(x=>x.ContractURL == url);
+            BusinessDashboard bd = new BusinessDashboard();
+            bd.Business = b;
+
+            return bd;
+
         }
     }
 }

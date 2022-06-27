@@ -1,3 +1,5 @@
+using Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, lc) => lc
@@ -30,10 +32,17 @@ builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwa
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IConfigurationHelper, ConfigurationHelper>();
 builder.Services.AddScoped<IBusinessesRepository, BusinessesRepository>();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+
 
 //Servicios
 builder.Services.AddScoped<IBusinessesServices, BusinessesServices>();
 builder.Services.AddScoped<IDemoService, DemoService>();
+builder.Services.AddScoped<IOrdersServices, OrdersServices>();
+builder.Services.AddScoped<IProductsServices, ProductsServices>();
+builder.Services.AddScoped<IUsersServices, UsersServices>();
 
 
 builder.Services.AddIdentity<Users, IdentityRole>(options =>

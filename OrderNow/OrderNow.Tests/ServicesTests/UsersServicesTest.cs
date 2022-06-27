@@ -4,12 +4,12 @@
     {
 
         private readonly UsersServices _sut;
+        private readonly Mock<IUsersRepository> _userRepositoryMock = new Mock<IUsersRepository>();
 
-
-        public UsersServicesTest()
+        public UsersServicesTest(Mock<IUsersRepository> userRepositoryMock)
         {
-            _sut = new UsersServices();
-
+            _userRepositoryMock = userRepositoryMock;
+            _sut = new UsersServices(_userRepositoryMock.Object);
         }
 
         [Fact]

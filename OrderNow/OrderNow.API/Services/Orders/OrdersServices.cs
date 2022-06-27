@@ -2,27 +2,25 @@
 
 namespace Services
 {
-    public class OrdersServices
+    public class OrdersServices : GenericServices<Orders>, IOrdersServices
     {
-        private readonly IGenericRepository<Orders> _genericRepository;
-        private readonly DataContext _context;
+        private readonly IOrdersRepository _ordersRepository;
+        private readonly DataContext _dataContext;
 
-        public OrdersServices(DataContext context, IGenericRepository<Orders> genericRepository)
+
+        public OrdersServices(IOrdersRepository ordersRepository, DataContext dataContext):base(ordersRepository)
         {
-            _context = context;
-            _genericRepository = genericRepository;
+            _ordersRepository = ordersRepository;
+            _dataContext = dataContext;
         }
+
         public UsersOrders CreateOrder(Businesses businesses, Users user)
         {
-            Orders orders = new Orders();
+           
+            _ordersRepository.CreateOrder(user,businesses);
+            _dataContext.SaveChangesAsync();
 
-            UsersOrders order = new UsersOrders();
-
-            orders.Business = businesses;
-            order.Orders = orders;
-            order.Users = user;
-
-            return order;
+            return null;
 
         }
         public void AddProductToOrder(Orders orders, Products product, float quantity)
@@ -41,12 +39,12 @@ namespace Services
         }
         public async Task<Orders> ShowFullOrder(string orderId)
         {
-            return await _genericRepository.GetByIdAsync(orderId);
+            return await _ordersRepository.GetByIdAsync(orderId);
         }
 
         public async Task<IEnumerable<Orders>> GetPendingOrders(string businessId)
         {
-            return await _context.Orders.Where(s => s.OrderStatus != OrderStatus.Completed).ToListAsync();
+            return await _ordersRepository.GetPendingOrdersAsync();
         }
 
     }

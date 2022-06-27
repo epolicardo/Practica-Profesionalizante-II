@@ -1,10 +1,16 @@
-﻿namespace Services
-{
-    public class UsersServices
-    {
-        public UsersServices()
-        {
+﻿using System.Linq.Expressions;
 
+namespace Services
+{
+    public class UsersServices : IGenericServices<Users>, IUsersServices
+    {
+
+
+        private readonly IUsersRepository _usersRepository;
+
+        public UsersServices(IUsersRepository usersRepository)
+        {
+            _usersRepository = usersRepository;
         }
 
         public bool AssignFavoriteBusinessToUser(Users user, Businesses business)
@@ -41,6 +47,39 @@
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<Users>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
 
+        public Task<Users> GetByIdAsync(string Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Users> FindByConditionAsync(Expression<Func<Users, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> CreateAsync(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> EditAsync(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

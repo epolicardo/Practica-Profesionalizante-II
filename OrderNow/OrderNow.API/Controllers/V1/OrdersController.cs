@@ -3,32 +3,28 @@
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [Authorize]
+   // [Authorize]
 
     public class OrdersController : ControllerBase
     {
 
-        private readonly IGenericRepository<Orders> _genericRepository;
         private readonly DataContext _dataContext;
         private readonly OrdersServices _ordersServices;
-        public OrdersController(IGenericRepository<Orders> genericRepository, DataContext dataContext)
+        public OrdersController(OrdersServices ordersServices, DataContext dataContext)
         {
-            _genericRepository = genericRepository;
+            _ordersServices = ordersServices;
             _dataContext = dataContext;
-            _ordersServices = new OrdersServices(_dataContext, _genericRepository);
         }
 
         [HttpPost]
         [Route("CreateOrder")]
         public ActionResult<Orders> CreateOrder(string URL, string email)
         {
-            var b = _dataContext.Businesses.FirstOrDefault(x => x.ContractURL == URL);
+            var b =_dataContext.Businesses.FirstOrDefault(x => x.ContractURL == URL);
             var u = _dataContext.Users.FirstOrDefault(x => x.Email == email);
 
             var order = _ordersServices.CreateOrder(b, u);
-            _dataContext.Orders.Add(order.Orders);
-            _dataContext.UsersOrders.Add(order);
-            _dataContext.SaveChangesAsync();
+         
             return Ok(order);
 
         }
@@ -36,7 +32,9 @@
         [Route("Orders")]
         public async Task<IEnumerable<Orders>> GetOrders()
         {
-            return await _genericRepository.GetAll();
+            var o = await _ordersServices.GetAll();
+            return o;
+               
         }
         [HttpGet]
         [Route("AddProductToOrder/Id:{orderId}")]
