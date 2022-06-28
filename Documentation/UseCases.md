@@ -29,4 +29,14 @@
 Diagramas de Secuencia
     
 
+    como usuario
+    quiero ver la oferta del comercio
     
+    
+    quiero ver cuanto vale mi orden
+    cuantos productos
+
+
+como mozo quiero saber que mesa me llama
+
+como mozo quiero saber como pagó el usuario

@@ -1,12 +1,8 @@
-﻿using Data.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Claims;
-using System.Text;
 
 
 namespace Controllers
@@ -20,13 +16,13 @@ namespace Controllers
     {
 
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<Users> userManager;
         private readonly DataContext context;
-        private readonly IGenericRepository<User> genericRepository;
+        private readonly IGenericRepository<Users> genericRepository;
 
 
-        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager, DataContext _context,
-            IGenericRepository<User> _genericRepository)
+        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext _context,
+            IGenericRepository<Users> _genericRepository)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
             this.userManager = userManager;
@@ -40,22 +36,22 @@ namespace Controllers
 
         [HttpPost]
         [Route("GetByMailAsync/{email}")]
-        public User GetByMailAsync(string email)
+        public Users GetByMailAsync(string email)
         {
 
 
 
-            return context.User.FirstOrDefault(u => u.Email == email);
+            return context.Users.FirstOrDefault(u => u.Email == email);
             //return context.Users.Include(p => p.Person).ThenInclude(d => d.Domicilio).FirstOrDefault(x => x.Email == email);
 
         }
 
         //   [Authorize(Policy = "GetToken")]
-      //TODO Revisar autenticacion
-      //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = JwtBearerExt)]
+        //TODO Revisar autenticacion
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = JwtBearerExt)]
         [HttpGet]
         [Route("GetByIdAsync")]
-        public async Task<User> GetByIdAsync(string Id)
+        public async Task<Users> GetByIdAsync(string Id)
         {
             return await genericRepository.GetByIdAsync(Id);
         }
@@ -64,14 +60,14 @@ namespace Controllers
 
         [HttpGet]
         [Route("GetList")]
-        public IEnumerable<User> GetList()
+        public IEnumerable<Users> GetList()
         {
 
-            IEnumerable<User> User = null;
+            IEnumerable<Users> User = null;
             try
             {
 
-                User = context.User.Include(p => p.person).Include(f => f.FavoriteBusiness).Include(f => f.FavoriteProducts).ToList();
+                User = context.Users.Include(p => p.person).Include(f => f.FavoriteBusiness).Include(f => f.FavoriteProducts).ToList();
                 Log.Information("Users: {@Users}", User);
             }
             catch (Exception ex)
@@ -85,11 +81,11 @@ namespace Controllers
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetListByGroup")]
-        public IEnumerable<User> GetListByGroup(string TituloGrupo)
+        public IEnumerable<Users> GetListByGroup(string TituloGrupo)
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            IEnumerable<User> Users = (IEnumerable<User>)context.Users.ToList();
+            IEnumerable<Users> Users = (IEnumerable<Users>)context.Users.ToList();
             //IEnumerable<Users> Users = context.Users.Include(x => x.Persona).Where(x => x.Persona.Apellido == TituloGrupo).ToList();
             Log.Information("Users: {@Users}", Users);
             return Users;
@@ -110,13 +106,13 @@ namespace Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register(User user)
+        public async Task<IActionResult> Register(Users user)
         {
             if (!ModelState.IsValid || user == null)
             {
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
-            
+
             var result = await userManager.CreateAsync(user, user.Password);
             user.Password = userManager.PasswordHasher.HashPassword(user, user.Password);
 
@@ -143,7 +139,7 @@ namespace Controllers
         public async Task<IActionResult> GetToken(LoginCredentials credentials)
         {
             Log.Information("User ingresado: {@Credenciales}", credentials.email);
-            IdentityUser identityUser;
+            Users identityUser;
 
             if (!ModelState.IsValid
                 || credentials == null
@@ -178,7 +174,7 @@ namespace Controllers
             return Ok(new { Token = "", Message = "Logged Out" });
         }
 
-        private async Task<IdentityUser> ValidateUser(LoginCredentials credentials)
+        private async Task<Users> ValidateUser(LoginCredentials credentials)
         {
             var identityUser = await userManager.FindByEmailAsync(credentials.email);
 
@@ -194,7 +190,7 @@ namespace Controllers
         }
 
 
-        private object GenerateToken(IdentityUser identityUser)
+        private object GenerateToken(Users identityUser)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
@@ -225,7 +221,7 @@ namespace Controllers
         {
 
 
-            User? user = await genericRepository.GetByIdAsync(userId);
+            Users? user = await genericRepository.GetByIdAsync(userId);
             Businesses? businesses = context.Businesses.FirstOrDefault(x => x.ContractURL == businessURL);
 
             if (businesses == null || user == null)
@@ -256,7 +252,7 @@ namespace Controllers
             smtpClient.EnableSsl = true;
 
             IHost host = Host.CreateDefaultBuilder().Start();
-           
+
 
             MailAddress mailAddress = new MailAddress("emilianopolicardo@gmail.com");
             MailAddressCollection mailAddresses = new MailAddressCollection();

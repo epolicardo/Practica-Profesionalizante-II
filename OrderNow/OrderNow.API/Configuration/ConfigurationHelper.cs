@@ -1,5 +1,3 @@
-using System.Configuration;
-
 namespace Configuration
 {
     public class ConfigurationHelper : IConfigurationHelper

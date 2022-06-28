@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
 
 namespace Infrastructure.Swagger
 {
@@ -30,7 +25,7 @@ namespace Infrastructure.Swagger
             // note: you might choose to skip or document deprecated API versions differently
             foreach (var description in _provider.ApiVersionDescriptions)
                 options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
-          
+
         }
 
         private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
@@ -42,10 +37,10 @@ namespace Infrastructure.Swagger
                 Description = "Practica Profesionalizante II project",
                 Contact = new OpenApiContact { Name = "Emiliano Policardo", Email = "emilianopolicardo@gmail.com" },
                 License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
-                
-            
+
+
             };
-                      if (description.IsDeprecated)
+            if (description.IsDeprecated)
                 info.Description += " This API version has been deprecated.";
 
             return info;

@@ -1,14 +1,4 @@
-using Hangfire;
-using Infrastructure.Swagger;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using OrderNow.API;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Text;
-using Serilog;
-using System.Text.Json.Serialization;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,11 +27,25 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IDemoService, DemoService>();
-builder.Services.AddScoped<IConfigurationHelper, ConfigurationHelper>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+//Repositorios
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IConfigurationHelper, ConfigurationHelper>();
+builder.Services.AddScoped<IBusinessesRepository, BusinessesRepository>();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+
+
+//Servicios
+builder.Services.AddScoped<IBusinessesServices, BusinessesServices>();
+builder.Services.AddScoped<IDemoService, DemoService>();
+builder.Services.AddScoped<IOrdersServices, OrdersServices>();
+builder.Services.AddScoped<IProductsServices, ProductsServices>();
+builder.Services.AddScoped<IUsersServices, UsersServices>();
+
+
+builder.Services.AddIdentity<Users, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<DataContext>();
 
@@ -95,7 +99,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    
+
 })
 .AddJwtBearer(options =>
 {
@@ -116,7 +120,7 @@ var app = builder.Build();
 try
 {
 
-await SeedData.SeedInitialData(app);
+    await SeedData.SeedInitialData(app);
 }
 catch (Exception ex)
 {

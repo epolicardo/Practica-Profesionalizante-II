@@ -2,7 +2,7 @@
 
 namespace Data.Entities
 {
-   
+
     public class ProductOptions : EntityBase
     {
         public string? Name { get; set; }

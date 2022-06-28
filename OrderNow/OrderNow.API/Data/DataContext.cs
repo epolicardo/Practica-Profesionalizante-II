@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using OrderNow.API.Data.Entities;
 
 namespace OrderNow.Data
 {
-    public class DataContext : IdentityDbContext<IdentityUser>
+    public class DataContext : IdentityDbContext<Users>
     {
-        
+
         public DataContext()
         {
-            
+
         }
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-      
+
         }
 
         public DbSet<Addresses> Addresses { get; set; }
@@ -35,7 +34,7 @@ namespace OrderNow.Data
         public DbSet<OrderQueue> Queues { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SaleDetails> SaleDetails { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<Users> Users { get; set; }
         public DbSet<UsersOrders> UsersOrders { get; set; }
     }
 

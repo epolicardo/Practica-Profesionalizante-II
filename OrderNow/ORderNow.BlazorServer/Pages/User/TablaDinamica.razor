@@ -1,0 +1,90 @@
+@using OrderNow.Services
+@using System.Text.Json
+@using global::Data.Entities
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<div class="favorites-search-bar">
+	<p class="title">@TableName</p>
+	<input type="text" value="Search here" class="search-box" />
+	<button class="filter-btn">Filter</button>
+</div>
+
+<table class="orders-list">
+	<thead class="table-header">
+		<tr>
+			<th>
+				<p id="fav-title">Cliente</p>
+			</th>
+			<th>
+				<p id="fav-title">Estado</p>
+			</th>
+			<th>
+				<p id="fav-title">Demora actual</p>
+			</th>
+			<th>
+				<p id="fav-title">Items</p>
+			</th>
+			<th>
+				<p id="fav-title">Total</p>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (orders != null)
+		{
+			@foreach (var order in orders)
+			{
+				<tr>
+					<td>
+						<div>
+							<img src="" alt="" />
+							<p class="name">@order.OrderDate</p>
+						</div>
+					</td>
+					<td>
+						<div class="status-box">
+							<p>In process</p>
+						</div>
+					</td>
+					<td>
+						<div class="status-progress-bar">
+						</div>
+						<p class="order-time-delay">28 min</p>
+					</td>
+					<td>
+						<p class="order-items">@order.Created</p>
+					</td>
+					<td>
+						<p class="order-amount">$589,68</p>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
+
+@code {
+
+	[ParameterAttribute]
+	public string? TableName { get; set; }
+
+
+	public IEnumerable<Orders> orders { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		var request = new HttpRequestMessage(HttpMethod.Get, "api/v1/Orders/Orders");
+
+		var client = ClientFactory.CreateClient();
+		client.BaseAddress = new Uri("https://localhost:7269/");
+		var response = await client.SendAsync(request);
+		if (response.IsSuccessStatusCode)
+		{
+			await using var responseStream = await response.Content.ReadAsStreamAsync();
+			orders = await JsonSerializer.DeserializeAsync<List<Orders>>(responseStream);
+		}
+	}
+
+}

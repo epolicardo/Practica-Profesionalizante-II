@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace OrderNow.API
+﻿namespace OrderNow.API
 {
     public abstract class SeedData
     {
@@ -13,7 +11,7 @@ namespace OrderNow.API
             using var scope = scopeFactory.CreateScope();
 
             var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Users>>();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
@@ -72,8 +70,8 @@ namespace OrderNow.API
                     {
                         Name = "Fanta Lata 354cc",
                         EAN = "567897689678936346",
-                        Business = businesses, 
-                        IsSuggested=true
+                        Business = businesses,
+                        IsSuggested = true
                     };
                     Products products3 = new Products
                     {
@@ -94,14 +92,14 @@ namespace OrderNow.API
                     context.Products.Add(products2);
                     context.Products.Add(products3);
                     context.Products.Add(products4);
-                   
+
                 }
             }
 
 
             if (!userManager.Users.Any())
             {
-                User user = new User
+                Users user = new Users
                 {
                     Email = "emilianopolicardo@gmail.com",
                     UserName = "epolicardo",

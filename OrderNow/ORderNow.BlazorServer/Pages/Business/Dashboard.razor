@@ -1,6 +1,7 @@
 @page "/business-dashboard"
-
 @layout BusinessAdminLayout
+@inject NavigationManager NavManager
+
 <div class="flex-container">
 
 <MetricsCard Title="Ultimos Vendidos"></MetricsCard>
@@ -13,6 +14,9 @@
 <MetricsCard Title="Ultimos Clientes"></MetricsCard>
 <MetricsCard Title="Mejores Vendidos"></MetricsCard>
 </div>
+
+<div class="flex-container">
+
 
 
 <div class="top-bar">
@@ -49,8 +53,11 @@
 
 
 <a class="login-card-recovery" href="/">Recuperar acceso</a>
+</div>
+@code{
 
 public void FormSubmit()
 	{
 		NavManager.NavigateTo("/business-dashboard");
 	}
+}
