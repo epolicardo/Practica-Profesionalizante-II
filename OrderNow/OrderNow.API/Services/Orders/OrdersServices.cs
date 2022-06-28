@@ -14,13 +14,13 @@ namespace Services
             _dataContext = dataContext;
         }
 
-        public UsersOrders CreateOrder(Businesses businesses, Users user)
+        public async Task<ActionResult<Orders>> CreateOrder(Businesses businesses, Users user)
         {
            
-            _ordersRepository.CreateOrder(user,businesses);
-            _dataContext.SaveChangesAsync();
+           return await _ordersRepository.CreateOrder(user,businesses);
+        
 
-            return null;
+            
 
         }
         public void AddProductToOrder(Orders orders, Products product, float quantity)
@@ -47,5 +47,6 @@ namespace Services
             return await _ordersRepository.GetPendingOrdersAsync();
         }
 
+      
     }
 }

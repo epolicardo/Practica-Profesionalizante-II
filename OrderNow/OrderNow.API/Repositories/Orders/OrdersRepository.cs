@@ -9,7 +9,7 @@
             _dataContext = DataContext;
         }
 
-        public void CreateOrder(Users user, Businesses business)
+        public async Task<ActionResult<Orders>> CreateOrder(Users user, Businesses business)
         {
             var order = new Orders
             {
@@ -18,9 +18,11 @@
             
             order.Business = business;
             order.User = user;
-            _dataContext.Orders.Add(order);
-            _dataContext.SaveChangesAsync();
-
+            order.Details = new OrdersDetail();
+            await _dataContext.Orders.AddAsync(order);
+            
+            await _dataContext.SaveChangesAsync();
+            return order;
         }
 
 

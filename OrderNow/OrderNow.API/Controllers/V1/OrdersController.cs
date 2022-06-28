@@ -9,8 +9,8 @@
     {
 
         private readonly DataContext _dataContext;
-        private readonly OrdersServices _ordersServices;
-        public OrdersController(OrdersServices ordersServices, DataContext dataContext)
+        private readonly IOrdersServices _ordersServices;
+        public OrdersController(IOrdersServices ordersServices, DataContext dataContext)
         {
             _ordersServices = ordersServices;
             _dataContext = dataContext;
@@ -18,22 +18,22 @@
 
         [HttpPost]
         [Route("CreateOrder")]
-        public ActionResult<Orders> CreateOrder(string URL, string email)
+        public async Task<ActionResult<Orders>> CreateOrder(string URL, string email)
         {
             var b =_dataContext.Businesses.FirstOrDefault(x => x.ContractURL == URL);
             var u = _dataContext.Users.FirstOrDefault(x => x.Email == email);
 
-            var order = _ordersServices.CreateOrder(b, u);
+            var order = await _ordersServices.CreateOrder(b, u);
          
             return Ok(order);
 
         }
         [HttpGet]
         [Route("Orders")]
-        public async Task<IEnumerable<Orders>> GetOrders()
+        public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
         {
-            var o = await _ordersServices.GetAll();
-            return o;
+            return Ok(await _ordersServices.GetAll());
+           
                
         }
         [HttpGet]

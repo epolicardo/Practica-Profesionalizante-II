@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220628012228_6")]
+    partial class _6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,13 +348,13 @@ namespace OrderNow.API.Migrations
                     b.Property<Guid>("BusinessId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("CompletionOrderDate")
+                    b.Property<DateTime>("CompletionOrderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("DetailsId")
+                    b.Property<Guid>("DetailsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("DiscountsAmount")
@@ -370,7 +372,7 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime?>("PartialCompletionOrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("PaymentMethodId")
+                    b.Property<Guid>("PaymentMethodId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("TableNro")
@@ -407,7 +409,7 @@ namespace OrderNow.API.Migrations
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("Quantity")
@@ -1070,11 +1072,15 @@ namespace OrderNow.API.Migrations
 
                     b.HasOne("Data.Entities.OrdersDetail", "Details")
                         .WithMany()
-                        .HasForeignKey("DetailsId");
+                        .HasForeignKey("DetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Data.Entities.PaymentMethods", "PaymentMethod")
                         .WithMany()
-                        .HasForeignKey("PaymentMethodId");
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Data.Entities.Users", "User")
                         .WithMany()
@@ -1093,7 +1099,9 @@ namespace OrderNow.API.Migrations
                 {
                     b.HasOne("Data.Entities.Products", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
                 });
