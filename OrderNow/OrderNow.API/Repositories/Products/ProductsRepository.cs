@@ -15,6 +15,7 @@ namespace Repositories
         {
             return await base.CreateAsync(entity);
         }
+
         public bool Delete(Products entity)
         {
             return base.Delete(entity);
@@ -29,6 +30,7 @@ namespace Repositories
         {
             return base.FindByConditionAsync(predicate);
         }
+
         public Task<IEnumerable<Products>> GetAll()
         {
             return base.GetAll();
@@ -44,7 +46,6 @@ namespace Repositories
             return base.SaveAsync();
         }
 
-
         public IEnumerable<Products> SugestedProductsByBusiness(string url)
         {
             return null;
@@ -52,12 +53,9 @@ namespace Repositories
 
         public IEnumerable<Products> ProductsByBusiness(string URL)
         {
-
             var products = _dataContext.Products.Where(x => x.Business.ContractURL == URL).ToList();
 
             return products;
-
         }
-
     }
 }

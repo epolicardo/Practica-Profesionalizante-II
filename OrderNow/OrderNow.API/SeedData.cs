@@ -2,11 +2,8 @@
 {
     public abstract class SeedData
     {
-
-
         internal static async Task SeedInitialData(WebApplication app)
         {
-
             var scopeFactory = app!.Services.GetRequiredService<IServiceScopeFactory>();
             using var scope = scopeFactory.CreateScope();
 
@@ -17,8 +14,6 @@
 
             context.Database.EnsureCreated();
 
-
-
             if (!context.Cities.Any())
             {
                 Cities cities = new Cities()
@@ -27,7 +22,6 @@
                 };
                 context.Cities.Add(cities);
             }
-
 
             if (!context.Businesses.Any())
             {
@@ -40,7 +34,6 @@
                     CUIT = "303078219599",
                     LegalName = "Pizzerias Populares S.R.L. ",
                     Phone = "3513416192"
-
                 };
                 businesses.Address = new Addresses()
                 {
@@ -92,10 +85,8 @@
                     context.Products.Add(products2);
                     context.Products.Add(products3);
                     context.Products.Add(products4);
-
                 }
             }
-
 
             if (!userManager.Users.Any())
             {
@@ -126,12 +117,7 @@
                 await userManager.AddToRoleAsync(user, "Owner");
             }
 
-
-
-
             await context.SaveChangesAsync();
         }
-
-
     }
 }

@@ -1,8 +1,5 @@
-﻿
-
-namespace Data.Entities
+﻿namespace Data.Entities
 {
-
     public class ProductOptions : EntityBase
     {
         public string? Name { get; set; }
@@ -15,6 +12,5 @@ namespace Data.Entities
         public int Id { get; set; }
         public string Option { get; set; }
         public bool Aplicable { get; set; }
-
     }
 }

@@ -2,8 +2,6 @@ namespace Configuration
 {
     public class ConfigurationHelper : IConfigurationHelper
     {
-
-
         public string UrlServicio()
         {
             return System.Configuration.ConfigurationManager.AppSettings.Get("OrderNow.API");
@@ -13,7 +11,6 @@ namespace Configuration
         {
             try
             {
-
                 if (System.Configuration.ConfigurationManager.AppSettings.Get(Servicio) == System.Configuration.ConfigurationManager.AppSettings.Get("AmbienteMockup")
                     && System.Configuration.ConfigurationManager.AppSettings.Get("AmbienteMockup") == "true")
                     return true;
@@ -35,6 +32,5 @@ namespace Configuration
         //    XmlSalida = new XmlDocument();
         //    XmlSalida.Load(Path.Combine(ObtenerPath() + "/DEBUG", FileName));
         //}
-
     }
 }

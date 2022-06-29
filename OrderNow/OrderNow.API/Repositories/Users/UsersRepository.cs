@@ -4,9 +4,8 @@ namespace Repositories
 {
     public class UsersRepository : GenericRepository<Users>, IUsersRepository
     {
-
-
         private readonly DataContext _dataContext;
+
         public UsersRepository(DataContext dataContext) : base(dataContext)
         {
             _dataContext = dataContext;
@@ -15,8 +14,7 @@ namespace Repositories
         public Task<bool> CreateAsync(Users entity)
         {
             return base.CreateAsync(entity);
-
-                }
+        }
 
         public bool Delete(Users entity)
         {

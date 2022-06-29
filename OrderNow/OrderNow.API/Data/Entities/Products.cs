@@ -2,15 +2,17 @@
 {
     public class Products : EntityBase
     {
-
         public string? Code { get; set; }
         public string? EAN { get; set; }
         public string? Name { get; set; }
+
         [MaxLength(40)]
         public string? LegalName { get; set; }//RAID MPyG 390cm3
+
         public string? Description { get; set; }
         public string? URLImage { get; set; } //Imagen grande
         public string? URLIcon { get; set; } //Imagen Chica
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; } = 0;
 
@@ -24,7 +26,7 @@
         public UInt64 Qualification { get; set; }
 
         public string? Brand { get; set; } //Raid
-                                           //public bool? IsItExpires { get; set; } //True 
+                                           //public bool? IsItExpires { get; set; } //True
                                            //public UnidadMedida UnidadMedida { get; set; }
                                            //public double StockActual { get; set; }
                                            //public double StockMinimo { get; set; }
@@ -45,12 +47,10 @@
         public int Id { get; set; }
         public string Nombre { get; set; }
         public List<DetalleReceta> Detalle { get; set; }
-
     }
 
     public class DetalleReceta
     {
-
         public int Id { get; set; }
         public Products Product { get; set; }
         public float Quantity { get; set; }

@@ -7,7 +7,6 @@
     {
         private readonly IConfiguration configuration;
 
-
         [HttpGet]
         [Route("UseMockup")]
         public bool UseMockup(string Servicio)
@@ -17,6 +16,5 @@
 
             return false;
         }
-
     }
 }

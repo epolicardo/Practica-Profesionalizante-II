@@ -4,6 +4,5 @@
     {
         [Display(Name = "Nombre")]
         public string? Name { get; set; }
-
     }
 }

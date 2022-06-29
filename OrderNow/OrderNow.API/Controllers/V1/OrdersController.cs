@@ -3,13 +3,11 @@
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-   // [Authorize]
-
     public class OrdersController : ControllerBase
     {
-
         private readonly DataContext _dataContext;
         private readonly IOrdersServices _ordersServices;
+
         public OrdersController(IOrdersServices ordersServices, DataContext dataContext)
         {
             _ordersServices = ordersServices;
@@ -20,29 +18,28 @@
         [Route("CreateOrder")]
         public async Task<ActionResult<Orders>> CreateOrder(string URL, string email)
         {
-            var b =_dataContext.Businesses.FirstOrDefault(x => x.ContractURL == URL);
+            var b = _dataContext.Businesses.FirstOrDefault(x => x.ContractURL == URL);
             var u = _dataContext.Users.FirstOrDefault(x => x.Email == email);
 
             var order = await _ordersServices.CreateOrder(b, u);
-         
-            return Ok(order);
 
+            return Ok(order);
         }
+
         [HttpGet]
         [Route("Orders")]
         public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
         {
             return Ok(await _ordersServices.GetAll());
-           
-               
         }
+
         [HttpGet]
         [Route("AddProductToOrder/{orderId}")]
         public void AddProductToOrder(string orderId)
         {
-
         }
-       // [Authorize]
+
+        // [Authorize]
         [HttpGet]
         [Route("GetPendingOrders/{businessId}")]
         public async Task<ActionResult<IEnumerable<Orders>>> GetPendingOrdersByBusiness(string businessId)

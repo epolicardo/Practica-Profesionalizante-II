@@ -4,7 +4,6 @@ namespace OrderNow.API.Controllers.V1
 {
     public class TasksController : Controller
     {
-
         [HttpGet]
         [Route("CreateJob")]
         public void CreateJob()
@@ -19,7 +18,6 @@ namespace OrderNow.API.Controllers.V1
                "hangfire@example.com",
                "Hola Mundo Loco",
                "Hola mundo"));
-
         }
     }
 }

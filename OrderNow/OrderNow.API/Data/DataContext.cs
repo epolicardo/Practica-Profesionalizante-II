@@ -5,14 +5,12 @@ namespace OrderNow.Data
 {
     public class DataContext : IdentityDbContext<Users>
     {
-
         public DataContext()
         {
-
         }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
         }
 
         public DbSet<Addresses> Addresses { get; set; }
@@ -37,5 +35,4 @@ namespace OrderNow.Data
         public DbSet<Users> Users { get; set; }
         public DbSet<UsersOrders> UsersOrders { get; set; }
     }
-
 }

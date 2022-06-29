@@ -4,8 +4,8 @@
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
-        public DateTime Created { get; set; }     
-        public DateTime LastModified { get; set; }
 
+        public DateTime Created { get; set; }
+        public DateTime LastModified { get; set; }
     }
 }

@@ -4,12 +4,12 @@
     [ApiVersion("1.0")]
     [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
-
     public class SalesController : ControllerBase
     {
         private readonly DataContext dataContext;
         private readonly IGenericRepository<Sales> genericRepository;
         private readonly IConfigurationHelper configHelper;
+
         public SalesController(IConfigurationHelper configurationHelper, DataContext dataContext, IGenericRepository<Sales> genericRepository)
         {
             this.configHelper = configurationHelper;
@@ -18,7 +18,6 @@
         }
 
         public IConfigurationHelper ConfigurationHelper { get; }
-
 
         [HttpPost]
         [Route("CreateAsync")]

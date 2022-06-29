@@ -9,12 +9,10 @@ namespace WebApi.Business
         //https://docs.microsoft.com/en-us/dotnet/api/system.net.mail.smtpclient.send?view=net-6.0
         public void SendEmail(string emailto, string emailfrom, string subject, string body)
         {
-
             if (emailto == null)
                 return;
             else
             {
-
                 string to = emailto;
                 string from = emailfrom;
                 MailMessage message = new MailMessage(from, to);
@@ -26,8 +24,6 @@ namespace WebApi.Business
                 client.UseDefaultCredentials = true;
                 client.Credentials = CredentialCache.DefaultNetworkCredentials;
 
-
-
                 try
                 {
                     client.Send(message);
@@ -36,12 +32,7 @@ namespace WebApi.Business
                 {
                     Log.Error("Exception caught in CreateTestMessage2(): {0})", ex.Message);
                 }
-
-
             }
-
-
-
         }
     }
 }

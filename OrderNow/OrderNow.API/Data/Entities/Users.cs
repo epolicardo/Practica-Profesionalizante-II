@@ -7,10 +7,6 @@
         public List<Businesses>? FavoriteBusiness { get; set; }
         public List<Products>? FavoriteProducts { get; set; }
         public string Password { get; set; }
-
-
-
-
     }
 
     public enum UserType

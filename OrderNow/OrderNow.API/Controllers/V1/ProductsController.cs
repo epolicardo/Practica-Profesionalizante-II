@@ -4,7 +4,6 @@
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize]
-
     public class ProductsController : ControllerBase
     {
         private readonly IGenericRepository<Products> _genericRepository;
@@ -16,15 +15,12 @@
             _dataContext = dataContext;
         }
 
-
         [HttpGet]
         [Route("ProductId")]
         public async Task<Products> GetById(string Id)
         {
             return await _genericRepository.GetByIdAsync(Id);
         }
-
-
 
         /// <summary>
         /// Obtain the list of Products
@@ -46,7 +42,6 @@
             return Data;
         }
 
-
         [HttpPost]
         [Route("Product")]
         public async Task<bool> CreateAsync(Products entity)
@@ -57,8 +52,6 @@
             await _genericRepository.CreateAsync(entity);
 
             return _genericRepository.SaveAsync().IsCompleted;
-
-
         }
 
         [HttpPut]
@@ -73,7 +66,5 @@
             await _genericRepository.EditAsync(entity);
             return _genericRepository.SaveAsync().IsCompletedSuccessfully;
         }
-
-
     }
 }

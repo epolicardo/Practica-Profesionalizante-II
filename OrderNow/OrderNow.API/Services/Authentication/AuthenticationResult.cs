@@ -1,6 +1,5 @@
 ﻿namespace OrderNow.API.Services.Authentication
 {
-    
     public class AuthenticationResult
     {
         public Guid Id { get; set; }

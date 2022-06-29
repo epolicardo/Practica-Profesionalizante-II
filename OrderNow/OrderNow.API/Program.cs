@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +31,6 @@ builder.Services.AddLogging();
 
 builder.Services.AddEndpointsApiExplorer();
 
-
 builder.Services.AddApiVersioning(options =>
 {
     options.ReportApiVersions = true;
@@ -48,7 +46,6 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 builder.Services.AddSwaggerGen(options =>
 {
-    
     options.OperationFilter<SwaggerDefaultValues>();
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
@@ -80,7 +77,6 @@ builder.Services
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
 })
 .AddJwtBearer(options =>
 {
@@ -96,32 +92,25 @@ builder.Services
     };
 });
 
-
-
 var app = builder.Build();
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 try
 {
-
     await SeedData.SeedInitialData(app);
 }
 catch (Exception ex)
 {
-
     throw;
 }
-
 
 app.UseCors(x => x
           .AllowAnyOrigin()
           .AllowAnyMethod()
           .AllowAnyHeader());
 
-
 if (app.Environment.IsDevelopment())
 {
-
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -143,10 +132,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-
-
-
-
 Log.Logger = new LoggerConfiguration()
           .WriteTo.Seq("http://localhost:5341")
           .CreateLogger();
@@ -155,6 +140,5 @@ Log.Information("OrderNow Started by user, {Name}!", Environment.UserName);
 
 // Important to call at exit so that batched events are flushed.
 Log.CloseAndFlush();
-
 
 app.Run();

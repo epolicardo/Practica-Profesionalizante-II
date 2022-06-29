@@ -1,12 +1,8 @@
-﻿using System.Net.Mime;
-
-namespace OrderNow.API.Services.Authentication
+﻿namespace OrderNow.API.Services.Authentication
 {
     public class AuthenticationServices : IAuthenticationServices
     {
-
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-
 
         public AuthenticationResult Register(RegisterRequest request)
         {
@@ -22,6 +18,5 @@ namespace OrderNow.API.Services.Authentication
         {
             throw new NotImplementedException();
         }
-
     }
 }

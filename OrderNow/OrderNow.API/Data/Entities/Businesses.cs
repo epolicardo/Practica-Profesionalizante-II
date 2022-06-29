@@ -2,7 +2,6 @@
 {
     public class Businesses : EntityBase
     {
-
         public string Name { get; set; }
         public Addresses? Address { get; set; }
         public string? URLIconImage { get; set; }
@@ -13,19 +12,18 @@
         public string CUIT { get; set; }
         public string LegalName { get; set; }
         public string Phone { get; set; }
+
         [NotMapped]
         public PaymentType[]? PaymentsType { get; set; }
+
         public bool IsValidated { get; set; } = false;
         public DateTime ValidationTime { get; set; }
         public DateTime ValidationExpires { get; set; }
         public float Score { get; set; }
         public UInt64 Qualification { get; set; }
 
-
-
         public class Image : EntityBase
         {
-
             public string Name { get; set; }
             public string URL { get; set; }
             public ImageType Type { get; set; }

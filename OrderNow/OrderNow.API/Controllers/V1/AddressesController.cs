@@ -6,17 +6,15 @@
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AddressesController : ControllerBase
     {
-
         private readonly IGenericRepository<Addresses> _genericRepository;
         private readonly IConfigurationHelper _configHelper;
-
 
         public AddressesController(IGenericRepository<Addresses> genericRepository, IConfigurationHelper configHelper)
         {
             _configHelper = configHelper;
             _genericRepository = genericRepository;
-
         }
+
         [HttpGet]
         [Route("AddressId")]
         public async Task<Addresses> GetByIdAsync(Guid Id)
@@ -37,7 +35,6 @@
             return Data;
         }
 
-
         [HttpPost]
         [Route("Address")]
         public async Task<bool> CreateAsync(Addresses entity)
@@ -48,8 +45,6 @@
             await _genericRepository.CreateAsync(entity);
 
             return _genericRepository.SaveAsync().IsCompleted;
-
-
         }
 
         [HttpPut]
@@ -81,6 +76,5 @@
                 throw new Exception("No se pudo eliminar la entidad", ex);
             }
         }
-
     }
 }

@@ -16,8 +16,8 @@
             this.context = _context;
             ConfigHelper = configHelper;
             this._genericRepository = genericRepository;
-
         }
+
         [HttpGet]
         [Route("GroupId")]
         public async Task<Groups> GetById(string Id)
@@ -26,13 +26,10 @@
             LogContext.PushProperty("Server", Environment.MachineName);
             if (ConfigHelper.UseMockup("Debug_Groups"))
             {
-
                 return null;
             }
             return await _genericRepository.GetByIdAsync(Id);
         }
-
-
 
         /// <summary>
         /// Obtain the list of Products
@@ -54,7 +51,6 @@
             return Data;
         }
 
-
         [HttpPost]
         [Route("Group")]
         public async Task<bool> Create(Groups entity)
@@ -65,8 +61,6 @@
             await _genericRepository.CreateAsync(entity);
 
             return _genericRepository.SaveAsync().IsCompleted;
-
-
         }
 
         [HttpPut]
@@ -98,6 +92,5 @@
                 throw new Exception("No se pudo eliminar la entidad", ex);
             }
         }
-
     }
 }

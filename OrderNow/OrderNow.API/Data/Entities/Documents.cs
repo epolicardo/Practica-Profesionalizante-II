@@ -1,6 +1,5 @@
 namespace Data.Entities
 {
-
     public class Documents : EntityBase
     {
         public DocumentsType Type { get; set; }
@@ -8,8 +7,5 @@ namespace Data.Entities
         public string DocumentNumber { get; set; }
         public Users GeneratedBy { get; set; }
         // public Users ModifiedBy { get; set; }
-
-
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
+
 namespace Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
@@ -15,10 +16,10 @@ namespace Repositories
         {
             return await _context.Set<T>().FindAsync(Id);
         }
+
         public async Task<IEnumerable<T>> GetAll()
         {
             return await _context.Set<T>().ToListAsync();
-
         }
 
         public async Task<T> FindByConditionAsync(Expression<Func<T, bool>> predicate)
@@ -40,27 +41,23 @@ namespace Repositories
                 throw;
             }
         }
+
         public async Task<bool> EditAsync(T entity)
         {
             EntityEntry<T> entityEntry = _context.Set<T>().Update(entity);
             return entityEntry.State == EntityState.Modified;
         }
+
         //TODO Chequear el tipo de dato retornado.
         public bool Delete(T entity)
         {
             return _context.Set<T>().Remove(entity).State.HasFlag(EntityState.Deleted);
-
         }
 
         public async Task<int> SaveAsync()
         {
             return await _context.SaveChangesAsync();
         }
-
-
-
-
-
 
         //public async Task<T> GetByNameAsync(string Name)
         //{

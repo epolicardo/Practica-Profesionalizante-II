@@ -6,7 +6,7 @@ namespace Services
     {
         private readonly IBusinessesRepository _businessesRepository;
         private readonly IUsersRepository _userRepository;
-        
+
         private readonly IProductsRepository _productsRepository;
         private readonly DataContext _dataContext;
 
@@ -16,11 +16,9 @@ namespace Services
             _dataContext = dataContext;
         }
 
-
-
         public Task<Businesses> GetBusinessIfActive(string url)
         {
-            return _businessesRepository.FindByConditionAsync(x=>x.ContractURL == url);
+            return _businessesRepository.FindByConditionAsync(x => x.ContractURL == url);
         }
 
         public IEnumerable<Products> ProductsByBusiness(string url)
@@ -38,8 +36,6 @@ namespace Services
 
                 if (user != null)
                 {
-
-
                     FavoriteBusiness favoriteBusiness = new FavoriteBusiness();
                     favoriteBusiness.Business = business.Result;
                     favoriteBusiness.Users = (Users)user;
@@ -73,13 +69,11 @@ namespace Services
              * Bloque de estadisticas
              * Top Clientes
              * Top Productos*/
-                var b = await _businessesRepository.FindByConditionAsync(x=>x.ContractURL == url);
+            var b = await _businessesRepository.FindByConditionAsync(x => x.ContractURL == url);
             BusinessDashboard bd = new BusinessDashboard();
             bd.Business = b;
 
             return bd;
-
         }
     }
 }
-

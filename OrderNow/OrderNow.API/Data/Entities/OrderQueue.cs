@@ -4,7 +4,6 @@
     {
         public int MyProperty { get; set; }
 
-
         //Posicion
     }
 }

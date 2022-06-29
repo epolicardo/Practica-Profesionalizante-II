@@ -14,13 +14,13 @@ namespace OrderNow.API.Services.Authentication
 
         private readonly IDateTimeProvider _dateTimeProvider;
 
-
         public JwtTokenGenerator(IDateTimeProvider dateTimeProvider,
             IOptions<JwtBearerTokenSettings> jwtSettings)
         {
             _dateTimeProvider = dateTimeProvider;
             _jwtSettings = jwtSettings.Value;
         }
+
         public string GenerateToken(Guid userId, string firstname, string lastname)
         {
             var signingCredentials = new SigningCredentials(
@@ -28,14 +28,12 @@ namespace OrderNow.API.Services.Authentication
                     Encoding.UTF8.GetBytes(_jwtSettings.SecretKey)),
                 SecurityAlgorithms.HmacSha256);
 
-
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.GivenName, firstname),
                 new Claim(JwtRegisteredClaimNames.FamilyName, lastname),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-
             };
 
             var securityToken = new JwtSecurityToken(
@@ -48,6 +46,5 @@ namespace OrderNow.API.Services.Authentication
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
-
     }
 }

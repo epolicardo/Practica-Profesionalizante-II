@@ -1,6 +1,5 @@
 ﻿namespace Data.Entities
 {
-
     public class People : EntityBase
     {
         [Display(Name = "Nombre")]
@@ -14,14 +13,9 @@
         [Display(Name = "Domicilio")]
         [MaxLength(150)]
         public Addresses? Address { get; set; }
-        [Required]
 
+        [Required]
         [Display(Name = "Fecha Nacimiento")]
         public DateTime? BirthDate { get; set; }
-
-
-
-
-
     }
 }

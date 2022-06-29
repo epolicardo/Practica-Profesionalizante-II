@@ -1,25 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Security.Claims;
-
 
 namespace Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-
-
     public class UsersController : ControllerBase
     {
-
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<Users> userManager;
         private readonly DataContext context;
         private readonly IGenericRepository<Users> genericRepository;
-
 
         public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext _context,
             IGenericRepository<Users> _genericRepository)
@@ -30,20 +23,14 @@ namespace Controllers
             genericRepository = _genericRepository;
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-
         }
-
 
         [HttpPost]
         [Route("GetByMailAsync/{email}")]
         public Users GetByMailAsync(string email)
         {
-
-
-
             return context.Users.FirstOrDefault(u => u.Email == email);
             //return context.Users.Include(p => p.Person).ThenInclude(d => d.Domicilio).FirstOrDefault(x => x.Email == email);
-
         }
 
         //   [Authorize(Policy = "GetToken")]
@@ -56,17 +43,13 @@ namespace Controllers
             return await genericRepository.GetByIdAsync(Id);
         }
 
-
-
         [HttpGet]
         [Route("GetList")]
         public IEnumerable<Users> GetList()
         {
-
             IEnumerable<Users> User = null;
             try
             {
-
                 User = context.Users.Include(p => p.person).Include(f => f.FavoriteBusiness).Include(f => f.FavoriteProducts).ToList();
                 Log.Information("Users: {@Users}", User);
             }
@@ -89,7 +72,6 @@ namespace Controllers
             //IEnumerable<Users> Users = context.Users.Include(x => x.Persona).Where(x => x.Persona.Apellido == TituloGrupo).ToList();
             Log.Information("Users: {@Users}", Users);
             return Users;
-
         }
 
         /// <summary>
@@ -97,8 +79,7 @@ namespace Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        /// 
-
+        ///
 
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -116,7 +97,6 @@ namespace Controllers
             var result = await userManager.CreateAsync(user, user.Password);
             user.Password = userManager.PasswordHasher.HashPassword(user, user.Password);
 
-
             if (!result.Succeeded)
             {
                 var dictionary = new ModelStateDictionary();
@@ -132,7 +112,6 @@ namespace Controllers
             return CreatedAtAction(nameof(Register), new { id = user.Id }, user);
             //return Ok(new { Message = "User Registration Successful" });
         }
-
 
         //[HttpPost]
         //[Route("Token")]
@@ -164,8 +143,6 @@ namespace Controllers
         //    });
         //}
 
-       
-
         //private async Task<Users> ValidateUser(LoginCredentials credentials)
         //{
         //    var identityUser = await userManager.FindByEmailAsync(credentials.email);
@@ -176,11 +153,9 @@ namespace Controllers
         //        return result == PasswordVerificationResult.Failed ? null : identityUser;
         //    }
 
-
         //    //TODO: Corregir devolucion
         //    return null;
         //}
-
 
         //private object GenerateToken(Users identityUser)
         //{
@@ -205,22 +180,16 @@ namespace Controllers
         //    return tokenHandler.WriteToken(token);
         //}
 
-
-
         [HttpPost]
         [Route("FavoriteBusiness")]
         public async Task<IActionResult> AssignFavoriteBusinessToUserAsync(string userId, string businessURL)
         {
-
-
             Users? user = await genericRepository.GetByIdAsync(userId);
             Businesses? businesses = context.Businesses.FirstOrDefault(x => x.ContractURL == businessURL);
 
             if (businesses == null || user == null)
             {
-
                 return new BadRequestObjectResult(new { Message = "Object Business null" });
-
             }
             if (user.FavoriteBusiness == null)
             {
@@ -245,11 +214,9 @@ namespace Controllers
 
             IHost host = Host.CreateDefaultBuilder().Start();
 
-
             MailAddress mailAddress = new MailAddress("emilianopolicardo@gmail.com");
             MailAddressCollection mailAddresses = new MailAddressCollection();
             mailAddresses.Add(mailAddress);
-
 
             MailMessage mailMessage = new MailMessage(mailAddress, mailAddress)
             {
@@ -257,12 +224,8 @@ namespace Controllers
                 Body = "",
                 From = mailAddress,
                 IsBodyHtml = true
-
             };
             await smtpClient.SendMailAsync(mailMessage);
-
-
         }
-
     }
 }

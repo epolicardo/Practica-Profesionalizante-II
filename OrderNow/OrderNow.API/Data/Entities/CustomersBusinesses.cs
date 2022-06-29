@@ -12,12 +12,9 @@
         public Users Users { get; set; }
     }
 
-
     public class FavoriteBusiness : EntityBase
     {
         public Businesses Business { get; set; }
         public Users Users { get; set; }
     }
-
-
 }

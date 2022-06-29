@@ -3,7 +3,6 @@ using System.Text.Json;
 
 namespace Infrastructure.Swagger
 {
-
     /// <summary>
     /// Represents the Swagger/Swashbuckle operation filter used to document the implicit API version parameter.
     /// </summary>

@@ -4,8 +4,6 @@ namespace Services
 {
     public class UsersServices : IGenericServices<Users>, IUsersServices
     {
-
-
         private readonly IUsersRepository _usersRepository;
 
         public UsersServices(IUsersRepository usersRepository)
@@ -15,7 +13,6 @@ namespace Services
 
         public bool AssignFavoriteBusinessToUser(Users user, Businesses business)
         {
-
             if (user == null) { return false; }
 
             if (business == null) { return false; }

@@ -9,7 +9,5 @@
         public string? Tower { get; set; }
         public Cities? City { get; set; }
         public string? Observations { get; set; }
-
-
     }
 }

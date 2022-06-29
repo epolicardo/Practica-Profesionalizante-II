@@ -9,6 +9,5 @@ namespace Data.Entities
         OrdenCompra = 5,
         OrdenEntrega = 6,
         Presupuesto = 7
-
     }
 }

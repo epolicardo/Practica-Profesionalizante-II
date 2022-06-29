@@ -6,7 +6,6 @@
     [Route("api/v{version:apiVersion}/[controller]")]
     public class CategoriesController : ControllerBase
     {
-
         private readonly IGenericRepository<Categories> _genericRepository;
         private readonly DataContext _context;
         private readonly IConfigurationHelper _configHelper;
@@ -30,7 +29,6 @@
             return await _genericRepository.GetAll();
         }
 
-
         [HttpGet]
         [Route("CategoryId")]
         public async Task<Categories> GetByIdAsync(string Id)
@@ -38,10 +36,8 @@
             return await _genericRepository.GetByIdAsync(Id);
         }
 
-
         [HttpPost]
         [Route("Category")]
-
         public async Task<bool> CreateAsync(Categories entity)
         {
             if (_configHelper.UseMockup("Categorias"))
@@ -50,7 +46,6 @@
             }
 
             return await _genericRepository.CreateAsync(entity);
-
         }
 
         [HttpPut]
@@ -82,6 +77,5 @@
                 throw new Exception("No se pudo eliminar la entidad", ex);
             }
         }
-
     }
 }

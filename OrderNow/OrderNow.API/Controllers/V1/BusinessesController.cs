@@ -8,7 +8,6 @@
     {
         private readonly IBusinessesServices _businessesServices;
 
-
         public BusinessesController(IBusinessesServices businessesServices)
         {
             LogContext.PushProperty($"Method", MethodBase.GetCurrentMethod());
@@ -41,7 +40,6 @@
             IEnumerable<Businesses> data = await _businessesServices.GetAll();
             return data;
         }
-
 
         [HttpPost]
         [Route("Business")]
@@ -87,7 +85,6 @@
             return _businessesServices.ProductsByBusiness(url);
         }
 
-
         [HttpGet]
         [Route("SetAsFavorite")]
         public bool SetAsFavorite(string url, Guid userId)
@@ -101,9 +98,5 @@
         //{
         //    return await _businessesServices.GetDashboard(url);
         //}
-
-
-
-
     }
 }

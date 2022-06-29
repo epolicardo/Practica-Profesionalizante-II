@@ -13,15 +13,12 @@ namespace Repositories
 
         public async Task<bool> CreateAsync(Businesses entity)
         {
-
             return await base.CreateAsync(entity);
-
         }
 
         public bool Delete(Businesses entity)
         {
             return base.Delete(entity);
-
         }
 
         public Task<bool> EditAsync(Businesses entity)
@@ -38,7 +35,6 @@ namespace Repositories
         {
             return base.FindByConditionAsync(predicate);
         }
-
 
         public async Task<Businesses> GetByUrl(string url)
         {
@@ -60,37 +56,27 @@ namespace Repositories
             return base.SaveAsync();
         }
 
-
         public IEnumerable<Products> SugestedProductsByBusiness(string url)
         {
-
             return null;
         }
 
         public IEnumerable<Products> ProductsByBusiness(string URL)
         {
-
             var products = _dataContext.Products.Where(x => x.Business.ContractURL == URL).ToList();
 
             return products;
-
         }
-
 
         public List<Products> ProductsByBusinessByCategory(string URL, Categories Category)
         {
-
             var products = _dataContext.Products.Where(x => x.Business.ContractURL == URL).Where(p => p.Category.Name == Category.Name).ToList();
 
             return products;
-
         }
 
-
-        public void ValidateBusiness() { }
-
-
-
+        public void ValidateBusiness()
+        { }
 
         //[HttpGet]
         //[Route("GetCustomerByName/{customerName}")]
@@ -100,4 +86,3 @@ namespace Repositories
         //}
     }
 }
-
