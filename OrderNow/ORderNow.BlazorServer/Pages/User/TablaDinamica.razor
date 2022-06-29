@@ -1,4 +1,5 @@
-@using OrderNow.Services
+@using OrderNow.BlazorServer.Services
+
 @using System.Text.Json
 @using global::Data.Entities
 @inject IHttpClientFactory ClientFactory
@@ -45,19 +46,19 @@
 					</td>
 					<td>
 						<div class="status-box">
-							<p>In process</p>
+							<p>@order.OrderStatus</p>
 						</div>
 					</td>
 					<td>
 						<div class="status-progress-bar">
 						</div>
-						<p class="order-time-delay">28 min</p>
+						<p class="order-time-delay">@(DateTime.Now.Subtract(order.Created))</p>
 					</td>
 					<td>
-						<p class="order-items">@order.Created</p>
+						<p class="order-items">@order.PartialCompletionOrderDate</p>
 					</td>
 					<td>
-						<p class="order-amount">$589,68</p>
+						<p class="order-amount">@order.TotalAmount</p>
 					</td>
 				</tr>
 			}
@@ -69,22 +70,18 @@
 
 	[ParameterAttribute]
 	public string? TableName { get; set; }
+	[ParameterAttribute]
+	public string? itemCount { get; set; }
+	[Inject]
+	protected IOrdersApiServices _ordersService { get; set; }
 
-
-	public IEnumerable<Orders> orders { get; set; }
-
+	public IEnumerable<Orders>? orders { get; set; }
+	//GetCookieBusinessId
 	protected override async Task OnInitializedAsync()
 	{
-		var request = new HttpRequestMessage(HttpMethod.Get, "api/v1/Orders/Orders");
-
-		var client = ClientFactory.CreateClient();
-		client.BaseAddress = new Uri("https://localhost:7269/");
-		var response = await client.SendAsync(request);
-		if (response.IsSuccessStatusCode)
-		{
-			await using var responseStream = await response.Content.ReadAsStreamAsync();
-			orders = await JsonSerializer.DeserializeAsync<List<Orders>>(responseStream);
-		}
+		orders = await _ordersService.GetPendingOrdersByBusiness("269c886d-325f-4865-9cc4-34449aa3f56a");
 	}
+
+	
 
 }

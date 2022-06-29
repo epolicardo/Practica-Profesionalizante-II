@@ -51,7 +51,7 @@
             LogContext.PushProperty("Server", Environment.MachineName);
             Log.Information("Business: {@Business}", business);
 
-            business.Created = DateTime.Now;
+            //business.Created = DateTime.Now;
             business.LastModified = DateTime.Now;
 
             await _businessesServices.CreateAsync(business);

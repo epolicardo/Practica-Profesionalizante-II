@@ -25,10 +25,14 @@
             return order;
         }
 
-
-        public async Task<IEnumerable<Orders>> GetPendingOrdersAsync()
+        public async Task<IEnumerable<Orders>> GetPendingOrdersByBusinessAsync(string businessId)
         {
-            return await _dataContext.Orders.Where(s => s.OrderStatus != OrderStatus.Completed).ToListAsync();
+            return await _dataContext.Orders
+                .Where(s => s.Business.Id.ToString() == businessId)
+                .Where(s => s.OrderStatus != OrderStatus.Completed)
+                .Include(s=>s.Business)
+                .Include(s=>s.User)
+                .ToListAsync();
         }
 
     }

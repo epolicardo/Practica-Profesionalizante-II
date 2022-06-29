@@ -37,17 +37,17 @@
                
         }
         [HttpGet]
-        [Route("AddProductToOrder/Id:{orderId}")]
+        [Route("AddProductToOrder/{orderId}")]
         public void AddProductToOrder(string orderId)
         {
 
         }
-        [Authorize]
-        [HttpPost]
-        [Route("GetPendingOrders/Id:{businessId}")]
+       // [Authorize]
+        [HttpGet]
+        [Route("GetPendingOrders/{businessId}")]
         public async Task<ActionResult<IEnumerable<Orders>>> GetPendingOrdersByBusiness(string businessId)
         {
-            var orders = await _ordersServices.GetPendingOrders(businessId);
+            var orders = await _ordersServices.GetPendingOrdersByBusiness(businessId);
             return Ok(orders);
         }
     }

@@ -134,84 +134,76 @@ namespace Controllers
         }
 
 
-        [HttpPost]
-        [Route("GetToken")]
-        public async Task<IActionResult> GetToken(LoginCredentials credentials)
-        {
-            Log.Information("User ingresado: {@Credenciales}", credentials.email);
-            Users identityUser;
+        //[HttpPost]
+        //[Route("Token")]
+        //public async Task<IActionResult> Token(LoginCredentials credentials)
+        //{
+        //    Log.Information("User ingresado: {@Credenciales}", credentials.email);
+        //    Users identityUser;
 
-            if (!ModelState.IsValid
-                || credentials == null
-                || (identityUser = await ValidateUser(credentials)) == null)
-            {
-                return new BadRequestObjectResult(
-                    new
-                    {
-                        Token = "Not Generated",
-                        Message = "Error",
-                        Email = credentials.email
-                    });
-            }
+        //    if (!ModelState.IsValid
+        //        || credentials == null
+        //        || (identityUser = await ValidateUser(credentials)) == null)
+        //    {
+        //        return new BadRequestObjectResult(
+        //            new
+        //            {
+        //                Token = "Not Generated",
+        //                Message = "Error",
+        //                Email = credentials.email
+        //            });
+        //    }
 
-            var token = GenerateToken(identityUser);
-            Log.Information("Token granted to {@Email}", identityUser.Email);
-            return Ok(new
-            {
-                Token = token,
-                Message = "Success",
-                Email = identityUser.Email,
-            });
-        }
+        //    var token = GenerateToken(identityUser);
+        //    Log.Information("Token granted to {@Email}", identityUser.Email);
+        //    return Ok(new
+        //    {
+        //        Token = token,
+        //        Message = "Success",
+        //        Email = identityUser.Email,
+        //    });
+        //}
 
-        [HttpPost]
-        [Route("Logout")]
-        public IActionResult Logout()
-        {
-            // Well, What do you want to do here ?
-            // Wait for token to get expired OR 
-            // Maintain token cache and invalidate the tokens after logout method is called
-            return Ok(new { Token = "", Message = "Logged Out" });
-        }
+       
 
-        private async Task<Users> ValidateUser(LoginCredentials credentials)
-        {
-            var identityUser = await userManager.FindByEmailAsync(credentials.email);
+        //private async Task<Users> ValidateUser(LoginCredentials credentials)
+        //{
+        //    var identityUser = await userManager.FindByEmailAsync(credentials.email);
 
-            if (identityUser != null)
-            {
-                var result = userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
-                return result == PasswordVerificationResult.Failed ? null : identityUser;
-            }
+        //    if (identityUser != null)
+        //    {
+        //        var result = userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
+        //        return result == PasswordVerificationResult.Failed ? null : identityUser;
+        //    }
 
 
-            //TODO: Corregir devolucion
-            return null;
-        }
+        //    //TODO: Corregir devolucion
+        //    return null;
+        //}
 
 
-        private object GenerateToken(Users identityUser)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
+        //private object GenerateToken(Users identityUser)
+        //{
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, identityUser.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, identityUser.Email)
-                }),
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(new Claim[]
+        //        {
+        //            new Claim(ClaimTypes.Name, identityUser.UserName.ToString()),
+        //            new Claim(ClaimTypes.Email, identityUser.Email)
+        //        }),
 
-                Expires = DateTime.UtcNow.AddSeconds(jwtBearerTokenSettings.ExpiryTimeInSeconds),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Audience = jwtBearerTokenSettings.Audience,
-                Issuer = jwtBearerTokenSettings.Issuer
-            };
+        //        Expires = DateTime.UtcNow.AddSeconds(jwtBearerTokenSettings.ExpiryTimeInSeconds),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+        //        Audience = jwtBearerTokenSettings.Audience,
+        //        Issuer = jwtBearerTokenSettings.Issuer
+        //    };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    return tokenHandler.WriteToken(token);
+        //}
 
 
 

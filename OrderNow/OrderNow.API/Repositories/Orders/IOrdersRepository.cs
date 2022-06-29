@@ -4,6 +4,6 @@
     {
 
         Task<ActionResult<Orders>> CreateOrder(Users user, Businesses business);
-        Task<IEnumerable<Orders>> GetPendingOrdersAsync();
+        Task<IEnumerable<Orders>> GetPendingOrdersByBusinessAsync(string businessId);
     }
 }

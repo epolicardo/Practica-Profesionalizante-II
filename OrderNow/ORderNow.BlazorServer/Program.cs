@@ -1,18 +1,25 @@
+using Data.Entities;
 using OrderNow.BlazorServer.Data;
-using OrderNow.Services;
+using OrderNow.BlazorServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 IServiceProvider? sp;
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7269/") });
-builder.Services.AddHttpClient();
+//builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("OrderNowApi", c =>
+{
+    c.BaseAddress = new Uri("https://localhost:7269/");
+    c.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
+});
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
-builder.Services.AddScoped<OrdersService>()
-    .AddScoped<CustomersService>();
+builder.Services
+    .AddScoped<IOrdersApiServices, OrdersApiServices>()
+    .AddScoped<IGenericApiServices<Orders>, GenericApiServices<Orders>>(); ;
 
 
 var app = builder.Build();

@@ -42,9 +42,9 @@ namespace Services
             return await _ordersRepository.GetByIdAsync(orderId);
         }
 
-        public async Task<IEnumerable<Orders>> GetPendingOrders(string businessId)
+        public async Task<IEnumerable<Orders>> GetPendingOrdersByBusiness(string businessId)
         {
-            return await _ordersRepository.GetPendingOrdersAsync();
+            return await _ordersRepository.GetPendingOrdersByBusinessAsync(businessId);
         }
 
       

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +8,7 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .WriteTo.Seq("http://localhost:5341"));
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Conexion")));
 
 //https://www.campusmvp.es/recursos/post/como-guardar-secretos-en-nuestras-aplicaciones-de-net-core-sin-peligro-de-enviarlos-a-github-por-error.aspx
@@ -24,35 +24,31 @@ builder.Services.AddControllers();
 //                .AddJsonOptions(x =>
 //                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
-
-
-builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-
-//Repositorios
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IConfigurationHelper, ConfigurationHelper>();
-builder.Services.AddScoped<IBusinessesRepository, BusinessesRepository>();
-builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
-builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-
-
-//Servicios
-builder.Services.AddScoped<IBusinessesServices, BusinessesServices>();
-builder.Services.AddScoped<IDemoService, DemoService>();
-builder.Services.AddScoped<IOrdersServices, OrdersServices>();
-builder.Services.AddScoped<IProductsServices, ProductsServices>();
-builder.Services.AddScoped<IUsersServices, UsersServices>();
-
-
 builder.Services.AddIdentity<Users, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddLogging();
 
+builder.Services.AddEndpointsApiExplorer();
+
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.ReportApiVersions = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+});
+
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
 builder.Services.AddSwaggerGen(options =>
 {
+    
     options.OperationFilter<SwaggerDefaultValues>();
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
@@ -76,26 +72,11 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddApiVersioning(options =>
-{
-    options.ReportApiVersions = true;
-});
-
-builder.Services.AddVersionedApiExplorer(options =>
-{
-    options.GroupNameFormat = "'v'VVV";
-    options.SubstituteApiVersionInUrl = true;
-});
-
-
-var jwtSection = config.GetSection("JwtBearerTokenSettings");
-jwtSection = config.GetSection("JwtBearerTokenSettings");
-builder.Services.Configure<JwtBearerTokenSettings>(jwtSection);
-var jwtBearerTokenSettings = jwtSection.Get<JwtBearerTokenSettings>();
-var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
-
-
-builder.Services.AddAuthentication(options =>
+builder.Services
+    .AddApplicationServices()
+    .AddInfrastructure(builder.Configuration)
+    .ConfigureOptions<ConfigureSwaggerOptions>()
+    .AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -109,13 +90,16 @@ builder.Services.AddAuthentication(options =>
     options.IncludeErrorDetails = true;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
-        ValidIssuer = jwtBearerTokenSettings.Issuer,
-        ValidAudience = jwtBearerTokenSettings.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
+        //ValidIssuer = jwtBearerTokenSettings.Issuer,
+        //ValidAudience = jwtBearerTokenSettings.Audience,
+        //IssuerSigningKey = new SymmetricSecurityKey(key),
     };
 });
 
+
+
 var app = builder.Build();
+var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 try
 {
@@ -137,6 +121,7 @@ app.UseCors(x => x
 
 if (app.Environment.IsDevelopment())
 {
+
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();

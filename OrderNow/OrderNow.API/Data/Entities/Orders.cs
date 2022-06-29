@@ -2,7 +2,7 @@
 {
     public class Orders : EntityBase
     {
-        public DateTime OrderDate { get; set; } = DateTime.Now;
+        public DateTime OrderDate { get; set; }
         public DateTime? PartialCompletionOrderDate { get; set; }
         public DateTime? CompletionOrderDate { get; set; }
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Waiting;
