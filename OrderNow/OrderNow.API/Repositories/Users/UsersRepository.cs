@@ -18,32 +18,37 @@ namespace Repositories
 
         public bool Delete(Users entity)
         {
-            throw new NotImplementedException();
+            return base.Delete(entity);
         }
 
         public Task<bool> EditAsync(Users entity)
         {
-            throw new NotImplementedException();
+            return base.EditAsync(entity);
         }
 
         public Task<Users> FindByConditionAsync(Expression<Func<Users, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return base.FindByConditionAsync(predicate);
         }
 
         public Task<IEnumerable<Users>> GetAll()
         {
-            throw new NotImplementedException();
+            return base.GetAll();
         }
 
         public Task<Users> GetByIdAsync(string Id)
         {
-            throw new NotImplementedException();
+            return base.GetByIdAsync(Id);
+        }
+
+        public   Users GetByMailAsync(string email)
+        {
+            return  _dataContext.Users.Include(p => p.person).ThenInclude(d => d.Address).FirstOrDefault(x => x.Email == email);
         }
 
         public Task<int> SaveAsync()
         {
-            throw new NotImplementedException();
+            return base.SaveAsync();
         }
     }
 }

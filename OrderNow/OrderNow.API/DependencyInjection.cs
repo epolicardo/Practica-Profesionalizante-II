@@ -5,6 +5,8 @@ namespace OrderNow.API
 {
     public static class DependencyInjection
     {
+
+        
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             //Repositorios
@@ -31,7 +33,7 @@ namespace OrderNow.API
             .AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.Configure<JwtBearerTokenSettings>(configuration.GetSection(JwtBearerTokenSettings.SectionName));
-
+           
             return services;
         }
     }

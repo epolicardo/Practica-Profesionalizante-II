@@ -2,13 +2,18 @@
 
 namespace Services
 {
-    public class UsersServices : IGenericServices<Users>, IUsersServices
+    public class UsersServices : GenericServices<Users>, IUsersServices
     {
         private readonly IUsersRepository _usersRepository;
 
-        public UsersServices(IUsersRepository usersRepository)
+        public UsersServices(IUsersRepository usersRepository) : base(usersRepository)
         {
             _usersRepository = usersRepository;
+        }
+
+        public bool AddProductToOrder(Users user, Orders order, Products product)
+        {
+            throw new NotImplementedException();
         }
 
         public bool AssignFavoriteBusinessToUser(Users user, Businesses business)
@@ -38,45 +43,43 @@ namespace Services
             user.FavoriteProducts.Add(product);
             return true;
         }
-
-        public bool AddProductToOrder(Users user, Orders order, Products product)
+        public new Task<bool> CreateAsync(Users entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Users>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Users> GetByIdAsync(string Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Users> FindByConditionAsync(Expression<Func<Users, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> CreateAsync(Users entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> EditAsync(Users entity)
-        {
-            throw new NotImplementedException();
+            return base.CreateAsync(entity);
         }
 
         public bool Delete(Users entity)
         {
-            throw new NotImplementedException();
+            return base.Delete(entity);
+        }
+
+        public Task<bool> EditAsync(Users entity)
+        {
+            return base.EditAsync(entity);
+        }
+
+        public Task<Users> FindByConditionAsync(Expression<Func<Users, bool>> predicate)
+        {
+            return base.FindByConditionAsync(predicate);
+        }
+
+        public Task<IEnumerable<Users>> GetAll()
+        {
+            return base.GetAll();
+        }
+
+        public Task<Users> GetByIdAsync(string Id)
+        {
+            return base.GetByIdAsync(Id);
+        }
+        public Users GetByMailAsync(string email)
+        {
+            return _usersRepository.GetByMailAsync(email);
         }
 
         public Task<int> SaveAsync()
         {
-            throw new NotImplementedException();
+            return base.SaveAsync();
         }
     }
 }

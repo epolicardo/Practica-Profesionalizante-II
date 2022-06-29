@@ -28,7 +28,7 @@ namespace Services
 
         public Task<T> FindByConditionAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _genericRepository.FindByConditionAsync(predicate);
         }
 
         public async Task<IEnumerable<T>> GetAll()

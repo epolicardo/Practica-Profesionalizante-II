@@ -18,7 +18,6 @@ IConfiguration config = new ConfigurationBuilder()
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(config.GetConnectionString("Conexion_Hangfire")));
 builder.Services.AddHangfireServer();
 builder.Services.AddCors();
-builder.Services.AddControllers();
 //builder.Services.AddControllers()
 //                .AddJsonOptions(x =>
 //                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
@@ -72,25 +71,27 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services
     .AddApplicationServices()
     .AddInfrastructure(builder.Configuration)
-    .ConfigureOptions<ConfigureSwaggerOptions>()
-    .AddAuthentication(options =>
+    .ConfigureOptions<ConfigureSwaggerOptions>();
+
+
+builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddJwtBearer(options =>
-{
-    //TODO: Activar en produccion
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.IncludeErrorDetails = true;
-    options.TokenValidationParameters = new TokenValidationParameters()
+    .AddJwtBearer(options =>
     {
-        //ValidIssuer = jwtBearerTokenSettings.Issuer,
-        //ValidAudience = jwtBearerTokenSettings.Audience,
-        //IssuerSigningKey = new SymmetricSecurityKey(key),
-    };
-});
+                    //TODO: Activar en produccion
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.IncludeErrorDetails = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidIssuer = "https://localhost:44322/",
+            ValidAudience = "https://localhost:44322/",
+            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Key"))
+        };
+    });
 
 var app = builder.Build();
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();

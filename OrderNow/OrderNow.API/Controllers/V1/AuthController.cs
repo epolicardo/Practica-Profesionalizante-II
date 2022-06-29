@@ -5,17 +5,19 @@ using System.Net.Mime;
 namespace OrderNow.API.Controllers.V1
 {
     [ApiController]
-    [ApiVersion("2.0")]
+    [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly UserManager<Users> _userManager;
+        private readonly IUsersServices _usersServices;
 
-        public AuthController(UserManager<Users> userManager, IJwtTokenGenerator jwtTokenGenerator)
+        public AuthController(UserManager<Users> userManager, IJwtTokenGenerator jwtTokenGenerator, IUsersServices usersServices)
         {
             _userManager = userManager;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _usersServices = usersServices;
         }
 
         [HttpPost]
@@ -38,14 +40,14 @@ namespace OrderNow.API.Controllers.V1
                 return BadRequest(authorizationResult);
             }
 
-            var userId = Guid.NewGuid();
+            var userId = Guid.Parse(identityUser.Id);
             var token = _jwtTokenGenerator.GenerateToken(userId, "Emiliano", "Policardo");
             Log.Information("Token granted to {@Email}", identityUser.Email);
             authorizationResult = new AuthenticationResult()
             {
                 Token = token,
-                Name = "Emiliano",
-                LastName = "Policardo",
+                Name = identityUser.person.FirstName,
+                LastName = identityUser.person.LastName,
                 Id = userId,
                 Email = identityUser.Email
             };
@@ -90,7 +92,7 @@ namespace OrderNow.API.Controllers.V1
             }
 
             return CreatedAtAction(nameof(Register), new { id = user.Id }, user);
-            //return Ok(new { Message = "User Registration Successful" });
+          
         }
 
         [HttpPost]
@@ -112,15 +114,15 @@ namespace OrderNow.API.Controllers.V1
                 };
                 return BadRequest(authorizationResult);
             }
-            var userId = Guid.NewGuid();
+            var userId = Guid.Parse(identityUser.Id);
             var token = _jwtTokenGenerator.GenerateToken(userId, credentials.email, credentials.Password);
             Log.Information("Token granted to {@Email}", identityUser.Email);
 
             authorizationResult = new AuthenticationResult()
             {
                 Token = token,
-                Name = "Emiliano",
-                LastName = "Policardo",
+                Name = identityUser.person.FirstName,
+                LastName = identityUser.person.LastName,
                 Id = userId,
                 Email = identityUser.Email
             };
@@ -129,12 +131,15 @@ namespace OrderNow.API.Controllers.V1
 
         private async Task<Users> ValidateUser(LoginCredentials credentials)
         {
-            var identityUser = await _userManager.FindByEmailAsync(credentials.email);
+            //var identityUser = await _userManager.FindByEmailAsync(credentials.email);
+           
+            var user = _usersServices.GetByMailAsync(credentials.email);  
 
-            if (identityUser != null)
+
+            if (user != null)
             {
-                var result = _userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
-                return result == PasswordVerificationResult.Failed ? null : identityUser;
+                var result = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, user.Password);
+                return result == PasswordVerificationResult.Failed ? null : user;
             }
 
             //TODO: Corregir devolucion

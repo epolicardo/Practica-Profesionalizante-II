@@ -22,7 +22,8 @@
             return await _businessesServices.GetByIdAsync(id);
         }
 
-        [AllowAnonymous]
+        //[/*AllowAnonymous*/]
+        [Authorize]
         [HttpGet]
         [Route("BusinessURL")]
         public async Task<Businesses> GetByUrlAsync(string url)

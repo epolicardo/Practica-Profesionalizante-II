@@ -9,18 +9,18 @@ namespace Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
-        private readonly UserManager<Users> userManager;
-        private readonly DataContext context;
-        private readonly IGenericRepository<Users> genericRepository;
+        private readonly JwtBearerTokenSettings _jwtBearerTokenSettings;
+        private readonly UserManager<Users> _userManager;
+        private readonly DataContext _context;
+        private readonly IGenericRepository<Users> _genericRepository;
 
-        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext _context,
-            IGenericRepository<Users> _genericRepository)
+        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext context,
+            IGenericRepository<Users> genericRepository)
         {
-            this.jwtBearerTokenSettings = jwtTokenOptions.Value;
-            this.userManager = userManager;
-            context = _context;
-            genericRepository = _genericRepository;
+            _jwtBearerTokenSettings = jwtTokenOptions.Value;
+            _userManager = userManager;
+            _context = context;
+            _genericRepository = genericRepository;
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
         }
@@ -29,8 +29,8 @@ namespace Controllers
         [Route("GetByMailAsync/{email}")]
         public Users GetByMailAsync(string email)
         {
-            return context.Users.FirstOrDefault(u => u.Email == email);
-            //return context.Users.Include(p => p.Person).ThenInclude(d => d.Domicilio).FirstOrDefault(x => x.Email == email);
+            //return _context.Users.FirstOrDefault(u => u.Email == email);
+            return _context.Users.Include(p => p.person).ThenInclude(d => d.Address).FirstOrDefault(x => x.Email == email);
         }
 
         //   [Authorize(Policy = "GetToken")]
@@ -40,7 +40,7 @@ namespace Controllers
         [Route("GetByIdAsync")]
         public async Task<Users> GetByIdAsync(string Id)
         {
-            return await genericRepository.GetByIdAsync(Id);
+            return await _genericRepository.GetByIdAsync(Id);
         }
 
         [HttpGet]
@@ -50,7 +50,7 @@ namespace Controllers
             IEnumerable<Users> User = null;
             try
             {
-                User = context.Users.Include(p => p.person).Include(f => f.FavoriteBusiness).Include(f => f.FavoriteProducts).ToList();
+                User = _context.Users.Include(p => p.person).Include(f => f.FavoriteBusiness).Include(f => f.FavoriteProducts).ToList();
                 Log.Information("Users: {@Users}", User);
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace Controllers
         {
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
-            IEnumerable<Users> Users = (IEnumerable<Users>)context.Users.ToList();
+            IEnumerable<Users> Users = (IEnumerable<Users>)_context.Users.ToList();
             //IEnumerable<Users> Users = context.Users.Include(x => x.Persona).Where(x => x.Persona.Apellido == TituloGrupo).ToList();
             Log.Information("Users: {@Users}", Users);
             return Users;
@@ -94,8 +94,8 @@ namespace Controllers
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
 
-            var result = await userManager.CreateAsync(user, user.Password);
-            user.Password = userManager.PasswordHasher.HashPassword(user, user.Password);
+            var result = await _userManager.CreateAsync(user, user.Password);
+            user.Password = _userManager.PasswordHasher.HashPassword(user, user.Password);
 
             if (!result.Succeeded)
             {
@@ -107,7 +107,7 @@ namespace Controllers
 
                 return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
             }
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(Register), new { id = user.Id }, user);
             //return Ok(new { Message = "User Registration Successful" });
@@ -184,8 +184,8 @@ namespace Controllers
         [Route("FavoriteBusiness")]
         public async Task<IActionResult> AssignFavoriteBusinessToUserAsync(string userId, string businessURL)
         {
-            Users? user = await genericRepository.GetByIdAsync(userId);
-            Businesses? businesses = context.Businesses.FirstOrDefault(x => x.ContractURL == businessURL);
+            Users? user = await _genericRepository.GetByIdAsync(userId);
+            Businesses? businesses = _context.Businesses.FirstOrDefault(x => x.ContractURL == businessURL);
 
             if (businesses == null || user == null)
             {
@@ -198,8 +198,8 @@ namespace Controllers
 
             user.FavoriteBusiness.Add(businesses);
 
-            await genericRepository.SaveAsync();
-            await context.SaveChangesAsync();
+            await _genericRepository.SaveAsync();
+            await _context.SaveChangesAsync();
 
             return Ok(new { Message = "User Registration Successful" });
         }
