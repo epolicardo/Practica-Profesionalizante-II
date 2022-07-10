@@ -18,6 +18,7 @@
         public Businesses Business { get; set; }
         public Users? User { get; set; }
         public OrdersDetail? Details { get; set; }
+        public string? Comments { get; set; }
     }
 
     public enum OrderStatus

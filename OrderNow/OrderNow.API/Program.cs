@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,7 +90,7 @@ builder.Services.AddAuthentication(options =>
         {
             ValidIssuer = "https://localhost:44322/",
             ValidAudience = "https://localhost:44322/",
-            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Key"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TheAwesomenessOfThisEncryptionKeyIsAwesome"))
         };
     });
 

@@ -115,7 +115,19 @@ Referencia: https://datosgobar.github.io/georef-ar-api/
     
     Los productos seran cargados como unidades o porciones, para asi poder hacer el descuento correspondiente del stock.
     Por ejemplo, para una pizza cuatro quesos de 8 porciones, voy a utilizar los siguientes productos:
-   
+
+     <br>
+    
+    # ULTIMO MOMENTO: 
+    ### Se cambia la metodologia del sistema, se cargaran porciones de productos pre preparados para su venta.
+    El proceso de produccion de la cocina queda exceptuado, se lo considera como proveedor de productos listos para su preparacion.
+    EJ: Porcion de lasagna, con salsa aparte
+    -   Porcion de dos canelones
+    -
+
+
+    <br>
+    <br>
    
    ### Cuatro quesos
     1 Masa de pizza grande
@@ -123,27 +135,23 @@ Referencia: https://datosgobar.github.io/georef-ar-api/
     1 porcion de muzarella
     1 porcion de roquefort
     1 porcion de gruyere
-    1 porcion de fontina
+    10 porcion de fontina
 
     Si pidio con bordes rellenos, se utiliza 
     1 porcion adicional de muzarella
 
 
   EN el ejemplo de Canelones, es una porcion de canelones mas una de salsa.
-
-
-
-
+  ---
+  
 
   Recetas con porciones:
-
   ### Pizza Muzarella
     1 Masa de pizza grande
     1 Porcion de salsa de pizza
     4 porcion de muzarella
     1 Porcion de Aceitunas
     Oregano
-
   
   ### Pizza Napolitana
     1 Masa de pizza grande
@@ -152,18 +160,31 @@ Referencia: https://datosgobar.github.io/georef-ar-api/
     1 Porcion de Aceitunas
     1 porcion de tomate
     Albaca
-
-    
-  ### Canelones
+   
+  ### Canelones (1 porciones)
     1 Porcion de Canelones
     1 Porcion de Queso Rallado
 
     - Salsa Adicional
       - 1 Porcion de Filetto
 
+  ### Lasagna (6 porciones)
+    1 Porcion de Tapas
+    1 Porcion de Queso Rallado
+    1 Porcion de Acela
+    2 Porcion de Jamon (200grs)
+    2 Porcion de Queso Muzarella (200grs)
+
+    - Salsa Adicional
+      - 1 Porcion de Filetto
+
+
+
   ## Locro
 
-
+5kg Acelga
+3Kg Muza
+2 Kg Jamon
 
 RecetaProducto  
 id
@@ -176,4 +197,17 @@ IdReceta
 IdProducto
 Cantidad
 
+1 4Q
+2P Ln
+1P Can
 
+
+
+| Id | Prod | Cant |
+----------------
+| 1 | Pizza Muza | 3|
+
+
+La pizza 4 quesos es vendible, y tiene receta, por lo cual no valida su stock.
+Una vez que se agrega a una orden un producto con receta, debo disparar un control para validar si es posible su preparacion segun los ingredientes de su receta.
+Si uno de sus ingredientes no esta disponible, no se podrá agregar a la orden, mostrando un cartel que informe que el producto no esta disponible.

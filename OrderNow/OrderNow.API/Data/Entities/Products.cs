@@ -37,22 +37,23 @@
                                            //public Color Color { get; set; }
                                            //public Size Size { get; set; }
 
-        public Receta? Receta { get; set; }
+        public bool HasRecipe { get; set; }
+        [ForeignKey("RecipeId")]
+        public Recipe? Recipe { get; set; }
 
-        public bool Selleable { get; set; } // Indica si es un producto a la venta, o un ingrediente para preparar otros productos.
+        public bool IsSelleable { get; set; } // Indica si es un producto a la venta, o un ingrediente para preparar otros productos.
     }
 
-    public class Receta
+
+    public class Recipe : EntityBase
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public List<DetalleReceta> Detalle { get; set; }
+        public string Name { get; set; }
+        public List<Ingredients> Ingredients { get; set; }
     }
 
-    public class DetalleReceta
+    public class Ingredients : EntityBase
     {
-        public int Id { get; set; }
-        public Products Product { get; set; }
+        public Products Ingredient { get; set; }
         public float Quantity { get; set; }
     }
 }

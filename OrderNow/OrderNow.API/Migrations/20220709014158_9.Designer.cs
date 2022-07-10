@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220709014158_9")]
+    partial class _9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -623,7 +625,9 @@ namespace OrderNow.API.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("RecipeId");
+                    b.HasIndex("RecipeId")
+                        .IsUnique()
+                        .HasFilter("[RecipeId] IS NOT NULL");
 
                     b.HasIndex("UsersId");
 
@@ -1145,8 +1149,8 @@ namespace OrderNow.API.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("Data.Entities.Recipe", "Recipe")
-                        .WithMany()
-                        .HasForeignKey("RecipeId");
+                        .WithOne("Product")
+                        .HasForeignKey("Data.Entities.Products", "RecipeId");
 
                     b.HasOne("Data.Entities.Users", null)
                         .WithMany("FavoriteProducts")
@@ -1285,6 +1289,9 @@ namespace OrderNow.API.Migrations
             modelBuilder.Entity("Data.Entities.Recipe", b =>
                 {
                     b.Navigation("Ingredients");
+
+                    b.Navigation("Product")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Data.Entities.Users", b =>

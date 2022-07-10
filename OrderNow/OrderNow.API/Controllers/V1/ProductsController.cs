@@ -6,10 +6,10 @@
     [Authorize]
     public class ProductsController : ControllerBase
     {
-        private readonly IGenericRepository<Products> _genericRepository;
+        private readonly IProductsRepository _genericRepository;
         private readonly DataContext _dataContext;
 
-        public ProductsController(IGenericRepository<Products> genericRepository, DataContext dataContext)
+        public ProductsController(IProductsRepository genericRepository, DataContext dataContext)
         {
             _genericRepository = genericRepository;
             _dataContext = dataContext;
@@ -20,6 +20,13 @@
         public async Task<Products> GetById(string Id)
         {
             return await _genericRepository.GetByIdAsync(Id);
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("GetByName")]
+        public List<Products> GetByName(string name)
+        {
+            return  _genericRepository.ProductByName(name);
         }
 
         /// <summary>

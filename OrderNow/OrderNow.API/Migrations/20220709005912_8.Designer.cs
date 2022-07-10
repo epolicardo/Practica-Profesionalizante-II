@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Data;
 
@@ -11,9 +12,10 @@ using OrderNow.Data;
 namespace OrderNow.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220709005912_8")]
+    partial class _8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -596,9 +598,6 @@ namespace OrderNow.API.Migrations
                     b.Property<decimal>("Qualification")
                         .HasColumnType("decimal(20,0)");
 
-                    b.Property<Guid?>("RecipeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<float>("Score")
                         .HasColumnType("real");
 
@@ -622,8 +621,6 @@ namespace OrderNow.API.Migrations
                     b.HasIndex("BusinessId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("RecipeId");
 
                     b.HasIndex("UsersId");
 
@@ -684,7 +681,12 @@ namespace OrderNow.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Recipe");
                 });
@@ -1144,10 +1146,6 @@ namespace OrderNow.API.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Data.Entities.Recipe", "Recipe")
-                        .WithMany()
-                        .HasForeignKey("RecipeId");
-
                     b.HasOne("Data.Entities.Users", null)
                         .WithMany("FavoriteProducts")
                         .HasForeignKey("UsersId");
@@ -1155,8 +1153,6 @@ namespace OrderNow.API.Migrations
                     b.Navigation("Business");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("Data.Entities.PublicityContract", b =>
@@ -1168,6 +1164,17 @@ namespace OrderNow.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Business");
+                });
+
+            modelBuilder.Entity("Data.Entities.Recipe", b =>
+                {
+                    b.HasOne("Data.Entities.Products", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Data.Entities.Users", b =>

@@ -29,12 +29,52 @@
 Diagramas de Secuencia
     
 
-    como usuario
-    quiero ver la oferta del comercio
+    
+- [US-001 - Commercial Offer](UserStories/US-001.md)
+
+
+
+---
+Como Usuario Quiero: 
+- Luego de leer el QR del comercio ingresar a la oferta de comercio
+- Ver los sugeridos del comercio
+- Ver la oferta del comercio
+- Ver detalle del producto y sus opciones
+- Ver la oferta por catergorias
+- Elegir la cantidad a agregar a la orden
+- Ver cuanto vale mi orden
+- Ver cuantos productos tengo agregados en la orden
+- Que opciones tengo para pagar
+- Cancelar mi orden
+- Cambiar un producto de la orden
+- Agregegar un producto a la orden
+- Llamar al mozo
+- Pedir algo despues de que me entregaron la orden
+- Ver mis lugares favoritos
+- Ver mis consumos favoritos
+- Ver mis ultimos consumos
+- Iniciar sesion
+- Cerrar sesion
+- Modificar mis datos personales
+
+---
+Como Cajero/Administrarivo Quiero:
+- Perfil Laboral
+- Ver estadisticas
+- Ver ordenes en espera y proceso.
+- Ingresar compras
+- 
+
+Como Propietario Quiero:
+**Como** Usuario
+<br>**Quiero** quiero ver la oferta del comercio en el que me encuentro
+<br>**Para** Poder decidir los productos a adquirir
     
     
-    quiero ver cuanto vale mi orden
-    cuantos productos
+---
+Como Cocinero Quiero:
+
+  
 
 
 como mozo quiero saber que mesa me llama
