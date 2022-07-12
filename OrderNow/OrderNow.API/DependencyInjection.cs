@@ -46,8 +46,8 @@ namespace OrderNow.API
                     options.IncludeErrorDetails = true;
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        ValidIssuer = "https://localhost:44322/",
-                        ValidAudience = "https://localhost:44322/",
+                        ValidIssuer = configuration.GetSection("JwtBearerTokenSettings").GetValue<string>("Issuer"),
+                        ValidAudience = configuration.GetSection("JwtBearerTokenSettings").GetValue<string>("Audience"),
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                             configuration.GetSection("JwtBearerTokenSettings").GetValue<string>("SecretKey")))
                     };

@@ -8,15 +8,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="css/site.css" rel="stylesheet" />
-    <link href="OrderNow.BlazorServer.styles.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css">
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/foodhut.css" /> 
 
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
-<body>
+
+<body >
     @RenderBody()
 
     <div id="blazor-error-ui">
@@ -31,6 +29,23 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
-    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+      <!-- end of page footer -->
+
+	<!-- core  -->
+    <script src="~assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="~assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+
+    <!-- bootstrap affix -->
+    <script src="~assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+    <!-- wow.js -->
+    <script src="~assets/vendors/wow/wow.js"></script>
+    
+    <!-- google maps -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
+
+    <!-- FoodHut js -->
+    <script src="~assets/js/foodhut.js"></script>
+
 </body>
 </html>
