@@ -5,7 +5,6 @@ namespace OrderNow.Tests
 {
     public class UsersControllerTests
     {
-
         private readonly UsersController _sut;
 
         private readonly Mock<IGenericRepository<Users>> _genericRepositoryMock = new Mock<IGenericRepository<Users>>();
@@ -13,8 +12,8 @@ namespace OrderNow.Tests
         private readonly Mock<DataContext> _dataContext = new Mock<DataContext>();
         private readonly Mock<UserManager<Users>> _userManager = new Mock<UserManager<Users>>();
 
-        Guid userIdMocked;
-        Users userMocked;
+        private Guid userIdMocked;
+        private Users userMocked;
 
         //Arrange
         public UsersControllerTests()
@@ -26,8 +25,6 @@ namespace OrderNow.Tests
                 _genericRepositoryMock.Object
                 );
 
-
-
             userIdMocked = Guid.NewGuid();
             userMocked = new Users()
             {
@@ -35,15 +32,14 @@ namespace OrderNow.Tests
             };
             _genericRepositoryMock.Setup(x => x.GetByIdAsync(userIdMocked.ToString()))
                 .ReturnsAsync(userMocked);
-
         }
+
         //[Theory]
         //[InlineData("22/05/2022", "22 May")]
         //public void GetToken_ShouldReturnToken_WhenCredentialsUserAreCorrect(string date, string expected)
         //[Fact]
         //public void GetToken_ShouldReturnToken_WhenCredentialsUserAreCorrect()
         //{
-
         //}
 
         [Fact]
@@ -56,7 +52,6 @@ namespace OrderNow.Tests
             Assert.Equal(userIdMocked.ToString(), response.Id);
             Assert.Equal(userMocked.UserName, response.UserName);
         }
-
 
         [Fact]
         public void GetByListAsync_ShouldReturnUsers_WhenUsersExists()
@@ -79,6 +74,5 @@ namespace OrderNow.Tests
             Assert.Equal(userIdMocked.ToString(), response.Id);
             Assert.Equal(userMocked.UserName, response.UserName);
         }
-
     }
 }

@@ -1,6 +1,5 @@
 ﻿namespace OrderNow.Tests
 {
-
     public class ProductosTest
     {
         //        Devolver los datos para la portada
@@ -22,9 +21,6 @@
         //[Theory]
         //public void UnitOfWork_StateUnderTest_ExpectedBehavior()
         //{
-
         //}
-
-
     }
 }

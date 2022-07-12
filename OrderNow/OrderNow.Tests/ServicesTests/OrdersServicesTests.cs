@@ -1,7 +1,4 @@
-﻿
-
-
-namespace OrderNow.Tests.ServicesTests
+﻿namespace OrderNow.Tests.ServicesTests
 {
     public class OrdersServicesTests
     {
@@ -31,12 +28,10 @@ namespace OrderNow.Tests.ServicesTests
         [Fact]
         public void CreateOrder_ShouldCreateANewOrder()
         {
-
             Businesses business = new Businesses()
             {
                 ContractURL = "La-pizzeria",
                 IsValidated = true
-               
             };
 
             Users users = new Users()
@@ -48,6 +43,5 @@ namespace OrderNow.Tests.ServicesTests
 
             res.Should().BeOfType<Orders>();
         }
-
     }
 }

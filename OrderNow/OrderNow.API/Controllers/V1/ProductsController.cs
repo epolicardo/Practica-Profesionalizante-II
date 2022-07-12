@@ -21,12 +21,13 @@
         {
             return await _genericRepository.GetByIdAsync(Id);
         }
+
         [AllowAnonymous]
         [HttpGet]
         [Route("GetByName")]
         public List<Products> GetByName(string name)
         {
-            return  _genericRepository.ProductByName(name);
+            return _genericRepository.ProductByName(name);
         }
 
         /// <summary>

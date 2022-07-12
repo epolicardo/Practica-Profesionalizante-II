@@ -41,9 +41,9 @@ namespace Repositories
             return base.GetByIdAsync(Id);
         }
 
-        public   Users GetByMailAsync(string email)
+        public Users GetByMailAsync(string email)
         {
-            return  _dataContext.Users.Include(p => p.person).ThenInclude(d => d.Address).FirstOrDefault(x => x.Email == email);
+            return _dataContext.Users.Include(p => p.person).ThenInclude(d => d.Address).FirstOrDefault(x => x.Email == email);
         }
 
         public Task<int> SaveAsync()

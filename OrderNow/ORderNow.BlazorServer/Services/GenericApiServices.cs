@@ -1,14 +1,11 @@
-﻿using System.Net.Http.Headers;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace OrderNow.BlazorServer.Services
 {
     public class GenericApiServices<T> : IGenericApiServices<T> where T : class
     {
-        
         private readonly IHttpClientFactory _clientFactory;
         private readonly HttpClient _httpClient;
-        
 
         public GenericApiServices(IHttpClientFactory clientFactory)
         {
@@ -16,9 +13,9 @@ namespace OrderNow.BlazorServer.Services
             _httpClient = _clientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7269/");
         }
+
         public async Task<List<T>> GetAll(string endpointUrl)
         {
-        
             var result = new List<T>();
             var url = string.Format(endpointUrl);
             var request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -40,12 +37,10 @@ namespace OrderNow.BlazorServer.Services
             return result;
         }
 
-
         //public async Task<List<T>> GetAuthorizedList(string endpointUrl)
         //{
-
         //    var response = await _httpClient.SendAsync(request);
-         
+
         //    var result = new List<T>();
         //    var url = string.Format(endpointUrl);
         //    var request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -69,13 +64,5 @@ namespace OrderNow.BlazorServer.Services
 
         //    return result;
         //}
-
-
-
-
-
-
-
-
     }
 }

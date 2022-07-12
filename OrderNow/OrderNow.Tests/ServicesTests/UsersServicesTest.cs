@@ -2,7 +2,6 @@
 {
     public class UsersServicesTest
     {
-
         private readonly UsersServices _sut;
         private readonly Mock<IUsersRepository> _userRepositoryMock = new Mock<IUsersRepository>();
 
@@ -15,7 +14,6 @@
         [Fact]
         public void AssingAFavoriteBusinessToAUser()
         {
-
             var user = new Users();
             var business = new Businesses();
             //Act
@@ -23,13 +21,11 @@
 
             //Assert
             Assert.True(result);
-
         }
 
         [Fact]
         public void AssingAFavoriteProductToAUser()
         {
-
             // UsersServices _sut = new UsersServices();
             var user = new Users();
             var product = new Products();
@@ -38,23 +34,18 @@
 
             //Assert
             Assert.True(result);
-
         }
-
 
         //Agregar producto a orden
 
         /// <summary>
-        /// CU - 
+        /// CU -
         /// </summary>
 
         [Fact]
         public void AddProductToOrder_ShouldAddAProductToAnOrder_WhenProductAndOrderExists()
         {
-
             //UsersServices _sut = new UsersServices();
-
-
 
             var user = new Users();
             var product = new Products();
@@ -64,24 +55,20 @@
 
             //Assert
             Assert.True(result);
-
         }
-
 
         //Editar producto en orden
         //Finalizar pedido (Se completa la orden, se envia al comercio y se guardan en mis compras)
-
 
         [Fact]
         public void ValidateUser()
         {
             //https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-web-app-with-email-confirmation-and-password-reset
         }
+
         //[Fact]
         //public void ValidateBusiness() { }
         //[Fact]
         //public void ValidateBusiness() { }
-
-
     }
 }

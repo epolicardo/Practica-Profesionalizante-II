@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Repositories
 {
@@ -59,21 +58,19 @@ namespace Repositories
             return products;
         }
 
-
         public List<Products> ProductByName(string name)
         {
             var products = _dataContext.Products
                 .Include(x => x.Recipe)
-                .ThenInclude(x=>x.Ingredients) 
-                .ThenInclude(x=>x.Ingredient)
+                .ThenInclude(x => x.Ingredients)
+                .ThenInclude(x => x.Ingredient)
                 .Where(x => x.Name == name).ToList();
-
 
             foreach (var item in products)
             {
                 foreach (var ing in item.Recipe.Ingredients)
                 {
-                    if (ing.Ingredient.Stock<ing.Quantity)
+                    if (ing.Ingredient.Stock < ing.Quantity)
                     {
                         Console.WriteLine("No hay suficiente stock para prepara este producto");
                     }
@@ -82,6 +79,5 @@ namespace Repositories
 
             return products;
         }
-
     }
 }

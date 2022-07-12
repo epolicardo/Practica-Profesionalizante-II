@@ -1,4 +1,6 @@
-﻿namespace Controllers
+﻿using OrderNow.API.Services;
+
+namespace Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -7,12 +9,14 @@
     public class BusinessesController : ControllerBase
     {
         private readonly IBusinessesServices _businessesServices;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
-        public BusinessesController(IBusinessesServices businessesServices)
+        public BusinessesController(IBusinessesServices businessesServices, IDateTimeProvider dateTimeProvider)
         {
             LogContext.PushProperty($"Method", MethodBase.GetCurrentMethod());
             LogContext.PushProperty($"Server", Environment.MachineName);
             _businessesServices = businessesServices;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         [HttpGet]
@@ -51,7 +55,7 @@
             Log.Information("Business: {@Business}", business);
 
             //business.Created = DateTime.Now;
-            business.LastModified = DateTime.Now;
+            business.LastModified = _dateTimeProvider.UtcNow;
 
             await _businessesServices.CreateAsync(business);
 
@@ -93,11 +97,5 @@
             return _businessesServices.SetAsFavorite(url, userId);
         }
 
-        //[HttpGet]
-        //[Route("GetDashboard")]
-        //public async Task<BusinessDashboard> GetDashboard(string url)
-        //{
-        //    return await _businessesServices.GetDashboard(url);
-        //}
     }
 }

@@ -21,7 +21,6 @@ builder.Services
     .AddScoped<IOrdersApiServices, OrdersApiServices>()
     .AddScoped<IGenericApiServices<Orders>, GenericApiServices<Orders>>(); ;
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

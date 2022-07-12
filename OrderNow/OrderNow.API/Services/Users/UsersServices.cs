@@ -43,6 +43,7 @@ namespace Services
             user.FavoriteProducts.Add(product);
             return true;
         }
+
         public new Task<bool> CreateAsync(Users entity)
         {
             return base.CreateAsync(entity);
@@ -72,6 +73,7 @@ namespace Services
         {
             return base.GetByIdAsync(Id);
         }
+
         public Users GetByMailAsync(string email)
         {
             return _usersRepository.GetByMailAsync(email);

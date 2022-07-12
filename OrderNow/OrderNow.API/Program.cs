@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,25 +73,24 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .ConfigureOptions<ConfigureSwaggerOptions>();
 
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-    .AddJwtBearer(options =>
-    {
-                    //TODO: Activar en produccion
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.IncludeErrorDetails = true;
-        options.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidIssuer = "https://localhost:44322/",
-            ValidAudience = "https://localhost:44322/",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TheAwesomenessOfThisEncryptionKeyIsAwesome"))
-        };
-    });
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//})
+//    .AddJwtBearer(options =>
+//    {
+//        //TODO: Activar en produccion
+//        options.RequireHttpsMetadata = false;
+//        options.SaveToken = true;
+//        options.IncludeErrorDetails = true;
+//        options.TokenValidationParameters = new TokenValidationParameters()
+//        {
+//            ValidIssuer = "https://localhost:44322/",
+//            ValidAudience = "https://localhost:44322/",
+//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtBearerTokenSettings.SecretKey))
+//        };
+//    });
 
 var app = builder.Build();
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();

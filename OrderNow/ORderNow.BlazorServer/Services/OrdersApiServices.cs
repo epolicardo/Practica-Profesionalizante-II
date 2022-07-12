@@ -1,5 +1,4 @@
 ﻿using Data.Entities;
-using System.Text.Json;
 
 namespace OrderNow.BlazorServer.Services
 {
@@ -12,7 +11,6 @@ namespace OrderNow.BlazorServer.Services
         public OrdersApiServices(IHttpClientFactory clientFactory) : base(clientFactory)
         {
             _clientFactory = clientFactory;
-           
         }
 
         public Task<List<Orders>> GetOrders()
@@ -24,8 +22,5 @@ namespace OrderNow.BlazorServer.Services
         {
             return base.GetAll($"{endpointUrl}/GetPendingOrders/{businessId}");
         }
-
-
     }
 }
-
