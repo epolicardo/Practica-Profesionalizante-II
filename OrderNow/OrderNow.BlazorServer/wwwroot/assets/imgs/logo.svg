@@ -6,11 +6,11 @@
       }
 
       .cls-1 {
-        font-size: 38.206px;
+        font-size: 29.206px;
       }
 
       .cls-1, .cls-2 {
-        font-family: BebasNeueBold, Bebas Neue;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, Bebas Neue;
       }
 
       .cls-2 {
@@ -19,14 +19,14 @@
 
       .cls-4 {
         font-size: 7.93px;
-        font-family: Helvetica;
+        font-family: JetBrains Mono;
         letter-spacing: 0.03em;
       }
     </style>
   </defs>
   <g id="Group_53" data-name="Group 53" transform="translate(-281.921 -285.753)">
-    <text id="Food_Hut" data-name="Food Hut" class="cls-1" transform="translate(357.401 393.716)"><tspan x="-55.017" y="0">OrderNow</tspan></text>
-    <text id="THE" class="cls-2" transform="translate(354.267 351.211)"><tspan x="-12.257" y="0">THE</tspan></text>
+    <text id="Food_Hut" data-name="Food Hut" class="cls-1" transform="translate(344 388.716)"><tspan x="-55.017" y="0">OrderNow</tspan></text>
+    <!-- <text id="THE" class="cls-2" transform="translate(354.267 351.211)"><tspan x="-12.257" y="0">THE</tspan></text> -->
     <rect id="Rectangle_3" data-name="Rectangle 3" class="cls-3" width="145.929" height="3.316" transform="translate(284.436 358.163)"/>
     <rect id="Rectangle_4" data-name="Rectangle 4" class="cls-3" width="145.929" height="3.316" transform="translate(284.436 398.699)"/>
     <g id="Group_48" data-name="Group 48">
@@ -45,7 +45,7 @@
         <path id="Path_10904" data-name="Path 10904" class="cls-3" d="M396.5,401.647h-13.59l20.018,19.387a2.559,2.559,0,0,0,3.609-.045l2.393-2.458h0l.643-.658a2.561,2.561,0,0,0-.046-3.61Z"/>
       </g>
     </g>
-    <text id="EST_1957" data-name="EST 1957" class="cls-4" transform="translate(357.293 413.202)"><tspan x="-18.395" y="0">EST 1957</tspan></text>
+    <text id="EST_1957" data-name="EST 1957" class="cls-4" transform="translate(357.293 413.202)"><tspan x="-18.395" y="0">EST 2022</tspan></text>
     <g id="Group_52" data-name="Group 52">
       <path id="Path_10905" data-name="Path 10905" class="cls-3" d="M330.157,419.04l1.055,3.244h3.41l-2.76,2,1.055,3.244-2.76-2-2.76,2,1.055-3.244-2.76-2h3.41Z"/>
       <path id="Path_10906" data-name="Path 10906" class="cls-3" d="M343.78,419.04l1.053,3.244h3.41l-2.758,2,1.053,3.244-2.758-2-2.76,2,1.053-3.244-2.759-2h3.411Z"/>

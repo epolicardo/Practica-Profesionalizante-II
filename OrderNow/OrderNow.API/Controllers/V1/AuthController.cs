@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OrderNow.API.Filters;
 using OrderNow.API.Services.Authentication;
 using System.Net.Mime;
 
@@ -20,6 +21,12 @@ namespace OrderNow.API.Controllers.V1
             _usersServices = usersServices;
         }
 
+        //Generar PDF desde HTML
+        // https://stackoverflow.com/questions/49808434/generating-pdf-from-json-and-json-schema
+
+
+   
+        [EmailAddressFilter("Metodo Login")]
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginCredentials credentials)
@@ -92,7 +99,7 @@ namespace OrderNow.API.Controllers.V1
             }
 
             return CreatedAtAction(nameof(Register), new { id = user.Id }, user);
-          
+
         }
 
         [HttpPost]
@@ -132,8 +139,8 @@ namespace OrderNow.API.Controllers.V1
         private async Task<Users> ValidateUser(LoginCredentials credentials)
         {
             //var identityUser = await _userManager.FindByEmailAsync(credentials.email);
-           
-            var user = _usersServices.GetByMailAsync(credentials.email);  
+
+            var user = _usersServices.GetByMailAsync(credentials.email);
 
 
             if (user != null)

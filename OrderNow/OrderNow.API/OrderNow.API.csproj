@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.1.0" />
     <PackageReference Include="Google.Apis.Gmail.v1" Version="1.57.0.2650" />
     <PackageReference Include="Hangfire" Version="1.7.28" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />

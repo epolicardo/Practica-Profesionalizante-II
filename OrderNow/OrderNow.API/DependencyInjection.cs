@@ -1,6 +1,6 @@
 ﻿using OrderNow.API.Services;
 using OrderNow.API.Services.Authentication;
-using System.Text.Json;
+
 
 namespace OrderNow.API
 {
@@ -8,20 +8,49 @@ namespace OrderNow.API
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+
+            services.AddControllers();
+            services.AddHangfireServer();
+            services.AddCors();
+            //services.AddControllers()
+            //        .AddJsonOptions(x =>
+            //        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
+            services.AddIdentity<Users, IdentityRole>(options =>
+                options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<DataContext>();
+
+            services.AddLogging();
+
+            services.AddEndpointsApiExplorer();
+
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+
             //Repositorios
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IConfigurationHelper, ConfigurationHelper>();
-            services.AddScoped<IBusinessesRepository, BusinessesRepository>();
-            services.AddScoped<IProductsRepository, ProductsRepository>();
-            services.AddScoped<IOrdersRepository, OrdersRepository>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>))
+                    .AddScoped<IConfigurationHelper, ConfigurationHelper>()
+                    .AddScoped<IBusinessesRepository, BusinessesRepository>()
+                    .AddScoped<IProductsRepository, ProductsRepository>()
+                    .AddScoped<IOrdersRepository, OrdersRepository>()
+                    .AddScoped<IUsersRepository, UsersRepository>();
 
             //Servicios
-            services.AddScoped<IBusinessesServices, BusinessesServices>();
-            services.AddScoped<IDemoService, DemoService>();
-            services.AddScoped<IOrdersServices, OrdersServices>();
-            services.AddScoped<IProductsServices, ProductsServices>();
-            services.AddScoped<IUsersServices, UsersServices>();
+            services.AddScoped<IBusinessesServices, BusinessesServices>()
+                    .AddScoped<IDemoService, DemoService>()
+                    .AddScoped<IOrdersServices, OrdersServices>()
+                    .AddScoped<IProductsServices, ProductsServices>()
+                    .AddScoped<IUsersServices, UsersServices>();
 
             return services;
         }
@@ -30,11 +59,8 @@ namespace OrderNow.API
         {
             services
                 .AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>()
-                .AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
-    
-
-            services.AddAuthentication(options =>
+                .AddSingleton<IDateTimeProvider, DateTimeProvider>()
+                .AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

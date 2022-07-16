@@ -1,11 +1,20 @@
 ﻿@page "/user/profile"
-@layout UserLayout
+@layout UserDashboardLayout
+@using OrderNow.BlazorServer.Services
 
-<div class="container">
-	<div class="Header">
+@using System.Text.Json
+@using global::Data.Entities
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<div class="container-fluid">
+	
+	<div class="col-md-12">
 		<div class="btn-action">
 			<button>Perfil Comercial</button>
 		</div>
+	</div>
 		<div>
 			<img id="profile-img"
 				src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
@@ -21,11 +30,22 @@
 	<div class="Products">
 			<TablaDinamica TableName="Olvidados"></TablaDinamica>
 	</div>
-	<div class="Footer">Footer
-		
-	</div>
-</div>
+
 
 @code {
+
+	//[ParameterAttribute]
+	//public string? TableName { get; set; }
+	//[ParameterAttribute]
+	//public string? itemCount { get; set; }
+	//[Inject]
+	//protected IAuthorizationService _ordersService { get; set; }
+
+	//public IEnumerable<Orders>? orders { get; set; }
+	//GetCookieBusinessId
+	//protected override async Task OnInitializedAsync()
+	//{
+	//	orders = await _ordersService.GetPendingOrdersByBusiness("269c886d-325f-4865-9cc4-34449aa3f56a");
+	//}
 
 }
