@@ -2,15 +2,12 @@
 
 
 <div class="login-card-container">
-
-	<div class="login-card">
 		<div class="login-card-left">
 			<div class="login-img">
-				<img src="~/assets/imgs/blog-1.jpg" alt="" />
+				<img src="assets/imgs/logo.svg" />
 			</div>
 		</div>
 		<div class="login-card-right">
-				<h3 class="login-card-header">OrderNow</h3>
 			<EditForm Model="loginCredentials" id="LoginForm" OnValidSubmit="FormSubmit">
 				<label for="email">Correo Electrónico</label>
 				<InputText DisplayName="Correo Electronico" name="email" class="form-control input-data" @bind-Value="@loginCredentials.email"></InputText>
@@ -20,8 +17,7 @@
 				<a class="login-card-recovery" href="/">Recuperar acceso</a>
 			</EditForm>
 		</div>
-		
-	</div>
+	
 </div>
 
 @code {
