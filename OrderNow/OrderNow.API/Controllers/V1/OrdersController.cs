@@ -47,5 +47,13 @@
             var orders = await _ordersServices.GetPendingOrdersByBusiness(businessId);
             return Ok(orders);
         }
+
+        [HttpGet]
+        [Route("GetOrderById/{orderId}")]
+        public async Task<ActionResult<IEnumerable<Orders>>> GetOrderById(string orderId)
+        {
+            var orders = await _ordersServices.GetByIdAsync(orderId);
+            return Ok(orders);
+        }
     }
 }

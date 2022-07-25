@@ -2,12 +2,12 @@
 
 namespace OrderNow.BlazorServer.Services
 {
-    public class GenericApiServices<T> : IGenericApiServices<T> where T : class
+    public class GenericServices<T> : IGenericServices<T> where T : class
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly HttpClient _httpClient;
 
-        public GenericApiServices(IHttpClientFactory clientFactory)
+        public GenericServices(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
             _httpClient = _clientFactory.CreateClient();
@@ -36,6 +36,27 @@ namespace OrderNow.BlazorServer.Services
 
             return result;
         }
+
+
+        public async Task<T> GetByIdAsync(string endpointUrl)
+        {
+            var url = string.Format(endpointUrl);
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var stringResponse = await response.Content.ReadAsStringAsync();
+
+                var result = JsonSerializer.Deserialize<T>(stringResponse,
+                    new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            return result;
+            }
+            return null;
+        }
+
+
 
         //public async Task<List<T>> GetAuthorizedList(string endpointUrl)
         //{

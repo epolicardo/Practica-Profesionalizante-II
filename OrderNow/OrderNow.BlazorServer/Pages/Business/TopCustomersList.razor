@@ -1,3 +1,4 @@
+@using OrderNow.API.Services
 @using OrderNow.BlazorServer.Services
 
 @using System.Text.Json
@@ -6,30 +7,15 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JS
 
-<div class="favorites-search-bar">
-	<p class="title">@TableName</p>
-	<input type="text" value="Search here" class="search-box" />
-	<button class="filter-btn">Filter</button>
-</div>
-
-<table class="orders-list">
+<table class="table">
 	<thead class="table-header">
 		<tr>
-			<th>
-				<p id="fav-title">Cliente</p>
-			</th>
-			<th>
-				<p id="fav-title">Estado</p>
-			</th>
-			<th>
-				<p id="fav-title">Demora actual</p>
-			</th>
-			<th>
-				<p id="fav-title">Items</p>
-			</th>
-			<th>
-				<p id="fav-title">Total</p>
-			</th>
+			<th>Cliente</th>
+			<th>Estado</th>
+			<th>Demora actual</th>
+			<th>Items</th>
+			<th>Total</th>
+			<th>Accion</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -39,10 +25,7 @@
 			{
 				<tr>
 					<td>
-						<div>
-							<img src="" alt="" />
-							<p class="name">@order.OrderDate</p>
-						</div>
+						<p class="name">@order.OrderDate</p>
 					</td>
 					<td>
 						<div class="status-box">
@@ -52,7 +35,7 @@
 					<td>
 						<div class="status-progress-bar">
 						</div>
-						<p class="order-time-delay">@(DateTime.Now.Subtract(order.Created))</p>
+						<p class="order-time-delay"></p>
 					</td>
 					<td>
 						<p class="order-items">@order.PartialCompletionOrderDate</p>
@@ -73,7 +56,9 @@
 	[ParameterAttribute]
 	public string? itemCount { get; set; }
 	[Inject]
-	protected IOrdersApiServices _ordersService { get; set; }
+	protected IOrdersServices? _ordersService { get; set; }
+	[Inject]
+	protected IDateTimeProvider? _dateTimeProvider { get; set; }
 
 	public IEnumerable<Orders>? orders { get; set; }
 	//GetCookieBusinessId

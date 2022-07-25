@@ -39,5 +39,11 @@
         [Fact]
         public void PaymentForm()
         { }
+
+        [Fact]
+        public void GetTopCustomersByBusiness_ShouldReturn10Customers() { }
+
+        [Fact]
+        public void GetTopProductsByBusiness_ShouldReturn10Products() { }
     }
 }

@@ -1,0 +1,65 @@
+@using OrderNow.API.Services
+@using OrderNow.BlazorServer.Services
+
+@using System.Text.Json
+@using global::Data.Entities
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<table class="table">
+    <thead class="table-header">
+        <tr>
+            <th>Cliente</th>
+            <th>Estado</th>
+            <th>Demora actual</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (orders != null)
+        {
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.OrderDate</td>
+                    <td>@order.OrderStatus</td>
+                    <td>@ElapsedTIme(order.Created)</td>
+                    <td>@order.PartialCompletionOrderDate</td>
+                    <td>@order.TotalAmount</td>
+                    <td><a href="/products/@order.Id">Edit</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+
+    [ParameterAttribute]
+    public string? TableName { get; set; }
+    [ParameterAttribute]
+    public string? itemCount { get; set; }
+    [Inject]
+    protected IOrdersServices? _ordersService { get; set; }
+    [Inject]
+    protected IDateTimeProvider? _dateTimeProvider { get; set; }
+
+    public IEnumerable<Orders>? orders { get; set; }
+    //GetCookieBusinessId
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await _ordersService.GetPendingOrdersByBusiness("269c886d-325f-4865-9cc4-34449aa3f56a");
+    }
+
+    public string ElapsedTIme(DateTime createdAt)
+    {
+        DateTime startTime = _dateTimeProvider.UtcNow;
+        var h = startTime.Subtract(createdAt).Hours.ToString("00");
+        var m = startTime.Subtract(createdAt).Minutes.ToString("00");
+        return $"{h}:{m}";
+    }
+
+}

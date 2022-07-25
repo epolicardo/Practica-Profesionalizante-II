@@ -1,4 +1,9 @@
+
 @inject NavigationManager NavManager
+
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 
 <div class="login-card-container">
@@ -8,11 +13,11 @@
 			</div>
 		</div>
 		<div class="login-card-right">
-			<EditForm Model="loginCredentials" id="LoginForm" OnValidSubmit="FormSubmit">
+			<EditForm Model="claims" id="LoginForm" OnValidSubmit="FormSubmit">
 				<label for="email">Correo Electrónico</label>
-				<InputText DisplayName="Correo Electronico" name="email" class="form-control input-data" @bind-Value="@loginCredentials.email"></InputText>
+				<InputText DisplayName="Correo Electronico" name="email" class="form-control input-data" @bind-Value="surnameMessage"></InputText>
 				<label for="password">Contraseña</label>
-				<InputText DisplayName="Password" name="password" type="password" class="form-control input-data" @bind-Value="@loginCredentials.Password"></InputText>
+				<InputText DisplayName="Password" name="password" type="password" class="form-control input-data" @bind-Value="surnameMessage"></InputText>
 				<button class="btn btn-primary" type="submit" id="submit">Ingresar</button>
 				<a class="login-card-recovery" href="/">Recuperar acceso</a>
 			</EditForm>
@@ -21,12 +26,31 @@
 </div>
 
 @code {
-	public OrderNow.Data.Entities.LoginCredentials loginCredentials = new OrderNow.Data.Entities.LoginCredentials();
+	 private string authMessage;
+    private string surnameMessage;
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            authMessage = $"{user.Identity.Name} is authenticated.";
+            claims = user.Claims;
+            surnameMessage = 
+                $"Surname: {user.FindFirst(c => c.Type == ClaimTypes.Surname)?.Value}";
+        }
+        else
+        {
+            authMessage = "The user is NOT authenticated.";
+        }
+    }
 
 	public void FormSubmit()
 	{
-
-
+		GetClaimsPrincipalData();
 		NavManager.NavigateTo("/user/profile");
 	}
 }

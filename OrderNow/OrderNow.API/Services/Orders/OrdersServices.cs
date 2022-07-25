@@ -28,11 +28,6 @@
         {
         }
 
-        public async Task<Orders> ShowFullOrder(string orderId)
-        {
-            return await _ordersRepository.GetByIdAsync(orderId);
-        }
-
         public async Task<IEnumerable<Orders>> GetPendingOrdersByBusiness(string businessId)
         {
             return await _ordersRepository.GetPendingOrdersByBusinessAsync(businessId);

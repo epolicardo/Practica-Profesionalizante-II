@@ -1,4 +1,5 @@
 using Data.Entities;
+using OrderNow.API.Services;
 using OrderNow.BlazorServer.Data;
 using OrderNow.BlazorServer.Services;
 
@@ -18,8 +19,10 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services
-    .AddScoped<IOrdersApiServices, OrdersApiServices>()
-    .AddScoped<IGenericApiServices<Orders>, GenericApiServices<Orders>>(); ;
+    .AddScoped<IOrdersServices, OrdersServices>()
+    .AddScoped<IProductServices, ProductServices>()
+    .AddScoped<IDateTimeProvider, DateTimeProvider>()
+    .AddScoped<IGenericServices<Orders>, GenericServices<Orders>>(); ;
 
 var app = builder.Build();
 

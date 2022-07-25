@@ -7,6 +7,6 @@
         //UserGroupId
         public string UGI { get; set; }
 
-        public List<Users> Integrantes { get; set; }
+        public IList<Users>? Integrantes { get; set; }
     }
 }

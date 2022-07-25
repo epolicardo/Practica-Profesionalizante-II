@@ -1,63 +1,50 @@
-@page "/business-dashboard"
+@page "/business/dashboard"
 @layout BusinessAdminLayout
 @inject NavigationManager NavManager
 
-<div class="flex-container">
+<div class="container-fluid">
 
-<MetricsCard Title="Ultimos Vendidos"></MetricsCard>
-<MetricsCard Title="Ultimos Clientes"></MetricsCard>
-<MetricsCard Title="Mejores Vendidos"></MetricsCard>
+    <div class="row">
+        <div class="col-md-3">
+            <MetricsCard Title="Ordenes"></MetricsCard>
+        </div>
+        <div class="col-md-3">
+            <MetricsCard Title="Nuevos Clientes"></MetricsCard>
+        </div>
+        <div class="col-md-3">
+            <MetricsCard Title="Ticket Promedio"></MetricsCard>
+        </div>
+        <div class="col-md-3">
+            <button class="form-control" name="SwitchProfile">Perfil Usuario</button>
+            <img src="~/assets/img/team/1.jpg" alt="" />
+            <p id="username">Emiliano Policardo</p>
+            <p id="lastconnection">Ultima conexión: 25 de Mayo</p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+
+            <p id="queue-orders-title">Ordenes en espera</p>
+            <input class="form-control" id="orders-search" type="search" placeholder="Search order" alt="">
+
+            <TablaDinamica></TablaDinamica>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="top-customers">
+            <h3>Top Customers</h3>
+            <TopCustomersList></TopCustomersList>
+        </div>
+    </div>
+    <a href="/products">Productos</a>
 </div>
-<div class="flex-container">
 
-<MetricsCard Title="Ultimos Vendidos"></MetricsCard>
-<MetricsCard Title="Ultimos Clientes"></MetricsCard>
-<MetricsCard Title="Mejores Vendidos"></MetricsCard>
-</div>
+@code {
 
-<div class="flex-container">
-
-
-
-<div class="top-bar">
-		<p>Estadisticas</p>
-		<div class="btn-action">
-			<button name="SwitchProfile">Perfil Usuario</button>
-		</div>
-		<div class="profile-img">
-			<img src="~/assets/img/team/1.jpg" alt="" />
-		</div>
-	</div>
-	<div class="statistics-bar">
-		<div class="statistics-box">
-		</div>
-		<div class="statistics-box">
-		</div>
-		<div class="statistics-box">
-		</div>
-	</div>
-	<div class="orders-queue">
-		<div class="orders-queue-title">
-			<p>Ordenes en espera</p>
-		</div>
-		<div class="orders-list">
-			<div class="order-item">
-				<img class="user-icon" src="" alt="" />
-				<div class="status-bar">
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-
-<a class="login-card-recovery" href="/">Recuperar acceso</a>
-</div>
-@code{
-
-public void FormSubmit()
-	{
-		NavManager.NavigateTo("/business-dashboard");
-	}
+    public void FormSubmit()
+    {
+        NavManager.NavigateTo("/business-dashboard");
+    }
 }

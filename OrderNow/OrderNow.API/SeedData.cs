@@ -115,6 +115,7 @@
 
                 await userManager.AddToRoleAsync(user, "Admin");
                 await userManager.AddToRoleAsync(user, "Owner");
+            
             }
 
             await context.SaveChangesAsync();

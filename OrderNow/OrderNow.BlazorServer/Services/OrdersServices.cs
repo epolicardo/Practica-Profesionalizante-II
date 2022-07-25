@@ -2,13 +2,13 @@
 
 namespace OrderNow.BlazorServer.Services
 {
-    public class OrdersApiServices : GenericApiServices<Orders>, IOrdersApiServices
+    public class OrdersServices : GenericServices<Orders>, IOrdersServices
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient? _httpClient;
         private readonly string endpointUrl = "/api/v1/Orders";
 
-        public OrdersApiServices(IHttpClientFactory clientFactory) : base(clientFactory)
+        public OrdersServices(IHttpClientFactory clientFactory) : base(clientFactory)
         {
             _clientFactory = clientFactory;
         }
@@ -16,6 +16,10 @@ namespace OrderNow.BlazorServer.Services
         public Task<List<Orders>> GetOrders()
         {
             return base.GetAll($"{endpointUrl}/Orders");
+        }
+        public Task<Orders> GetOrderById(string orderId)
+        {
+            return base.GetByIdAsync($"{endpointUrl}/Orders/{orderId}");
         }
 
         public Task<List<Orders>> GetPendingOrdersByBusiness(string businessId)

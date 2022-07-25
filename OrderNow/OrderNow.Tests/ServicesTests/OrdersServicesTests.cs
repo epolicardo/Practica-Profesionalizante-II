@@ -43,5 +43,23 @@
 
             res.Should().BeOfType<Orders>();
         }
+
+        [Fact]
+        public void GetPendingOrdersByBusiness_ShouldReturnData_WhenBusinessAndOrderExists() { }
+
+        [Fact]
+        public void GetTopCustomersByBusiness_ShouldReturnData_WhenBusinessExists() { }
+
+        [Fact]
+        public void GetTopProductsByBusiness_ShouldReturnData_WhenBusinessExists() { }
+
+        [Fact]
+        public void GetLoggedUser_ShouldReturnUserData_WhenUserExistsANdIsLogged() { }
+
+        [Fact]
+        public void SwitchProfile_ShouldShowAButtonToSwitchProfiles_Always() { }
+
+        [Fact]
+        public void GetOrderById_ShouldReturnAnOrder_WhenOrderExists() { }
     }
 }

@@ -21,7 +21,7 @@
         public bool IsSuggested { get; set; } //Activo-Inactivo
         public Businesses? Business { get; set; }
         public Categories? Category { get; set; }
-        public List<ProductOptions>? OptionsList { get; set; }
+        public IList<ProductOptions>? OptionsList { get; set; }
         public float Score { get; set; }
         public UInt64 Qualification { get; set; }
 
@@ -48,7 +48,7 @@
     public class Recipe : EntityBase
     {
         public string Name { get; set; }
-        public List<Ingredients> Ingredients { get; set; }
+        public IList<Ingredients> Ingredients { get; set; }
     }
 
     public class Ingredients : EntityBase
