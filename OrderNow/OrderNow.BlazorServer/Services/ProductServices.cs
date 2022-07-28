@@ -1,4 +1,4 @@
-﻿using Data.Entities;
+﻿using OrderNow.Common.Data.Entities;
 
 namespace OrderNow.BlazorServer.Services
 {

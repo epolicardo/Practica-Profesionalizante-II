@@ -14,8 +14,6 @@ namespace Services
 
         Task<bool> EditAsync(T entity);
 
-        bool Delete(T entity);
-
         Task<int> SaveAsync();
     }
 }

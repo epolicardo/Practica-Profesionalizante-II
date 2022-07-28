@@ -1,0 +1,22 @@
+@page "/business"
+
+<h1>Pizzeria Popular</h1>
+<h3>Rio Ceballos</h3>
+<img src="~/assets/imgs/book-table-img.jpg" alt="" />
+<a href="#">
+    <i class="heart"></i>
+</a>
+<a href="">Solicitar atención</a>
+<a href="/suggestedproducts">Ingresar</a>
+        <h1>@contractURL</h1>
+     
+
+
+        <span name="contractURL">@contractURL</span>
+
+
+@code {
+    [Parameter]
+    public string contractURL { get; set; }
+
+}

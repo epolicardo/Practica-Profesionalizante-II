@@ -1,14 +1,20 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OrderNow.API.Services.Auth;
+using System.Linq.Expressions;
+
 
 namespace Services
 {
     public class UsersServices : GenericServices<Users>, IUsersServices
     {
-        private readonly IUsersRepository _usersRepository;
 
-        public UsersServices(IUsersRepository usersRepository) : base(usersRepository)
+        private readonly IUsersRepository _usersRepository;
+        private readonly UserManager<Users> _userManager;
+
+        public UsersServices(IUsersRepository usersRepository, UserManager<Users> userManager) : base(usersRepository)
         {
             _usersRepository = usersRepository;
+            _userManager = userManager;
         }
 
         public bool AddProductToOrder(Users user, Orders order, Products product)
@@ -44,15 +50,27 @@ namespace Services
             return true;
         }
 
-        public new Task<bool> CreateAsync(Users entity)
+        public new async Task<ActionResult> CreateAsync(Users user)
         {
-            return base.CreateAsync(entity);
+            user.UserName = user.Email;
+            var result = await _userManager.CreateAsync(user, user.Password);
+            user.Password = _userManager.PasswordHasher.HashPassword(user, user.Password);
+
+            if (!result.Succeeded)
+            {
+                var dictionary = new ModelStateDictionary();
+                foreach (IdentityError error in result.Errors)
+                {
+                    dictionary.AddModelError(error.Code, error.Description);
+                }
+
+                return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
+            }
+
+            return new OkObjectResult(new { Message = "User Registration Successful", result });
+
         }
 
-        public bool Delete(Users entity)
-        {
-            return base.Delete(entity);
-        }
 
         public Task<bool> EditAsync(Users entity)
         {

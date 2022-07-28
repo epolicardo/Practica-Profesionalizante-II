@@ -1,4 +1,6 @@
-﻿namespace Controllers
+﻿using OrderNow.API.Data;
+
+namespace Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]

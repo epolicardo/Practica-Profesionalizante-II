@@ -16,10 +16,7 @@ namespace Services
             return _genericRepository.CreateAsync(entity);
         }
 
-        public bool Delete(T entity)
-        {
-            return _genericRepository.Delete(entity);
-        }
+      
 
         public Task<bool> EditAsync(T entity)
         {

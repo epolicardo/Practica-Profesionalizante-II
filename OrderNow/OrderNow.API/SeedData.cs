@@ -1,4 +1,6 @@
-﻿namespace OrderNow.API
+﻿using OrderNow.API.Data;
+
+namespace OrderNow.API
 {
     public abstract class SeedData
     {

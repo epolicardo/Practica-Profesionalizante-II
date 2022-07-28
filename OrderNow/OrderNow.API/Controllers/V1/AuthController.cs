@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OrderNow.API.Filters;
-using OrderNow.API.Services.Authentication;
+using OrderNow.API.Services.Auth;
 using System.Net.Mime;
 
 namespace OrderNow.API.Controllers.V1
@@ -33,13 +33,13 @@ namespace OrderNow.API.Controllers.V1
         {
             Log.Information("User ingresado: {@Credenciales}", credentials.email);
             Users identityUser;
-            AuthenticationResult authorizationResult;
+            AuthResult authorizationResult;
 
             if (!ModelState.IsValid
                 || credentials == null
                 || (identityUser = await ValidateUser(credentials)) == null)
             {
-                authorizationResult = new AuthenticationResult()
+                authorizationResult = new AuthResult()
                 {
                     Token = "Not Generated",
                     Email = credentials.email
@@ -50,7 +50,7 @@ namespace OrderNow.API.Controllers.V1
             var userId = Guid.Parse(identityUser.Id);
             var token = _jwtTokenGenerator.GenerateToken(userId, "Emiliano", "Policardo");
             Log.Information("Token granted to {@Email}", identityUser.Email);
-            authorizationResult = new AuthenticationResult()
+            authorizationResult = new AuthResult()
             {
                 Token = token,
                 Name = identityUser.person.FirstName,
@@ -108,13 +108,13 @@ namespace OrderNow.API.Controllers.V1
         {
             Log.Information("User ingresado: {@Credenciales}", credentials.email);
             Users identityUser;
-            AuthenticationResult authorizationResult;
+            AuthResult authorizationResult;
 
             if (!ModelState.IsValid
                 || credentials == null
                 || (identityUser = await ValidateUser(credentials)) == null)
             {
-                authorizationResult = new AuthenticationResult()
+                authorizationResult = new AuthResult()
                 {
                     Email = credentials.email,
                     Token = "Not generated"
@@ -125,7 +125,7 @@ namespace OrderNow.API.Controllers.V1
             var token = _jwtTokenGenerator.GenerateToken(userId, credentials.email, credentials.Password);
             Log.Information("Token granted to {@Email}", identityUser.Email);
 
-            authorizationResult = new AuthenticationResult()
+            authorizationResult = new AuthResult()
             {
                 Token = token,
                 Name = identityUser.person.FirstName,

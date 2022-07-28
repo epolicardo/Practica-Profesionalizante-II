@@ -1,4 +1,4 @@
-﻿using Data.Entities;
+﻿using OrderNow.Common.Data.Entities;
 
 namespace OrderNow.BlazorServer.Services
 {
@@ -25,6 +25,11 @@ namespace OrderNow.BlazorServer.Services
         public Task<List<Orders>> GetPendingOrdersByBusiness(string businessId)
         {
             return base.GetAll($"{endpointUrl}/GetPendingOrders/{businessId}");
+        }
+
+        Task<IEnumerable<Orders>> IOrdersServices.GetPendingOrdersByBusiness(string businessId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

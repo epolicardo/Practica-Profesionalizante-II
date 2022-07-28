@@ -1,10 +1,13 @@
 ﻿global using Configuration;
-global using Data.Entities;
+global using Controllers;
 global using FluentAssertions;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.Extensions.Options;
 global using Moq;
-global using OrderNow.Data;
+global using OrderNow.API.Services;
+global using OrderNow.Common.Data.Entities;
 global using Repositories;
 global using Services;
+global using System;
+global using System.Threading.Tasks;
 global using Xunit;

@@ -1,5 +1,6 @@
-﻿using OrderNow.API.Services;
-using OrderNow.API.Services.Authentication;
+﻿using OrderNow.API.Data;
+using OrderNow.API.Services;
+using OrderNow.API.Services.Auth;
 
 
 namespace OrderNow.API
@@ -46,11 +47,13 @@ namespace OrderNow.API
                     .AddScoped<IUsersRepository, UsersRepository>();
 
             //Servicios
-            services.AddScoped<IBusinessesServices, BusinessesServices>()
+            services
                     .AddScoped<IDemoService, DemoService>()
-                    .AddScoped<IOrdersServices, OrdersServices>()
+                .AddScoped<IBusinessesServices, BusinessesServices>()
                     .AddScoped<IProductsServices, ProductsServices>()
-                    .AddScoped<IUsersServices, UsersServices>();
+                    .AddScoped<IOrdersServices, OrdersServices>()
+                    .AddScoped<IUsersServices, UsersServices>()
+                    .AddScoped<IAuthServices, AuthServices>();
 
             return services;
         }

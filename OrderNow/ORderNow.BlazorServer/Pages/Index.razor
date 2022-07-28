@@ -1,22 +1,27 @@
 ﻿@page "/"
-@using OrderNow.BlazorServer.Pages.Landing
+@inject NavigationManager NavManager
 
+@using OrderNow.BlazorServer.Pages.Landing
+@if (contractURL!=null)
+{
+    FormSubmit();
+}
 <!-- Navbar -->
-<NavbarSection/>
+<NavbarSection />
 <!-- header -->
-<HeaderSection/>
+<HeaderSection />
 
 <!--  About Section  -->
-<AboutSection/>
+<AboutSection />
 
 <!--  gallary Section  -->
-<GallerySection/>
+<GallerySection />
 
 <!-- book a table Section  -->
 @*<ReserveSection/>*@
 
 <!-- BLOG Section  -->
-<BlogSection/>
+<BlogSection />
 
 <!-- REVIEWS Section  -->
 <ReviewSection />
@@ -25,5 +30,24 @@
 @*<ContactSection/>*@
 
 <!-- page footer  -->
-<FooterSection/>
+<FooterSection />
 
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "contractURL")]
+    public string contractURL { get; set; }
+
+
+    public void FormSubmit()
+    {
+        try
+        {
+
+        NavManager.NavigateTo("/business");
+        }
+        catch (Exception ex)
+        {
+           
+        }
+    }
+}

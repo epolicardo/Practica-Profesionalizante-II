@@ -1,4 +1,4 @@
-using Data.Entities;
+using OrderNow.Common.Data.Entities;
 using OrderNow.API.Services;
 using OrderNow.BlazorServer.Data;
 using OrderNow.BlazorServer.Services;

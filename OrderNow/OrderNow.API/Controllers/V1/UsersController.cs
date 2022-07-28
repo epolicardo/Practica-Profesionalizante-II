@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OrderNow.API.Data;
 using System.Net.Mail;
 using System.Net.Mime;
 
@@ -10,19 +11,20 @@ namespace Controllers
     public class UsersController : ControllerBase
     {
         private readonly JwtBearerTokenSettings _jwtBearerTokenSettings;
-        private readonly UserManager<Users> _userManager;
+        //private readonly UserManager<Users> _userManager;
         private readonly DataContext _context;
         private readonly IGenericRepository<Users> _genericRepository;
+        private readonly IUsersServices _usersServices;
 
-        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<Users> userManager, DataContext context,
-            IGenericRepository<Users> genericRepository)
+        public UsersController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, DataContext context,
+            IGenericRepository<Users> genericRepository, IUsersServices usersServices)
         {
             _jwtBearerTokenSettings = jwtTokenOptions.Value;
-            _userManager = userManager;
             _context = context;
             _genericRepository = genericRepository;
             LogContext.PushProperty("Metodo", MethodBase.GetCurrentMethod());
             LogContext.PushProperty("Server", Environment.MachineName);
+            _usersServices = usersServices;
         }
 
         [HttpPost]
@@ -93,24 +95,10 @@ namespace Controllers
             {
                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
             }
-
-            var result = await _userManager.CreateAsync(user, user.Password);
-            user.Password = _userManager.PasswordHasher.HashPassword(user, user.Password);
-
-            if (!result.Succeeded)
-            {
-                var dictionary = new ModelStateDictionary();
-                foreach (IdentityError error in result.Errors)
-                {
-                    dictionary.AddModelError(error.Code, error.Description);
-                }
-
-                return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
-            }
-            await _context.SaveChangesAsync();
+            var result = await _usersServices.CreateAsync(user);
 
             return CreatedAtAction(nameof(Register), new { id = user.Id }, user);
-            //return Ok(new { Message = "User Registration Successful" });
+
         }
 
         //[HttpPost]

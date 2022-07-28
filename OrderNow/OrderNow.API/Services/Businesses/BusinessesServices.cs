@@ -1,13 +1,11 @@
 ﻿using Controllers;
+using OrderNow.API.Data;
 
 namespace Services
 {
     public class BusinessesServices : GenericServices<Businesses>, IBusinessesServices
     {
         private readonly IBusinessesRepository _businessesRepository;
-        private readonly IUsersRepository _userRepository;
-
-        private readonly IProductsRepository _productsRepository;
         private readonly DataContext _dataContext;
 
         public BusinessesServices(IBusinessesRepository businessesRepository, DataContext dataContext) : base(businessesRepository)
@@ -62,18 +60,17 @@ namespace Services
             return _businessesRepository.Exists(url);
         }
 
-        public async Task<BusinessDashboard> GetDashboard(string url)
-        {
-            /* Debo obtener la siguiente info:
-             * Listado de Ordenes en curso
-             * Bloque de estadisticas
-             * Top Clientes
-             * Top Productos*/
-            var b = await _businessesRepository.FindByConditionAsync(x => x.ContractURL == url);
-            BusinessDashboard bd = new BusinessDashboard();
-            bd.Business = b;
+        //public async Task<string> GetDashboard(string url)
+        //{
+        //    /* Debo obtener la siguiente info:
+        //     * Listado de Ordenes en curso
+        //     * Bloque de estadisticas
+        //     * Top Clientes
+        //    // * Top Productos*/
+        //    //var b = await _businessesRepository.FindByConditionAsync(x => x.ContractURL == url);
+          
 
-            return bd;
-        }
+        //    //return bd;
+        //}
     }
 }

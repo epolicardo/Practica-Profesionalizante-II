@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using OrderNow.API.Data;
+using System.Linq.Expressions;
 
 namespace Repositories
 {
@@ -16,11 +17,7 @@ namespace Repositories
             return base.CreateAsync(entity);
         }
 
-        public bool Delete(Users entity)
-        {
-            return base.Delete(entity);
-        }
-
+ 
         public Task<bool> EditAsync(Users entity)
         {
             return base.EditAsync(entity);

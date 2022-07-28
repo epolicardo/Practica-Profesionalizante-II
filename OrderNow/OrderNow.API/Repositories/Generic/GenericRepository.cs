@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using OrderNow.API.Data;
 using System.Linq.Expressions;
 
 namespace Repositories
@@ -46,12 +47,6 @@ namespace Repositories
         {
             EntityEntry<T> entityEntry = _context.Set<T>().Update(entity);
             return entityEntry.State == EntityState.Modified;
-        }
-
-        //TODO Chequear el tipo de dato retornado.
-        public bool Delete(T entity)
-        {
-            return _context.Set<T>().Remove(entity).State.HasFlag(EntityState.Deleted);
         }
 
         public async Task<int> SaveAsync()

@@ -1,12 +1,14 @@
-﻿namespace Repositories
+﻿using OrderNow.API.Data;
+
+namespace Repositories
 {
     public class OrdersRepository : GenericRepository<Orders>, IOrdersRepository
     {
         private readonly DataContext _dataContext;
 
-        public OrdersRepository(DataContext DataContext) : base(DataContext)
+        public OrdersRepository(DataContext context) : base(context)
         {
-            _dataContext = DataContext;
+            _dataContext = context;
         }
 
         public async Task<ActionResult<Orders>> CreateOrder(Users user, Businesses business)

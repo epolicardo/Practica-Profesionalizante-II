@@ -1,4 +1,6 @@
-﻿namespace Controllers
+﻿using OrderNow.API.Data;
+
+namespace Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -23,23 +25,7 @@
         [Route("CreateAsync")]
         public int CreateAsync()
         {
-            //if (configHelper.UseMockup("Ventas"))
-            //{
-            //    return 1;
-            //}
-            //else
-            //{
-            //    Transaccion transaccion = new Transaccion
-            //    {
-            //        Tipo = TipoTransaccion.Venta,
-            //        FechaAlta = DateTime.Today,
-            //        FechaRealizado = DateTime.Today,
-            //        //Obtener la cuenta mediante metodo get
-            //        Cuenta = new Cuenta() { },
-            //        Descripcion = "Realizamos una venta"
-
-            //    };
-            //}
+         
             return 0;
         }
     }

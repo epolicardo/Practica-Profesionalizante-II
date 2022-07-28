@@ -1,9 +1,6 @@
-﻿using Controllers;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace OrderNow.Tests
+namespace OrderNow.Tests.Controllers
 {
     public class AddressesControllerTests
     {

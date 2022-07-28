@@ -1,7 +1,6 @@
-﻿using Controllers;
-using System;
+﻿using OrderNow.API.Data;
 
-namespace OrderNow.Tests
+namespace OrderNow.Tests.Controllers
 {
     public class UsersControllerTests
     {
@@ -18,12 +17,7 @@ namespace OrderNow.Tests
         //Arrange
         public UsersControllerTests()
         {
-            _sut = new UsersController(
-                _jwtToken.Object,
-                null,
-                _dataContext.Object,
-                _genericRepositoryMock.Object
-                );
+           
 
             userIdMocked = Guid.NewGuid();
             userMocked = new Users()
@@ -68,7 +62,7 @@ namespace OrderNow.Tests
         public void GetByEmailAsync_ShouldReturnAUser_WhenEmailExists()
         {
             //Act
-            System.Threading.Tasks.Task<Users>? result = _sut.GetByIdAsync(userIdMocked.ToString());
+            Task<Users>? result = _sut.GetByIdAsync(userIdMocked.ToString());
             var response = result.Result;
             //Assert
             Assert.Equal(userIdMocked.ToString(), response.Id);

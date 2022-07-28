@@ -2,8 +2,11 @@
 {
     public class ProductsServices : GenericServices<Products>, IProductsServices
     {
-        public ProductsServices(IGenericRepository<Products> genericRepository) : base(genericRepository)
+        private readonly IProductsRepository _productsRepository;
+
+        public ProductsServices(IProductsRepository productsRepository) : base(productsRepository)
         {
+            _productsRepository = productsRepository;
         }
     }
 }

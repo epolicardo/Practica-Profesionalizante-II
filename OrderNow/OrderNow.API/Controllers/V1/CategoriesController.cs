@@ -1,4 +1,6 @@
-﻿namespace Controllers
+﻿using OrderNow.API.Data;
+
+namespace Controllers
 {
     [Authorize]
     [ApiController]
@@ -61,21 +63,21 @@
             return _genericRepository.SaveAsync().IsCompletedSuccessfully;
         }
 
-        [HttpDelete]
-        [Route("CategoryId")]
-        public bool Delete(Categories entity)
-        {
-            try
-            {
-                _genericRepository.Delete(entity);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "No se pudo eliminar la entidad de tipo {0}", entity.GetType);
+        //[HttpDelete]
+        //[Route("CategoryId")]
+        //public bool Delete(Categories entity)
+        //{
+        //    try
+        //    {
+        //        _genericRepository.Delete(entity);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error(ex, "No se pudo eliminar la entidad de tipo {0}", entity.GetType);
 
-                throw new Exception("No se pudo eliminar la entidad", ex);
-            }
-        }
+        //        throw new Exception("No se pudo eliminar la entidad", ex);
+        //    }
+        //}
     }
 }

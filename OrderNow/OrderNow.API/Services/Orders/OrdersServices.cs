@@ -1,4 +1,6 @@
-﻿namespace Services
+﻿using OrderNow.API.Data;
+
+namespace Services
 {
     public class OrdersServices : GenericServices<Orders>, IOrdersServices
     {
