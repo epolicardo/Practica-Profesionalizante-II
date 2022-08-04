@@ -1,22 +1,23 @@
 @page "/business"
 
-<h1>Pizzeria Popular</h1>
-<h3>Rio Ceballos</h3>
-<img src="~/assets/imgs/book-table-img.jpg" alt="" />
-<a href="#">
-    <i class="heart"></i>
-</a>
-<a href="">Solicitar atenci�n</a>
-<a href="/suggestedproducts">Ingresar</a>
-        <h1>@contractURL</h1>
-     
+<div class="business-main-container">
+ 
+    <div id="business-name" class="business-name">
+            <p class="welcome-label">Bienvenido a</p>
+            <h1>Pizzeria Popular</h1>
+        </div>
+        <div id="business-info-details" class="business-info-details">
+            <h3>Río Ceballos - Córdoba</h3>
+        </div>
+        <div id="favorite-shape" class="business-img">
+            <img src="/assets/imgs/Shape.png" alt="">
+        </div>
+        <div id="personal-attention-request">
 
+            <a href="" class="personal-atention-request">Solicitar atención</a>
+        </div>
+        <div id="access-button">
 
-        <span name="contractURL">@contractURL</span>
-
-
-@code {
-    [Parameter]
-    public string contractURL { get; set; }
-
-}
+            <a class="access-button" href="/suggestedproducts">Ingresar</a>
+        </div>
+</div>

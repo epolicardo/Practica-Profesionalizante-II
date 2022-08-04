@@ -19,14 +19,14 @@
         </tr>
     </thead>
     <tbody>
-        @if (orders != null)
+        @if (_orders != null)
         {
-            @foreach (var order in orders)
+            @foreach (var order in _orders)
             {
                 <tr>
                     <td>@order.OrderDate</td>
                     <td>@order.OrderStatus</td>
-                    <td>@ElapsedTIme(order.Created)</td>
+                    <td>@ElapsedTime(order.Created)</td>
                     <td>@order.PartialCompletionOrderDate</td>
                     <td>@order.TotalAmount</td>
                     <td><a href="/products/@order.Id">Edit</a></td>
@@ -43,20 +43,20 @@
     [ParameterAttribute]
     public string? itemCount { get; set; }
     [Inject]
-    protected IOrdersServices? _ordersService { get; set; }
+    protected IOrdersServices? _ordersServiceApi { get; set; }
     [Inject]
-    protected IDateTimeProvider? _dateTimeProvider { get; set; }
+    protected IDateTimeProvider? _dateTimeProviderApi { get; set; }
 
-    public IEnumerable<Orders>? orders { get; set; }
+    public IEnumerable<Orders>? _orders { get; set; }
     //GetCookieBusinessId
     protected override async Task OnInitializedAsync()
     {
-        orders = await _ordersService.GetPendingOrdersByBusiness("269c886d-325f-4865-9cc4-34449aa3f56a");
+        _orders = await _ordersServiceApi.GetPendingOrdersByBusiness("269c886d-325f-4865-9cc4-34449aa3f56a");
     }
 
-    public string ElapsedTIme(DateTime createdAt)
+    public string ElapsedTime(DateTime createdAt)
     {
-        DateTime startTime = _dateTimeProvider.UtcNow;
+        DateTime startTime = _dateTimeProviderApi.UtcNow;
         var h = startTime.Subtract(createdAt).Hours.ToString("00");
         var m = startTime.Subtract(createdAt).Minutes.ToString("00");
         return $"{h}:{m}";

@@ -7,6 +7,6 @@ namespace OrderNow.BlazorServer.Services
         Task<List<Orders>> GetOrders();
         Task<Orders> GetOrderById(string Id);
 
-        Task<IEnumerable<Orders>> GetPendingOrdersByBusiness(string businessId);
+        Task<List<Orders>> GetPendingOrdersByBusiness(string businessId);
     }
 }

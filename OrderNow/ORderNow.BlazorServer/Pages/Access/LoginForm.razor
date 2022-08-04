@@ -14,9 +14,9 @@
 		</div>
 		<div class="login-card-right">
 			<EditForm Model="claims" id="LoginForm" OnValidSubmit="FormSubmit">
-				<label for="email">Correo Electrónico</label>
+				<label for="email" class="input-data">Correo Electrónico</label>
 				<InputText DisplayName="Correo Electronico" name="email" class="form-control input-data" @bind-Value="surnameMessage"></InputText>
-				<label for="password">Contraseña</label>
+				<label class="input-data" for="password">Contraseña</label>
 				<InputText DisplayName="Password" name="password" type="password" class="form-control input-data" @bind-Value="surnameMessage"></InputText>
 				<button class="btn btn-primary" type="submit" id="submit">Ingresar</button>
 				<a class="login-card-recovery" href="/">Recuperar acceso</a>
@@ -51,6 +51,6 @@
 	public void FormSubmit()
 	{
 		GetClaimsPrincipalData();
-		NavManager.NavigateTo("/user/profile");
+		NavManager.NavigateTo("/business");
 	}
 }

@@ -27,9 +27,6 @@ namespace OrderNow.BlazorServer.Services
             return base.GetAll($"{endpointUrl}/GetPendingOrders/{businessId}");
         }
 
-        Task<IEnumerable<Orders>> IOrdersServices.GetPendingOrdersByBusiness(string businessId)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

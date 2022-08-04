@@ -1,0 +1,59 @@
+@page "/product/1"
+@using OrderNow.API.Services
+@using OrderNow.BlazorServer.Services
+
+@using System.Text.Json
+@using global::OrderNow.Common.Data.Entities
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<div id="product-view-container">
+    <div class="navigation-bar">
+        <a href="back" class="back"><i class="arrow">flechita</i></a>
+    </div>
+    <div class="product-view-image">
+        <img src="/assets/imgs/pizza.png" alt="" srcset="">
+    </div>
+    <div id="product-view-info">
+
+        <div id="product-view-title">
+            Pizza Margarita
+        </div>
+        <div id="product-view-price">
+            $ 12.99
+        </div>
+    </div>
+    <div id="product-view-description">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa excepturi odit placeat fugiat doloribus error
+        minus corrupti eaque.
+    </div>
+    <div id="product-view-options-section">
+        <div id="product-view-option">
+            <div id="product-view-option-title">
+                Bordes rellenos
+            </div>
+            <div id="product-view-options">
+                <ul>
+
+                    <li><input type="radio" name="fh" class="radio-option">Muzzarela y Finas Hierbas</li>
+                    <li><input type="radio" name="fh" class="radio-option">Chedar y Panceta Ahumada</li>
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <input type="number" name="quantity" id="">
+    <button type="submit">Agregar</button>
+
+
+</div>
+@code{
+
+@* [ParameterAttribute]
+public string? OrderId { get; set; } *@
+
+
+
+}
