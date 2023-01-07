@@ -1,0 +1,54 @@
+﻿@page "/orderDetail/{orderId}"
+
+<h3>Detalle de Orden</h3>
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Cliente: @order?.User?.Email</h2>
+        <h2>Mesa: @order?.TableNro</h2>
+    </div>
+</div>
+<h1>@order?.PartialCompletionOrderDate</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+
+        </tr>
+    </thead>
+    <tbody id="order-list-container">
+        @if (order?.Items != null)
+        {
+
+            @foreach (OrderItem item in order?.Items)
+            {
+                <tr>
+                    <td>
+                        <h3>@item.Product.Name</h3>
+                    </td>
+                    <td>
+                        <h3>@item.Quantity</h3>
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter]
+    public string orderId { get; set; }
+    [ParameterAttribute]
+    public Orders? order { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = await _ordersServices.GetFullOrderById(Guid.Parse(orderId));
+
+
+    }
+
+}

@@ -1,0 +1,16 @@
+<div class="card-item">
+    <div class="order-item">
+        <img src="/assets/img/light.png" alt="" id="item-icon" />
+
+        <p id="item-title">@Item.Product.Name</p>
+        <p id="item-price">$ 8,78</p>
+        <p id="item-details">2 x $ 4,99</p>
+        <a class="remove-item" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+    </div>
+</div>
+
+
+@code{
+    [ParameterAttribute]
+    public OrderNow.Common.Data.Entities.OrderItem? Item { get; set; }
+}

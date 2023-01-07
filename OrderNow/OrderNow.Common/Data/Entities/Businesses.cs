@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace OrderNow.Common.Data.Entities
+﻿namespace OrderNow.Common.Data.Entities
 {
     public class Businesses : EntityBase
     {
@@ -10,13 +8,14 @@ namespace OrderNow.Common.Data.Entities
         public string? URLRegularImage { get; set; }
         public string ContractURL { get; set; } // /pizzeria-popular
         public string? PromoMessage { get; set; }
+        public string? Email { get; set; }
         public bool IsFrachise { get; set; } = false;
         public string CUIT { get; set; }
         public string LegalName { get; set; }
         public string Phone { get; set; }
 
         [NotMapped]
-        public PaymentType[]? PaymentsType { get; set; }
+        public List<PaymentType>? PaymentsType { get; set; }
 
         public bool IsValidated { get; set; } = false;
         public DateTime ValidationTime { get; set; }

@@ -10,6 +10,7 @@ namespace OrderNow.Common.Data.Entities
         public People? person { get; set; }
         public IList<Businesses>? FavoriteBusiness { get; set; }
         public IList<Products>? FavoriteProducts { get; set; }
+        public Businesses? AssosiatedBusiness{ get; set; }
         [NotMapped]
         public string Password { get; set; }
     }

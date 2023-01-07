@@ -1,0 +1,14 @@
+﻿global using Configuration;
+global using Microsoft.AspNetCore.Components.Authorization;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.ResponseCompression;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Options;
+global using OrderNow.Blazor.Areas.Identity;
+global using OrderNow.Blazor.Data;
+global using OrderNow.Common.Data.Entities;
+global using OrderNow.Common.Services;
+global using Repositories;
+global using Services;
+global using System.Text;

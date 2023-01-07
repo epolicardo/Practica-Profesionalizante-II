@@ -1,0 +1,28 @@
+
+@if (product != null)
+{
+    <div id="suggested-item">
+
+        <a href="/product/@product.Id">
+            <div id="suggested-item-title">
+                @product.Name
+            </div>
+
+            <div id="suggested-item-img-box">
+                <img id="suggested-item-img" src="@product.URLImage" alt="">
+            </div>
+
+            <div id="suggested-item-price">
+                <img id="heart-shape" src="/assets/imgs/Shape.png" alt="">
+                <label id="suggested-item-label-price">
+                    $ @product.Price
+                </label>
+            </div>
+        </a>
+    </div>
+}
+
+@code {
+    [ParameterAttribute]
+    public Products? product { get; set; }
+}

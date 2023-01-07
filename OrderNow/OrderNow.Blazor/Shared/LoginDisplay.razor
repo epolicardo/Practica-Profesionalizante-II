@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Users> SignInManager
+@inject UserManager<Users> UserManager
+
+<AuthorizeView>
+    <Authorized>
+        <a href="Identity/Account/Manage">Usuario logueado: @context.User.Identity.Name</a>
+        <form method="post" action="Identity/Account/LogOut">
+            <button type="submit" class="nav-link btn btn-link">Cerrar sesión</button>
+        </form>
+        @if (contractURL != null)
+        {
+            <a href="/business/dashboard/@contractURL">Perfil Comercial</a>
+        }
+        @*
+        @if (@context.User.Identity.Name == user?.Email)
+        {
+        }*@
+    </Authorized>
+    <NotAuthorized>
+        <a href="Identity/Account/Register">Registrar</a>
+        <a href="Identity/Account/Login">Ingresar</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+
+    [Parameter]
+    public Users? user { get; set; }
+    [Parameter]
+    public string? contractURL { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+
+        var email = SignInManager.Context.User.Identity.Name;
+        if (email != null)
+        {
+            var Userbusiness = await _usersServices.GetUserDataForLogin(email);
+            foreach (var item in Userbusiness)
+            {
+                contractURL = item.Business.ContractURL;
+                break;
+            }
+        }
+    }
+}

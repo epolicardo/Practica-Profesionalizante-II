@@ -1,0 +1,21 @@
+       
+        @if (products != null)
+    {
+        @foreach (var item in products)
+        {
+            <SuggestedProduct product=item></SuggestedProduct>
+        }
+    }
+        
+    
+@code {
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await _productsServices.SugestedProductsByBusiness(Guid.Parse("59CBE520-C1A2-41B1-AEFB-6D6FC2FE8820"));
+
+    }
+    public IEnumerable<Products>? products { get; set; }
+}

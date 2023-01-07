@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>OrderNow.Blazor</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+
+        <div class="page">
+            <div class="sidebar">
+                <BusinessNavMenu />
+            </div>
+
+            <main>
+                <div class="top-row px-4 auth">
+                    <LoginDisplay />
+                    
+                </div>
+
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div>
+
+            <main>
+                <div class="top-row px-4 auth">
+                    <LoginDisplay />
+                </div>
+
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>

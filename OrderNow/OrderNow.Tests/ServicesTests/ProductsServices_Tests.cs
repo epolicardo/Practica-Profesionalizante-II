@@ -1,26 +1,31 @@
 ﻿namespace OrderNow.Tests.Services
 {
-    public class ProductosTest
+    public class ProductsServicesTest
     {
-        //        Devolver los datos para la portada
-        //- Mostrar producto por id
-        //- Mostrar Listado Productos por Categoria
-        //- Mostrar todos los productos
-        //- Listar Sugeridos y Ofertas segun disponibilidad de stock
-        //- Agregar producto a orden
-        //- Mostrar productos en la orden
-        //- Quitar un producto de la orden
-        //- Editar producto en la orden(Podria removerlo y volver a agregarlo)
-        //- Sumar productos en la orden(Mostrar importe total)
-        //- Devolver foto de usuario para icono de cuenta
-        //- Activar favoritos por usuario
-        //- Mostrar favoritos
-        //- Listar metodos de pago habilitados en el comercio
-        //- Investigar plataformas de pago(MP, Lemon, Paypal, etc)
+        private readonly ProductsServices _sut;
+        private readonly Mock<IProductsRepository> _productsRepository = new Mock<IProductsRepository>();
 
-        //[Theory]
-        //public void UnitOfWork_StateUnderTest_ExpectedBehavior()
-        //{
-        //}
+        public ProductsServicesTest()
+        {
+            _sut = new ProductsServices(_productsRepository.Object);
+        }
+
+        [Theory]
+        [InlineData(300.0, 4, 4, 2, 600D)]
+        [InlineData(300.0, 9, 4, 2, 1500D)]
+        [InlineData(300.0, 10, 10, 7, 2100D)]
+        [InlineData(300.0, 20, 10, 7, 4200D)]
+        [InlineData(100.0, 34, 10, 7, 2500D)]
+        [InlineData(250.0, 4, 3, 2, 750D)]
+        [InlineData(320.0, 2, 2, 1, 320D)]
+        [InlineData(100.0, 13, 2, 1, 700D)]
+        [InlineData(100.0, 1, 2, 1, 100D)]
+        public void CalculateDiscountsShouldReturnTrue(double precio, int cantidad, int lleva, int paga, double expected)
+        {
+           
+            var result = _sut.CalculateDiscounts(precio, cantidad, lleva, paga);
+
+            result.Should().Be(expected);
+        }
     }
 }

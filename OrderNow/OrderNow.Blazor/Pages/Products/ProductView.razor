@@ -1,0 +1,117 @@
+@page "/product/{productId}"
+
+
+
+@if (product != null)
+{
+
+    <div id="action-bar">
+
+        <a href="#" id="arrow-back">
+            A
+        </a>
+        <a href="#" id="set-favorite">H</a>
+        <a href="#" id="share-product">
+            B
+        </a>
+    </div>
+    <img src="@product.URLImage" alt="" id="product-image" />
+
+    <div id="product-info">
+
+        <h3 id="product-name">@product.Name</h3>
+        <div id="product-price">$ @product.Price</div>
+    </div>
+    <div id="product-description">@product.Description</div>
+    <p id="options-label">Opciones</p>
+    <div id="product-options">
+        <p>Bordes rellenos</p>
+        <div class="product-option">
+            <p id="option-title">Muzarella y Finas Hierbas</p>
+            <input type="radio" name="" id="option">
+        </div>
+        <div class="product-option">
+            <p>Cheddar y panceta</p>
+            <input type="radio" name="" id="option">
+        </div>
+    </div>
+    <div id="product-options">
+        <p>Bordes rellenos</p>
+        <div class="product-option">
+            <p id="option-title">Muzarella y Finas Hierbas</p>
+            <input type="radio" name="" id="option">
+        </div>
+        <div class="product-option">
+            <p>Cheddar y panceta</p>
+            <input type="radio" name="" id="option">
+        </div>
+    </div>
+
+    <div id="order-action">
+
+        <label for="quantity-label" id="quantity">Cantidad</label>
+        <input type="number" class="form-control" value="1" id="quantity-input" />
+        <button @onclick=@(() => AddProductToOrder(1)) id="payment-button" class="btn btn-primary">
+            Agregar
+        </button>
+    </div>
+}
+
+@code {
+
+
+
+    [Parameter]
+    public string? productId { get; set; }
+
+    public Products? product { get; set; }
+    private Orders order;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await _productsServices.GetByIdAsync(Guid.Parse(productId));
+
+    }
+
+    private async Task AddProductToOrder(int quantity)
+    {
+        var email = _signInManager.Context.User.Identity.Name;
+
+        await GetActiveOrder(product.Business.Id, email);
+
+   
+        _ordersServices.AddProductToOrderAsync(order.Id, product.Id, quantity);
+
+        FormSubmit();
+
+    }
+    public void FormSubmit()
+    {
+        _navMan.NavigateTo($"/order/view/{order.Id.ToString()}");
+    }
+
+    public async Task GetActiveOrder(Guid businessId, string email)
+    {
+
+        if (order != null)
+            if (order.Items != null)
+            {
+                await _protectedSessionStore.SetAsync("orderSession", order);
+
+            }
+
+        var o = await _protectedSessionStore.GetAsync<Orders>("orderSession");
+        order = o.Value;
+        if (order == null)
+        {
+
+            order = await _ordersServices.CreateOrderAsync(businessId, email);
+            if (order.Items == null)
+            {
+                order.Items = new List<OrderItem>();
+            }
+        }
+        await _protectedSessionStore.SetAsync("orderSession", order);
+
+    }
+}

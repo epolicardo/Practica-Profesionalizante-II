@@ -1,0 +1,37 @@
+﻿
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using OrderNow.Blazor
+@using OrderNow.Blazor.Helpers
+@using OrderNow.Blazor.Shared
+@using OrderNow.Common.Services
+@using Microsoft.AspNetCore.SignalR.Client
+@using OrderNow.Common.Data.Entities
+@using Services
+@using System.Security.Claims
+@using Newtonsoft.Json
+
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+
+@inject ProtectedLocalStorage _protectedLocalStorage
+@inject ProtectedSessionStorage _protectedSessionStore
+@*https://learn.microsoft.com/es-es/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=server*@
+
+@inject AuthenticationStateProvider _authStateProvider
+@inject NavigationManager _navMan
+
+
+@inject IJSRuntime _js
+@inject IDateTimeProvider _dateTimeProvider
+@inject IOrdersServices _ordersServices
+@inject IBusinessesServices _businessesServices
+@inject IProductsServices _productsServices
+@inject IUsersServices _usersServices
+@inject SignInManager<Users> _signInManager
+
+

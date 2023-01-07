@@ -1,16 +1,18 @@
-﻿using OrderNow.API.Data;
+﻿
+using OrderNow.Blazor.Data;
 
 namespace OrderNow.Tests.Services
 {
     public class BusinessesServices_Tests
     {
         private readonly BusinessesServices _sut;
-        private readonly Mock<DataContext> _dataContextMock = new Mock<DataContext>();
+        private readonly Mock<DataContext> _dataContextMock = new();
         private readonly Mock<IBusinessesRepository> _businessRepoMock = new();
+        private readonly Mock<IUsersRepository> _userRepository = new();
 
         public BusinessesServices_Tests()
         {
-            _sut = new BusinessesServices(_businessRepoMock.Object, _dataContextMock.Object);
+            _sut = new BusinessesServices(_businessRepoMock.Object, _dataContextMock.Object, _userRepository.Object);
         }
 
         [Theory]
@@ -28,8 +30,8 @@ namespace OrderNow.Tests.Services
                 ContractURL = "pizzeria-popular-rc"
             };
 
-            _businessRepoMock.Setup(x => x.Exists(business.ContractURL))
-                .Returns(true);
+            _businessRepoMock.Setup(x => x.ExistsAsync(business.ContractURL))
+                .ReturnsAsync(true);
 
             var result = _sut.Exists(URL);
 

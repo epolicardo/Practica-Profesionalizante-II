@@ -1,0 +1,30 @@
+<div class="container-fluid bg-dark text-light has-height-md middle-items border-top text-center wow fadeIn">
+	<div class="row">
+		<div class="col-sm-4">
+			<h3>Escribanos</h3>
+			<p class="text-muted">info@ordernow.com.ar</p>
+		</div>
+		<div class="col-sm-4">
+			<h3>Llamenos</h3>
+			<p class="text-muted">(351) 341-6192</p>
+		</div>
+		 <div class="col-sm-4">
+		<h3>Encuentrenos</h3>
+		<p class="text-muted">Social Network Icons goes here</p>
+		</div>
+	</div>
+</div>
+<div class="bg-dark text-light text-center border-top wow fadeIn">
+	<p class="mb-0 py-3 text-muted small">&copy; Copyright @year Made by <a href="http://www.ordernow.com.ar">Emiliano Policardo</a></p>
+</div>
+
+
+@code {
+	private int year { get; set; }
+
+	protected override Task OnInitializedAsync()
+	{
+		year = DateTime.Now.Year;
+		return base.OnInitializedAsync();
+	}
+}

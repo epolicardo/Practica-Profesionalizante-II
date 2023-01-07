@@ -1,0 +1,52 @@
+﻿@page "/order/product"
+<div id="action-bar">
+
+    <a href="#" id="arrow-back">
+        A
+    </a>
+    <a href="#" id="set-favorite">H</a>
+    <a href="#" id="share-product">
+        B
+    </a>
+</div>
+<img src="assets/imgs/pizzaGrande.png" alt="" id="product-image" />
+
+<div id="product-info">
+
+    <h3 id="product-name">Pizza Margherita</h3>
+    <div id="product-price">$ 1230,50</div>
+</div>
+<div id="product-description">Una riquisima maza napolitana, tomate, albahaca fresca y la mejor muzarella.</div>
+<p id="options-label">Opciones</p>
+<div id="product-options">
+    <p>Bordes rellenos</p>
+    <div class="product-option">
+        <p id="option-title">Muzarella y Finas Hierbas</p>
+        <input type="radio" name="" id="option">
+    </div>
+    <div class="product-option">
+        <p>Cheddar y panceta</p>
+        <input type="radio" name="" id="option">
+    </div>
+</div>
+<div id="product-options">
+    <p>Bordes rellenos</p>
+    <div class="product-option">
+        <p id="option-title">Muzarella y Finas Hierbas</p>
+        <input type="radio" name="" id="option">
+    </div>
+    <div class="product-option">
+        <p>Cheddar y panceta</p>
+        <input type="radio" name="" id="option">
+    </div>
+</div>
+
+<div id="order-action">
+
+    <label for="quantity-label" id="quantity">Cantidad</label>
+    <input type="number" class="form-control" value="1" id="quantity-input" />
+    <a href="/order/view" id="button" class="btn btn-primary">Agregar</a>
+</div>
+@code {
+
+}

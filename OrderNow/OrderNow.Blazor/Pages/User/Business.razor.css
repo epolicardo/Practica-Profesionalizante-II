@@ -1,0 +1,65 @@
+* {
+    font-family: 'Raleway';
+}
+
+#business-main-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 2fr 1fr 1fr;
+    height: 100vh;
+    /*background-image: url("assets/imgs/fronts/pizzeria-popular-rc.png");
+    background-repeat: no-repeat;*/
+}
+
+#background-image {
+    display: grid;
+    justify-items: center;
+}
+
+#welcome-label {
+    display: grid;
+    justify-items: center;
+    font-size: 2rem;
+    grid-row: 1 / span 1;
+}
+
+#business-name {
+    display: grid;
+    font-size: 4rem;
+    font-weight: bolder;
+    text-shadow: #000000 10px;
+    color: rgb(170, 22, 22);
+    justify-items: center;
+    grid-row: 2 / span 1;
+}
+
+#business-info {
+    display: grid;
+    justify-items: center;
+    grid-row: 3 / span 1;
+}
+
+#favorite-shape {
+    display: grid;
+    justify-items: center;
+    grid-row: 4 / span 1;
+}
+
+#personal-attention-request {
+    display: grid;
+    justify-items: center;
+    font-weight: bold;
+    font-size: 3rem;
+    color: #3013d8;
+    border-radius: 10px;
+    grid-row: 5 / span 1;
+}
+
+#access-button {
+    display: grid;
+    justify-items: center;
+    grid-row: 6 / span 1;
+    border-radius: 10px;
+    font-size: 3.5rem;
+    color: #0e0e0e;
+    font-weight: bold;
+}

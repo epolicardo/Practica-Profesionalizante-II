@@ -1,0 +1,17 @@
+@using OrderNow.Common.Data.Entities
+
+<SectionTitle Name="NombreSeccion"></SectionTitle>
+
+@foreach (var item in collection)
+{
+    
+<ProductItem Name="Muzza" Price="24,99" IsFavorite=false ></ProductItem>
+}
+
+@code{
+    [Parameter]
+    public string Title {get;set;}
+
+    [Parameter]
+    public List<Products> collection { get; set; }
+}

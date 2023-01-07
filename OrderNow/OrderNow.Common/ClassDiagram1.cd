@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OrderNow.Common.Data.Entities.Addresses">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAgIAEAQAAAAAAAAAAAAAAIAQAAAAAA=</HashCode>
+      <FileName>Data\Entities\Addresses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.AdvertisingContracts">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAUAAAAAAAAAQAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\AdvertisingContracts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Businesses">
+    <Position X="22.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="OrderNow.Common.Data.Entities.Businesses.Image">
+        <TypeIdentifier>
+          <NewMemberFileName>Data\Entities\Businesses.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Enum Name="OrderNow.Common.Data.Entities.Businesses.ImageType">
+        <TypeIdentifier>
+          <NewMemberFileName>Data\Entities\Businesses.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAJAAQAAAAAAAAwACAAAIIQAEAgEAAACAgAAIAAAAAE=</HashCode>
+      <FileName>Data\Entities\Businesses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Categories">
+    <Position X="16.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\Categories.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.UsersBusinesses">
+    <Position X="18.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\CustomersBusinesses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.FavoriteProducts">
+    <Position X="16.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\CustomersBusinesses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.FavoriteBusiness">
+    <Position X="14" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\CustomersBusinesses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Documents">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAACAAQAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\Documents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.EntityBase" Collapsed="true">
+    <Position X="16.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAACAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\EntityBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Groups">
+    <Position X="18.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\Groups.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.LoginCredentials" Collapsed="true">
+    <Position X="24.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\LoginCredentials.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.OrderQueue">
+    <Position X="14" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\OrderQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Orders">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABCAAAAEASCAAAAAgAEAAAAAAIAAAAEAAAAAAAIAA=</HashCode>
+      <FileName>Data\Entities\Orders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.OrderItem">
+    <Position X="11.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Data\Entities\OrdersDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.PaymentMethods">
+    <Position X="16.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\PaymentMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.People">
+    <Position X="18.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAQAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>Data\Entities\People.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.ProductOptions">
+    <Position X="11.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Data\Entities\ProductOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.ProductOption">
+    <Position X="24.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\ProductOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Ingredients">
+    <Position X="14" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Data\Entities\Products.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Products">
+    <Position X="20.75" Y="3" Width="1.5" />
+    <InheritanceLine Type="OrderNow.Common.Data.Entities.EntityBase" FixedToPoint="true">
+      <Path>
+        <Point X="17" Y="1.312" />
+        <Point X="17" Y="1.59" />
+        <Point X="20.668" Y="1.59" />
+        <Point X="20.668" Y="2.877" />
+        <Point X="20.75" Y="2.877" />
+        <Point X="20.75" Y="3" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAABcAUAgAAwAAAgoAgQAgAAAAAAIAASAAAABCAA=</HashCode>
+      <FileName>Data\Entities\Products.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Recipes">
+    <Position X="18.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\Products.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.SaleDetails">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\SaleDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Sales">
+    <Position X="14" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\Sales.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.SystemVariables" Collapsed="true">
+    <Position X="24.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\SystemVariables.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.Users">
+    <Position X="24.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACIACIAAAAgCAAAA=</HashCode>
+      <FileName>Data\Entities\Users.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrderNow.Common.Data.Entities.UsersOrders">
+    <Position X="18.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\UsersOrders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="OrderNow.Common.Data.Entities.DocumentsType" Collapsed="true">
+    <Position X="26.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAACAAQEAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAQAA=</HashCode>
+      <FileName>Data\Entities\DocumentsType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OrderNow.Common.Data.Entities.PaymentStatus" Collapsed="true">
+    <Position X="26.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEIAAAAAA=</HashCode>
+      <FileName>Data\Entities\Orders.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OrderNow.Common.Data.Entities.OrderStatus" Collapsed="true">
+    <Position X="26.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAIAgAAAAAACAAAAAAAAAAAAQCAAAAA=</HashCode>
+      <FileName>Data\Entities\Orders.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OrderNow.Common.Data.Entities.PaymentType" Collapsed="true">
+    <Position X="26.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAAAgAAAACAQAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\PaymentMethods.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OrderNow.Common.Data.Entities.UserType" Collapsed="true">
+    <Position X="26.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Entities\Users.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

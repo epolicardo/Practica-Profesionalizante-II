@@ -1,0 +1,117 @@
+﻿@page "/order/view"
+@page "/order/view/{orderId}"
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<Users> SignInManager
+
+@implements IAsyncDisposable
+
+<p id="title">Orden</p>
+<div class="order-container">
+    <div id="order-items-container">
+        @if (order?.Items != null)
+        {
+
+
+            @foreach (OrderNow.Common.Data.Entities.OrderItem products in order?.Items)
+            {
+
+                <OrderItem Item="@products"></OrderItem>
+            }
+        }
+
+
+    </div>
+    <div id="order-message-container">
+        <MessageBox></MessageBox>
+    </div>
+    <div id="order-amount-container">
+
+        <label id="label-total">Total $ 546.90</label>
+        <button @onclick=UpdateOrderStatus disabled="@(IsConnected==false)"
+                id="payment-button" class="btn btn-primary">
+            Pagar
+        </button>
+    </div>
+
+</div>
+
+
+
+@code {
+    private HubConnection? hubConnection;
+    private List<string> messages = new();
+
+    private Orders order;
+    private string? userInput;
+    private string? messageInput;
+
+    [Parameter]
+    public string? orderId { get; set; }
+
+    private string authMessage;
+    private string authUser;
+    private string surnameMessage;
+
+    private bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        hubConnection = new HubConnectionBuilder()
+        .WithUrl(_navMan.ToAbsoluteUri("/businesshub"))
+        .WithAutomaticReconnect()
+        .Build();
+
+        order = await GetActiveOrder();
+
+        await hubConnection.StartAsync();
+
+    }
+    private async Task UpdateOrderStatus()
+    {
+        await _ordersServices.ChangeOrderStatusByIdAsync(order, OrderStatus.NotAssigned);
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("OrderPlaced", order);
+        }
+        _navMan.NavigateTo("/?contractUrl=pizzeria-popular-rc");
+    }
+
+
+    public async Task<Orders> GetActiveOrder()
+    {
+        if (order != null)
+            return order;
+
+        if (orderId != "")
+        {
+            order = await _ordersServices.GetFullOrderById(Guid.Parse(orderId));
+        }
+        else
+        {
+
+            var email = SignInManager.Context.User.Identity.Name;
+            var user = await _usersServices.GetUserDataForLogin(email);
+            Guid businessId = user[0].Business.Id;
+
+            order = await _ordersServices.CreateOrderAsync(businessId, email);
+        }
+        return order;
+
+    }
+
+
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+
+        }
+    }
+}

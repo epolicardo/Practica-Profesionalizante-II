@@ -1,0 +1,21 @@
+.order-message {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr;
+    height: 10rem;
+    background-color: --light;
+    border-radius: 10px;
+    padding-top: 1.5rem;
+    margin: 1rem;
+}
+
+#message-title {
+    color: black;
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+#message-text {
+    height: 10rem;
+}

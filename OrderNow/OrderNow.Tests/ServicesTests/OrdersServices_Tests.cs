@@ -1,4 +1,4 @@
-﻿using OrderNow.API.Data;
+﻿using OrderNow.Common.Services;
 
 namespace OrderNow.Tests.Services
 {
@@ -6,45 +6,50 @@ namespace OrderNow.Tests.Services
     {
         private readonly OrdersServices _sut;
 
-        private readonly Mock<DataContext> _dataContextMock = new Mock<DataContext>();
         private readonly Mock<IOrdersRepository> _ordersRepositoryMock = new Mock<IOrdersRepository>();
+        private readonly Mock<IUsersServices> _usersServiceMock = new Mock<IUsersServices>();
+        private readonly Mock<IProductsRepository> _productRepositoryMock = new();
+        private readonly Mock<IBusinessesRepository> _businessRepositoryMock = new();
+        private readonly Mock<IUsersRepository> _usersRepositoryMock = new();
 
-        
+        private readonly Mock<IDateTimeProvider> _mockDateTimeProvider = new Mock<IDateTimeProvider>();
 
 
-        public OrdersServices_Tests(
-          )
+        public OrdersServices_Tests()
         {
-            _sut = new OrdersServices(_ordersRepositoryMock.Object, _dataContextMock.Object);
+            _sut = new OrdersServices(_ordersRepositoryMock.Object, _usersRepositoryMock.Object, _businessRepositoryMock.Object, _productRepositoryMock.Object)
+            {
+                
+            };
+            _mockDateTimeProvider.Setup(x => x.UtcNow).Returns(new DateTime(2021, 07, 20));
+
         }
 
-        //public OrdersServicesTests(Mock<BusinessesServices> _businessServicesMock, Mock<UsersServices> _userServicesMock)
-        //{
-        //    _sut = new OrdersServices(_dataContextMock.Object);
-        //    _businessServicesMock = _businessServicesMock;
-        //    _userServicesMock = userServicesMock;
 
-        //}
+
+
+
 
         [Fact]
-        public void CreateOrder_ShouldCreateANewOrder()
+        public void CreateOrder_ShouldReturnANewOrder_WhenOrderIsCreatedAsync()
         {
-            var mock = new Mock<DateTimeProvider>();
-            mock.Setup(x => x.UtcNow).Returns(new DateTime(2021, 07, 20));
 
-            Businesses business = new Businesses()
+            Businesses business = new Businesses
             {
-                ContractURL = "La-pizzeria",
-                IsValidated = true,
-                ValidationTime = mock.Object.UtcNow
+                Id = Guid.NewGuid(),
+                Address = It.IsAny<Addresses>(),
+                ContractURL = It.IsAny<string>(),
+
             };
 
-            Users users = new Users()
+            Users users = new Users
             {
-                Email = "emilianopolicardo@gmail.com"
-            };
+                Email = It.IsAny<string>(),
+                Id = It.IsAny<string>(),
 
-            var res = _sut.CreateOrder(business, users);
+            };
+            _ordersRepositoryMock.Setup(x => x.CreateOrderAsync(users.Id, business.Id)).ReturnsAsync(new Orders());
+            var res = _sut.CreateOrderAsync(business.Id, users.Email);
 
             res.Should().BeOfType<Orders>();
         }
@@ -52,6 +57,14 @@ namespace OrderNow.Tests.Services
         [Fact]
         public void GetPendingOrdersByBusiness_ShouldReturnData_WhenBusinessAndOrderExists()
         { }
+
+        [Fact]
+        public void AddProductToOrderAsync_ShouldReturnOrderId_WhenOrderWasCreated()
+        {
+
+
+
+        }
 
         [Fact]
         public void GetTopCustomersByBusiness_ShouldReturnData_WhenBusinessExists()
@@ -72,5 +85,7 @@ namespace OrderNow.Tests.Services
         [Fact]
         public void GetOrderById_ShouldReturnAnOrder_WhenOrderExists()
         { }
+
+
     }
 }

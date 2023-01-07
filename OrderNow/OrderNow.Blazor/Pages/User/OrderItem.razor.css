@@ -1,0 +1,46 @@
+﻿.order-item {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 10rem;
+    background-color: rgb(230, 230, 230);
+    box-shadow: 3px 3px 20px 5px rgba(68, 68, 68, 0.74);
+    border-radius: 10px;
+    padding-top: 1.5rem;
+    margin: 1rem;
+}
+
+#item-icon {
+    justify-content: center;
+    max-width: 7rem;
+    max-height: 7rem;
+    grid-row: 1 / span 2;
+}
+
+#item-title {
+    color: black;
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+#item-price {
+    color: #FE2550;
+    font-weight: bold;
+    font-family: 'Raleway';
+    font-size: 2rem;
+    margin-right: 0.5rem;
+}
+
+#item-details {
+    color: #929292;
+    font-weight: bold;
+    font-family: 'Raleway';
+    font-size: 1.2rem;
+    grid-column: 2 / span 1;
+}
+
+#remove-item {
+    grid-column: 3 / span 1;
+    justify-self: center;
+}

@@ -63,12 +63,10 @@
         [Fact]
         public void ValidateUser()
         {
+            System.Console.WriteLine();
             //https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-web-app-with-email-confirmation-and-password-reset
         }
 
-        //[Fact]
-        //public void ValidateBusiness() { }
-        //[Fact]
-        //public void ValidateBusiness() { }
+      
     }
 }

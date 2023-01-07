@@ -1,0 +1,103 @@
+﻿<h3>@Businesses.Name</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Mesa</th>
+            <th>Estado</th>
+            <th>Actualizado</th>
+            <th>Tiempo transcurrido</th>
+            <th>Importe</th>
+            <th>Cambiar estado</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+    <tbody id="order-list-container">
+        @if (orders != null)
+        {
+
+            @foreach (Orders order in orders)
+            {
+                <Item orderAttr=order></Item>
+            }
+        }
+    </tbody>
+</table>
+@code {
+
+
+    [ParameterAttribute]
+    public string? TableName { get; set; }
+
+    [ParameterAttribute]
+    public Businesses? Businesses { get; set; }
+    [ParameterAttribute]
+    public string? itemCount { get; set; }
+
+
+
+    private HubConnection? hubConnection;
+    private List<string> messages = new();
+    private List<Orders> orders = new List<Orders>();
+    private string? userInput;
+    private string? messageInput;
+
+    protected override async Task OnInitializedAsync()
+    {
+        bool orderExists = false;
+        hubConnection = new HubConnectionBuilder()
+        .WithUrl(_navMan.ToAbsoluteUri("/businesshub"))
+        .WithAutomaticReconnect()
+        .Build();
+
+        orders = await GetPendingOrders();
+
+        //Client to receive messages
+        hubConnection.On<Orders>("NewOrder", (order) =>
+            {
+                foreach (var orderInList in orders)
+                {
+                    if (orderInList.Id == order.Id)
+                    {
+                        orderExists = true;
+                    }
+
+                }
+                if (!orderExists)
+                {
+
+                    orders.Add(order);
+                }
+                InvokeAsync(StateHasChanged);
+            });
+
+        hubConnection.On<Orders>("UpdatedOrder", (order) =>
+        {
+            InvokeAsync(StateHasChanged);
+        });
+        await hubConnection.StartAsync();
+
+    }
+    public async Task<List<Orders>> GetPendingOrders()
+    {
+
+        var businessId = Businesses?.Id.ToString();
+        if (string.IsNullOrEmpty(businessId))
+        {
+           // businessId = "59CBE520-C1A2-41B1-AEFB-6D6FC2FE8820";
+        }
+        var result = await _ordersServices.GetPendingOrdersByBusiness(businessId);
+        return result;
+
+
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+
+        }
+    }
+}

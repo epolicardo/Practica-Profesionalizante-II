@@ -1,0 +1,55 @@
+@page "/business/"
+@page "/business/{contractURL}"
+
+
+<div id="business-main-container" class="text-center">
+  
+    <div class="css_class_setting_background" style=" --url: url("https://download.unsplash.com/photo-1420708392410-3c593b80d416");"> </div>
+
+    <div>
+        <p id="welcome-label">Bienvenido a</p>
+        <h1 id="business-name">@business?.Name</h1>
+    </div>
+    <div id="business-info">
+        <h3>@business?.Address?.City</h3>
+    </div>
+    <div id="favorite-shape">
+        <img src="/assets/imgs/Shape.png" alt="">
+    </div>
+  
+
+        <a id="personal-attention-request" href="">Solicitar atención</a>
+   
+    <a id="access-button"  href="/suggestedproducts/@contractURL">Ingresar</a>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public string? contractURL { get; set; }
+    public Businesses? business { get; set; }
+    public string? backgroundImageURL { get; set; }
+
+  
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+       business =  await _businessesServices.GetBusinessIfActive(contractURL);
+     
+
+    }
+
+    
+   
+    
+
+    
+    
+    public void FormSubmit()
+    {
+        _navMan.NavigateTo("/business");
+    }
+}

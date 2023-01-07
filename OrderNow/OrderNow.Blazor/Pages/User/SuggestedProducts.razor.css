@@ -1,0 +1,38 @@
+.container-suggested-products {
+    display: grid;
+    grid-template-rows: 1fr 1fr 3fr 3fr 3fr;
+    box-sizing: border-box;
+}
+
+#business-name {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: bold;
+    font-family: 'Raleway';
+    margin-top: 1rem;
+    grid-row: 1 / span 1;
+}
+
+#section-title-bar {
+    display: grid;
+    grid-row: 2 / span 2;
+    font-size: 2rem;
+    justify-content: center;
+    font-weight: bold;
+    font-family: 'Raleway';
+    background-color: #ff214f;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+#suggested-section-items {
+    display: grid;
+    /* justify-items: center; */
+    margin-left: 1rem;
+    gap: 1rem;
+    grid-auto-rows: 22rem;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    margin-right: 0.7rem;
+    margin-bottom: 1rem;
+}

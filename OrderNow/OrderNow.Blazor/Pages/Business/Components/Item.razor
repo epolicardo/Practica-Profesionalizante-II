@@ -1,0 +1,94 @@
+
+<tr id="order-data">
+    <td id="customer-name">
+        <p>
+            @if (orderAttr?.User?.person != null)
+            {
+                @orderAttr?.User.person.FirstName @orderAttr?.User?.person?.LastName
+                ;
+
+            }
+            else
+            {
+
+                @orderAttr?.User?.Email
+                ;
+            }
+        </p>
+    </td>
+    <td id="table-nro">
+        <p>
+            @orderAttr.TableNro
+        </p>
+    </td>
+    <td id="order-status">
+        <p>
+            @orderAttr.OrderStatus
+        </p>
+    </td>
+    <td id="order-date">
+        <p>
+            @orderAttr.LastModified.ToLocalTime()
+
+        </p>
+    </td> 
+    <td id="order-date">
+        <p>
+            123
+        </p>
+    </td>
+    <td id="payment-status">
+        <p>
+            @if (orderAttr.PaymentStatus == PaymentStatus.FullyPayed)
+            {
+                @orderAttr.TotalAmount <i class="bi bi-check2-circle"></i>
+
+            }
+            else
+            {
+                @orderAttr.TotalAmount <i class="bi bi-exclamation-diamond"></i>
+            }
+        </p>
+    </td>
+    <td id="action-status">
+        <p>
+            <button class="btn btn-outline-primary" @onclick=@(() => UpdateOrder(orderAttr))>Cambiar estado</button>
+        </p>
+    </td>
+    <td id="order-details">
+        <p>
+            <button class="btn btn-outline-primary" @onclick=@(() => ViewOrder(orderAttr.Id.ToString()))>Ver orden</button>
+
+        </p>
+    </td>
+</tr>
+
+
+@code {
+    [ParameterAttribute]
+    public Orders? orderAttr { get; set; }
+    private HubConnection? hubConnection;
+
+
+    public async Task<Orders> UpdateOrder(Orders order)
+    {
+        var result = await _ordersServices.ChangeOrderStatusByIdAsync(order, OrderStatus.Completed);
+
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("OrderUpdated", result);
+        }
+        return result;
+
+    }
+
+    public async Task ViewOrder(string orderId)
+    {
+        _navMan.NavigateTo($"/orderDetail/{orderId}");
+
+
+    }
+
+
+}
+

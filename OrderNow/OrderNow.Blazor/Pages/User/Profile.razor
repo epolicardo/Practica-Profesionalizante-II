@@ -1,0 +1,40 @@
+﻿@inject SignInManager<Users> SignInManager
+@using Microsoft.AspNetCore.Identity
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div class="card-group">
+            <div class="card">
+                <h1>Ultimos visitados</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+
+        <div class="card-group">
+            <div class="card">
+                <h1>Mis favoritos</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+
+        <div class="card-group">
+            <div class="card">
+                <h1>Recomendados</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+
+      
+
+    }
+
+
+}
