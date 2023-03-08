@@ -63,5 +63,15 @@ namespace Repositories
         {
             return await _dataContext.UsersBusinesses.Include(x => x.Business).Where(x => x.Users.Email == email).AsNoTracking().ToListAsync();
         }
+
+        public async Task GetUserProfileData(string email)
+        {
+            await _dataContext.Users.Include(x => x.person).Where(x => x.Email == email).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<List<FavoriteBusiness>> GetFavoriteBusinessByUserAsync(string email)
+        {
+            return await _dataContext.FavoriteBusinessesByUser.Where(x => x.Users.Email == email).Include(x => x.Business).Include(x => x.Users).ToListAsync();
+        }
     }
 }

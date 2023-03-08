@@ -7,6 +7,7 @@
         <div class="card-group">
             <div class="card">
                 <h1>Ultimos visitados</h1>
+               
             </div>
         </div>
     </div>
@@ -15,6 +16,24 @@
         <div class="card-group">
             <div class="card">
                 <h1>Mis favoritos</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Comercio</th>
+              
+                        </tr>
+                    </thead>
+                    <tbody id="order-list-container">
+                        @if (favoriteBusinesses != null)
+                        {
+
+                            @foreach (var business in favoriteBusinesses)
+                            {
+                            <td>@business.Business.Name</td>
+                            }
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -29,12 +48,17 @@
 </div>
 
 @code {
+
+    [Parameter]
+
+    public List<FavoriteBusiness>? favoriteBusinesses { get; set; }
+
+
     protected override async Task OnInitializedAsync()
     {
+        favoriteBusinesses = await _usersServices.GetFavoriteBusinessesByUser(SignInManager.Context.User.Identity.Name);
 
-      
+
 
     }
-
-
 }

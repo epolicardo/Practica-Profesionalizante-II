@@ -1,14 +1,18 @@
-﻿namespace OrderNow.Tests.Services
+﻿using System.Collections.Generic;
+using System.Linq;
+using Xunit.Sdk;
+
+namespace OrderNow.Tests.Services
 {
     public class UsersServices_Tests
     {
         private readonly UsersServices _sut;
         private readonly Mock<IUsersRepository> _userRepositoryMock = new Mock<IUsersRepository>();
-        private readonly Mock<UserManager<Users>> _userManagerMock = new();
+        private readonly UserManager<Users> _userManager;
 
         public UsersServices_Tests()
         {
-            _sut = new UsersServices(_userRepositoryMock.Object,_userManagerMock.Object);
+            _sut = new UsersServices(_userRepositoryMock.Object, _userManager);
         }
 
         [Fact]
@@ -41,6 +45,36 @@
         /// <summary>
         /// CU -
         /// </summary>
+        ///
+
+        [Theory]
+        [InlineData("epolicardo@gmail.com", "pizzeria-popular-rc")]
+        public async Task GetFavoriteBusinessesByUser_ShouldRetrieveListOfBusinesses_WhenUserHasFavoriteBusinesses(string email, string expected)
+        {
+            var user = new Users()
+            {
+                Email = email,
+                Id = It.IsAny<string>(),
+            };
+
+            this._userRepositoryMock.Setup(x => x.GetFavoriteBusinessByUserAsync(user.Email)).ReturnsAsync(new List<FavoriteBusiness>()
+            {
+                new FavoriteBusiness
+                {
+                    Business = new Businesses()
+                    {
+                        ContractURL = expected,
+                    },
+                    Users = user
+                }
+            });
+            var response = await _sut.GetFavoriteBusinessesByUser(user.Email);
+
+            var result = response.FirstOrDefault(x => x.Users.Email == email).Business.ContractURL;
+
+            response.Should().NotBeNull();
+            result.Should().Be(expected);
+        }
 
         [Fact]
         public void AddProductToOrder_ShouldAddAProductToAnOrder_WhenProductAndOrderExists()
@@ -66,7 +100,5 @@
             System.Console.WriteLine();
             //https://docs.microsoft.com/en-us/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-web-app-with-email-confirmation-and-password-reset
         }
-
-      
     }
 }

@@ -16,6 +16,11 @@ namespace Services
             throw new NotImplementedException();
         }
 
+        public async Task GetUserProfileDataAsync(string email)
+        {
+            await _usersRepository.GetUserProfileData(email);
+        }
+
         //public async Task AddRelationUserBusiness(Guid user, Guid business)
         //{
         //   await  _usersRepository.AddRelationUserBusiness(user, business);
@@ -82,6 +87,26 @@ namespace Services
         public Task<int> SaveAsync()
         {
             return base.SaveAsync();
+        }
+
+        public Task<List<Businesses>> GetLastVisitedBusinessesByUser(Users user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<FavoriteBusiness>> GetFavoriteBusinessesByUser(string email)
+        {
+            return await _usersRepository.GetFavoriteBusinessByUserAsync(email);
+        }
+
+        public Task<bool> UpdateUser(Users user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteUser(Users user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -51,5 +51,10 @@ namespace Services
         {
             return await _businessesRepository.ExistsAsync(url);
         }
+
+        public Task<List<Businesses>> GetSuggestedBusinesses(Users user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
