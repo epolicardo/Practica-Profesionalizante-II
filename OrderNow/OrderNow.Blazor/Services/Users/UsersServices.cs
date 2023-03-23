@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using OrderNow.Blazor.Data;
+using System.Linq.Expressions;
 
 namespace Services
 {
@@ -26,18 +27,13 @@ namespace Services
         //   await  _usersRepository.AddRelationUserBusiness(user, business);
         //}
 
-        public bool AssignFavoriteBusinessToUser(Users user, Businesses business)
+        public async Task<bool> SetFavoriteBusinessesByUserAsync(UsersBusinesses relation)
         {
-            if (user == null) { return false; }
+            if (relation.Users == null) { return false; }
 
-            if (business == null) { return false; }
+            if (relation.Business == null) { return false; }
 
-            if (user.FavoriteBusiness == null)
-            {
-                user.FavoriteBusiness = new List<Businesses>();
-            }
-            user.FavoriteBusiness.Add(business);
-            return true;
+            return await _usersRepository.SetFavoriteBusinessesByUserAsync(relation);
         }
 
         public bool AssignFavoriteProductsToUsers(Users user, Products product)
@@ -81,7 +77,7 @@ namespace Services
 
         public async Task<Users> GetByMailAsync(string email)
         {
-            return await _usersRepository.GetByMailAsync(email);
+            return await _usersRepository.GetUserByEmailAsync(email);
         }
 
         public Task<int> SaveAsync()
@@ -89,14 +85,14 @@ namespace Services
             return base.SaveAsync();
         }
 
-        public Task<List<Businesses>> GetLastVisitedBusinessesByUser(Users user)
+        public async Task<List<UsersBusinesses>> GetLastVisitedBusinessesByUserAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _usersRepository.GetLastVisitedBusinessesByUserAsync(email);
         }
 
-        public async Task<List<FavoriteBusiness>> GetFavoriteBusinessesByUser(string email)
+        public async Task<List<UsersBusinesses>> GetFavoriteBusinessesByUserAsync(string email)
         {
-            return await _usersRepository.GetFavoriteBusinessByUserAsync(email);
+            return await _usersRepository.GetFavoriteBusinessesByUserAsync(email);
         }
 
         public Task<bool> UpdateUser(Users user)
@@ -105,6 +101,16 @@ namespace Services
         }
 
         public Task<bool> DeleteUser(Users user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<UsersBusinesses>> UpdateDateOfVisitToBusinessesByUserAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetUserProfileData(string email)
         {
             throw new NotImplementedException();
         }

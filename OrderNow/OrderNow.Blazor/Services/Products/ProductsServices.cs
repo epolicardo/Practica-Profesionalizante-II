@@ -66,5 +66,10 @@
         {
             return _productsRepository.ProductsByBusiness(businessId);
         }
+
+        public Task<List<FavoriteProducts>> GetFavoriteProductsByUserAsync(string email)
+        {
+            return _productsRepository.GetFavoriteProductsByUserAsync(email);
+        }
     }
 }

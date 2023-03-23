@@ -12,7 +12,7 @@ namespace OrderNow.Blazor.Data
         public DbSet<Categories> Categories { get; set; }
         public DbSet<UsersBusinesses> UsersBusinesses { get; set; }
         public DbSet<Documents> Documents { get; set; }
-        public DbSet<FavoriteBusiness> FavoriteBusinessesByUser { get; set; }
+
         public DbSet<FavoriteProducts> FavoriteProductsByUser { get; set; }
         public DbSet<Groups> Groups { get; set; }
         public DbSet<Orders> Orders { get; set; }

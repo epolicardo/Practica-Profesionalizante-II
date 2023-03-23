@@ -12,6 +12,11 @@ namespace Repositories
             _context = context;
         }
 
+        public async Task<List<Businesses>> GetSuggestedBusinessesAsync()
+        {
+            return await _context.Businesses.Where(x => x.IsPromoted == true && x.PromotionCredits > 0).ToListAsync();
+        }
+
         public async Task<bool> CreateAsync(Businesses entity)
         {
             return await base.CreateAsync(entity);

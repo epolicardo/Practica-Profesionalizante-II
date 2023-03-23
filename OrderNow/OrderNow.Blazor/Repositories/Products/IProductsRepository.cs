@@ -18,6 +18,8 @@ namespace Repositories
 
         Task<IEnumerable<Products>> ProductsByBusiness(Guid businessId);
 
+        Task<List<FavoriteProducts>> GetFavoriteProductsByUserAsync(string email);
+
         Task<int> SaveAsync();
 
         Task<IEnumerable<Products>> SugestedProductsByBusiness(Guid businessId);

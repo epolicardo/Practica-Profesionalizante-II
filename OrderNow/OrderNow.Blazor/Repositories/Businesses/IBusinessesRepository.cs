@@ -5,5 +5,7 @@ namespace Repositories
         Task<bool> ExistsAsync(string contractURL);
 
         Task<Businesses> GetByURL(string url);
+
+        Task<List<Businesses>> GetSuggestedBusinessesAsync();
     }
 }

@@ -82,9 +82,12 @@ namespace Repositories
 
         public List<Products> ProductsByBusinessByCategory(string URL, Categories Category)
         {
-            var products = _context.Products.Where(x => x.Business.ContractURL == URL).Where(p => p.Category.Name == Category.Name).ToList();
+            return _context.Products.Where(x => x.Business.ContractURL == URL).Where(p => p.Category.Name == Category.Name).ToList();
+        }
 
-            return products;
+        public async Task<List<FavoriteProducts>> GetFavoriteProductsByUserAsync(string email)
+        {
+            return await _context.FavoriteProductsByUser.Where(x => x.Users.Email == email).Include(x=>x.Product).ThenInclude(x=>x.Business).ToListAsync();
         }
     }
 }

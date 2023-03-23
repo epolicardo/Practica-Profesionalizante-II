@@ -2,11 +2,15 @@
 {
     public interface IUsersRepository : IGenericRepository<Users>
     {
-        Task<Users> GetByMailAsync(string email);
+        Task<Users> GetUserByEmailAsync(string email);
 
-        Task<List<FavoriteBusiness>> GetFavoriteBusinessByUserAsync(string email);
+        Task<bool> SetFavoriteBusinessesByUserAsync(UsersBusinesses relation);
 
-        // Task AddRelationUserBusiness(Guid user, Guid business);
+        Task<List<UsersBusinesses>> GetFavoriteBusinessesByUserAsync(string email);
+
+        Task<List<UsersBusinesses>> UpdateDateOfVisitToBusinessesByUserAsync(string email);
+
+        Task<List<UsersBusinesses>> GetLastVisitedBusinessesByUserAsync(string email);
 
         Task<List<UsersBusinesses>> GetUserDataForLogin(string email);
 

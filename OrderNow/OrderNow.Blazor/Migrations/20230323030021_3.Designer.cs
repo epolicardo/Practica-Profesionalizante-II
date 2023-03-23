@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderNow.Blazor.Data;
 
@@ -11,9 +12,11 @@ using OrderNow.Blazor.Data;
 namespace OrderNow.Blazor.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230323030021_3")]
+    partial class _3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,9 +266,6 @@ namespace OrderNow.Blazor.Migrations
                     b.Property<bool>("IsFrachise")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsPromoted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsValidated")
                         .HasColumnType("bit");
 
@@ -286,15 +286,6 @@ namespace OrderNow.Blazor.Migrations
 
                     b.Property<string>("PromoMessage")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PromotionCredits")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PromotionEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PromotionStart")
-                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Qualification")
                         .HasColumnType("decimal(20,0)");

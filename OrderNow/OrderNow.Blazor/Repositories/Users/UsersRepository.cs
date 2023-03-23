@@ -12,23 +12,6 @@ namespace Repositories
             _dataContext = dataContext;
         }
 
-        //public async Task AddRelationUserBusiness(Guid user, Guid business)
-        //{
-        //    user = Guid.Parse("baa393a1-807d-40d3-b5df-d3b59c983827");
-        //    business = Guid.Parse("198e40dc-ca7e-4b5a-84ae-1970fec979ca");
-        //    var u = await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == user.ToString());
-        //    var b = await _dataContext.Businesses.FirstOrDefaultAsync(x => x.Id == business);
-
-        //    UsersBusinesses relation = new UsersBusinesses()
-        //    {
-        //        Business = b,
-        //        Users = u,
-        //    };
-
-        //    _dataContext.UsersBusinesses.Add(relation);
-        //    await _dataContext.SaveChangesAsync();
-        //}
-
         public Task<bool> CreateAsync(Users entity)
         {
             return base.CreateAsync(entity);
@@ -49,12 +32,27 @@ namespace Repositories
             return base.GetAll();
         }
 
+        public async Task<List<UsersBusinesses>> GetBusinessesByUser(Users users)
+        {
+            return await _dataContext.UsersBusinesses.Where(x => x.Users.Email == users.Email).ToListAsync();
+        }
+
         public Task<Users> GetByIdAsync(Guid Id)
         {
             return base.GetByIdAsync(Id);
         }
 
-        public async Task<Users> GetByMailAsync(string email)
+        public async Task<List<UsersBusinesses>> GetFavoriteBusinessesByUserAsync(string email)
+        {
+            return await _dataContext.UsersBusinesses.Where(x => x.Users.Email == email).Include(x => x.Business).Include(x => x.Users).Where(x => x.IsFavorite == true).ToListAsync();
+        }
+
+        public async Task<List<UsersBusinesses>> GetLastVisitedBusinessesByUserAsync(string email)
+        {
+            return await _dataContext.UsersBusinesses.Where(x => x.Users.Email == email).Include(x => x.Business).Include(x => x.Users).Where(x => x.LastVisit < DateTime.Now.AddDays(15)).ToListAsync();
+        }
+
+        public async Task<Users> GetUserByEmailAsync(string email)
         {
             return await _dataContext.Users?.Include(p => p.person).ThenInclude(d => d.Address).FirstOrDefaultAsync(x => x.Email == email);
         }
@@ -69,9 +67,19 @@ namespace Repositories
             await _dataContext.Users.Include(x => x.person).Where(x => x.Email == email).AsNoTracking().ToListAsync();
         }
 
-        public async Task<List<FavoriteBusiness>> GetFavoriteBusinessByUserAsync(string email)
+        public Task<List<UsersBusinesses>> SetFavoriteBusinessesByUserAsync(UsersBusinesses relation)
         {
-            return await _dataContext.FavoriteBusinessesByUser.Where(x => x.Users.Email == email).Include(x => x.Business).Include(x => x.Users).ToListAsync();
+            throw new NotImplementedException();
+        }
+
+        public Task<List<UsersBusinesses>> UpdateDateOfVisitToBusinessesByUserAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IUsersRepository.SetFavoriteBusinessesByUserAsync(UsersBusinesses relation)
+        {
+            throw new NotImplementedException();
         }
     }
 }

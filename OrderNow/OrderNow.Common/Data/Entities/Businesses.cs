@@ -22,18 +22,9 @@
         public DateTime ValidationExpires { get; set; }
         public float Score { get; set; }
         public UInt64 Qualification { get; set; }
-
-        public class Image : EntityBase
-        {
-            public string Name { get; set; }
-            public string URL { get; set; }
-            public ImageType Type { get; set; }
-        }
-
-        public enum ImageType
-        {
-            Icon,
-            Regular
-        }
+        public bool IsPromoted { get; set; }
+        public DateTime PromotionStart { get; set; }
+        public DateTime PromotionEnd { get; set; }
+        public int PromotionCredits { get; set; }
     }
 }

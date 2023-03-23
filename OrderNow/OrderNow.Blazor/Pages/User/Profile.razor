@@ -7,7 +7,24 @@
         <div class="card-group">
             <div class="card">
                 <h1>Ultimos visitados</h1>
-               
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Comercio</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="order-list-container">
+                        @if (lastVisited != null)
+                        {
+
+                            @foreach (var business in lastVisited)
+                            {
+                            <td>@business.Business.Name</td>
+                            }
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -42,21 +59,64 @@
         <div class="card-group">
             <div class="card">
                 <h1>Recomendados</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Comercio</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="order-list-container">
+                        @if (suggestedBusinesses != null)
+                        {
+
+                            @foreach (var business in suggestedBusinesses)
+                            {
+                            <td>@business.Name</td>
+                            }
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Comercio</th>
+
+            </tr>
+        </thead>
+        <tbody id="order-list-container">
+            @if (favoriteProducts != null)
+            {
+
+                @foreach (var item in favoriteProducts)
+                {
+                <td>@item.Product.Name</td>
+                <td>@item.Product.Business.Name</td>
+                }
+            }
+        </tbody>
+    </table>
 </div>
 
 @code {
 
     [Parameter]
 
-    public List<FavoriteBusiness>? favoriteBusinesses { get; set; }
+    public List<UsersBusinesses>? favoriteBusinesses { get; set; }
+    public List<UsersBusinesses>? lastVisited { get; set; }
+    public List<Businesses>? suggestedBusinesses { get; set; }
+    public List<FavoriteProducts>? favoriteProducts { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
-        favoriteBusinesses = await _usersServices.GetFavoriteBusinessesByUser(SignInManager.Context.User.Identity.Name);
+        lastVisited = await _usersServices.GetLastVisitedBusinessesByUserAsync(SignInManager.Context.User.Identity.Name);
+        favoriteBusinesses = await _usersServices.GetFavoriteBusinessesByUserAsync(SignInManager.Context.User.Identity.Name);
+        suggestedBusinesses = await _businessesServices.GetSuggestedBusinessesAsync();
+        favoriteProducts = await _productsServices.GetFavoriteProductsByUserAsync(SignInManager.Context.User.Identity.Name);
 
 
 

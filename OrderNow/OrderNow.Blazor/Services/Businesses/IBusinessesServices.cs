@@ -4,10 +4,6 @@
     {
         Task<Businesses> GetBusinessIfActive(string url);
 
-        Task<bool> SetAsFavorite(string url, Guid userId);
-
-        Task<List<UsersBusinesses>> GetBusinessesByUser(Users user);
-        Task<List<Businesses>> GetSuggestedBusinesses(Users user);
-
+        Task<List<Businesses>> GetSuggestedBusinessesAsync();
     }
 }

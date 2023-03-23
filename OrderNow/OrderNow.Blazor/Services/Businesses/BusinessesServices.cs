@@ -1,4 +1,5 @@
 ﻿using OrderNow.Blazor.Data;
+using System.Security.Policy;
 
 namespace Services
 {
@@ -21,11 +22,6 @@ namespace Services
             return await _businessesRepository.GetByURL(url);
         }
 
-        public async Task<List<UsersBusinesses>> GetBusinessesByUser(Users users)
-        {
-            return await _dataContext.UsersBusinesses.Where(x => x.Users.Email == users.Email).ToListAsync();
-        }
-
         public async Task<bool> SetAsFavorite(string url, Guid userId)
         {
             var business = await _businessesRepository.FindByConditionAsync(x => x.ContractURL.Equals(url));
@@ -36,10 +32,10 @@ namespace Services
 
                 if (user != null)
                 {
-                    FavoriteBusiness favoriteBusiness = new FavoriteBusiness();
+                    UsersBusinesses favoriteBusiness = new UsersBusinesses();
                     favoriteBusiness.Business = business;
                     favoriteBusiness.Users = user;
-                    var res = await _dataContext.FavoriteBusinessesByUser.AddAsync(favoriteBusiness);
+                    var res = await _dataContext.UsersBusinesses.AddAsync(favoriteBusiness);
                     await _dataContext.SaveChangesAsync();
                 }
                 return true;
@@ -52,9 +48,9 @@ namespace Services
             return await _businessesRepository.ExistsAsync(url);
         }
 
-        public Task<List<Businesses>> GetSuggestedBusinesses(Users user)
+        public async Task<List<Businesses>> GetSuggestedBusinessesAsync()
         {
-            throw new NotImplementedException();
+            return await _businessesRepository.GetSuggestedBusinessesAsync();
         }
     }
 }

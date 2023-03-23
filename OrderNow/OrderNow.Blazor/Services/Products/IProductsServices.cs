@@ -21,5 +21,7 @@ namespace Services
         Task<IEnumerable<Products>> ProductsByBusiness(Guid businessId);
 
         Task<IEnumerable<Products>> SugestedProductsByBusiness(Guid businessId);
+
+        Task<List<FavoriteProducts>> GetFavoriteProductsByUserAsync(string email);
     }
 }
