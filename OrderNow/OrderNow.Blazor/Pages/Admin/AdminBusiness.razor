@@ -1,0 +1,43 @@
+﻿@page "/admin/business"
+@layout AdminLayout
+
+@using OrderNow.Blazor.Pages.Business.Components
+@using OrderNow.Common.Data.Entities
+@using OrderNow.Common.Services
+
+<AuthorizeView>
+    <Authorized>
+
+        <p>
+
+           ABM Businesses
+        </p>
+
+    </Authorized>
+    <NotAuthorized>
+        <h1>Sin autorización para ver esta página</h1>
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+    [Parameter]
+    public string? contractURL { get; set; }
+    [Parameter]
+    public Businesses? business { get; set; }
+
+
+    public string ElapsedTime(DateTime createdAt)
+    {
+        DateTime startTime = _dateTimeProvider.UtcNow;
+        var h = startTime.Subtract(createdAt).Hours.ToString("00");
+        var m = startTime.Subtract(createdAt).Minutes.ToString("00");
+        return $"{h}:{m}";
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        business = await _businessesServices.GetBusinessIfActive(contractURL);
+
+
+    }
+
+
+}
