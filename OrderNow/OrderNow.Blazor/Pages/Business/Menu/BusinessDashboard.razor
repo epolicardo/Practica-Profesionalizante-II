@@ -2,7 +2,6 @@
 @page "/business/dashboard/{contractURL}"
 @layout BusinessLayout
 
-@using Microsoft.AspNetCore.SignalR.Client
 @using OrderNow.Blazor.Pages.Business.Components
 @using OrderNow.Common.Data.Entities
 @using OrderNow.Common.Services
@@ -14,7 +13,7 @@
 
     </Authorized>
     <NotAuthorized>
-        <h1>You have to be logged on to see this</h1>
+        <h1>Sin autorización para ver esta página</h1>
     </NotAuthorized>
 </AuthorizeView>
 @code {

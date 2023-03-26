@@ -1,13 +1,14 @@
 @page "/business/"
 @page "/business/{contractURL}"
 
+<PageTitle>@business?.Name - OrderNow</PageTitle>
 
 <div id="business-main-container" class="text-center">
-  
-    <div class="css_class_setting_background" style=" --url: url("https://download.unsplash.com/photo-1420708392410-3c593b80d416");"> </div>
 
-    <div>
+    <div class="row pt-4">
         <p id="welcome-label">Bienvenido a</p>
+    </div>
+    <div class="row">
         <h1 id="business-name">@business?.Name</h1>
     </div>
     <div id="business-info">
@@ -16,11 +17,9 @@
     <div id="favorite-shape">
         <img src="/assets/imgs/Shape.png" alt="">
     </div>
-  
+    <a id="personal-attention-request" href="">Solicitar atención</a>
 
-        <a id="personal-attention-request" href="">Solicitar atención</a>
-   
-    <a id="access-button"  href="/suggestedproducts/@contractURL">Ingresar</a>
+    <a id="access-button" href="/suggestedproducts/@contractURL">Ingresar</a>
 
 </div>
 
@@ -31,23 +30,23 @@
     public Businesses? business { get; set; }
     public string? backgroundImageURL { get; set; }
 
-  
+
 
 
     protected override async Task OnInitializedAsync()
     {
 
-       business =  await _businessesServices.GetBusinessIfActive(contractURL);
-     
+        business = await _businessesServices.GetBusinessIfActive(contractURL);
+
 
     }
 
-    
-   
-    
 
-    
-    
+
+
+
+
+
     public void FormSubmit()
     {
         _navMan.NavigateTo("/business");

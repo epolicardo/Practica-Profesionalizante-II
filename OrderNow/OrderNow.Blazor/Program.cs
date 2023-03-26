@@ -1,7 +1,11 @@
 using OrderNow;
 using OrderNow.Blazor.Hubs;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using OrderNow.Blazor.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ConexionLocal") ?? throw new InvalidOperationException("Connection string was not found.");
 
 IConfiguration _ = new ConfigurationBuilder()
         .AddUserSecrets("3EA9A8FC-B75D-4300-883A-2609D5362685") //Nombre de la carpeta que hemos creado

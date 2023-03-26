@@ -4,10 +4,8 @@
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
-            var connectionString = builder.Configuration.GetConnectionString("ConexionLocal");
-
             builder.Services.AddDbContext<DataContext>(options =>
-                options.UseSqlServer(connectionString),
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionLocal")),
                 ServiceLifetime.Transient);
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();

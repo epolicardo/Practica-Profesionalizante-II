@@ -113,7 +113,7 @@
              .Where(s => s.Business.Id.ToString() == businessId)
              .Where(s => s.OrderStatus != OrderStatus.Completed && s.OrderStatus != OrderStatus.Canceled && s.OrderStatus != OrderStatus.NotAssigned)
              .Include(s => s.Business)
-             .Include(s => s.User).ThenInclude(u => u.person).AsNoTracking()
+             .Include(s => s.User).ThenInclude(u => u.Person).AsNoTracking()
              .ToListAsync();
             return orders;
         }

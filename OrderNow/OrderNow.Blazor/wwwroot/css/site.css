@@ -34,6 +34,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #595959;
 }
 
 h1:focus {
@@ -94,3 +95,12 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.title{
+    
+    color: #a16ae8;
+    font-size: 2rem;
+    text-decoration: none;
+    
+    
+}

@@ -1,19 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>OrderNow.Blazor</PageTitle>
+<PageTitle>OrderNow</PageTitle>
 
 <AuthorizeView>
     <Authorized>
-
+     
         <div class="page">
             <div class="sidebar">
                 <NavMenu />
             </div>
 
             <main>
-                <div class="top-row px-4 auth">
+                <div class="top-row">
                     <LoginDisplay />
-
                 </div>
 
                 <article class="content px-4">
@@ -26,7 +25,8 @@
         <div>
 
             <main>
-                <div class="top-row px-4 auth">
+                <div class="top-row px-4">
+                    <a class="title">OrderNow</a>
                     <LoginDisplay />
                 </div>
 
@@ -37,6 +37,3 @@
         </div>
     </NotAuthorized>
 </AuthorizeView>
-@code {
-
-}

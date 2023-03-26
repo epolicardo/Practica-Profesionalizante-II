@@ -1,7 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="top-row ps-3 navbar ">
     <div class="container-fluid">
         <a class="navbar-brand" href="">OrderNow.Blazor</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <button title="Navigation menu"  @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -10,18 +10,33 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Inicio
+            <NavLink class="nav-link" href="business/dashboard">
+                <span class="oi oi-plus" aria-hidden="true"></span>Dashboard
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="manage-orders">
-                <span class="oi oi-plus" aria-hidden="true"></span>Ordenes
+            <NavLink class="nav-link" href="business/customers">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Clientes
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="manage-products">
+            <NavLink class="nav-link" href="business/products">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Productos
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="business/sales">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Ventas
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="business/stats">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Estadisticas
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="business/settings">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Ajustes
             </NavLink>
         </div>
 

@@ -1,0 +1,100 @@
+﻿@page "/user/profile"
+@inject SignInManager<Users> SignInManager
+@using Microsoft.AspNetCore.Identity
+
+<h3 class="pt-4">Profile</h3>
+
+<form action="updateUser" method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Nombre de usuario</label>
+            <input type="text" class="form-control col-md-4" value="@user?.UserName" />
+        </div>
+        <div class="col-md-4">
+            <label>Correo electrónico</label>
+            <input type="text" class="form-control" value="@user?.Email" />
+        </div>
+    </div>
+
+    <h3 class="pt-4">Datos Personales</h3>
+    <div class="row">
+        <div class="col-md-4">
+
+            <label>Nombre</label>
+            <input type="text" class="form-control" value="@user?.Person?.FirstName" />
+        </div>
+        <div class="col-md-4">
+            <label>Apellido</label>
+            <input type="text" class="form-control" value="@user?.Person?.LastName" />
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-md-4">
+
+            <label>Teléfono</label>
+            <input type="text" class="form-control" value="@user?.PhoneNumber" />
+        </div>
+        <div class="col-md-4">
+            <label>Fecha de Nacimiento</label>
+            <input type="text" class="form-control" value="@user?.Person?.BirthDate" />
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+
+    <h3 class="pt-4">Domicilio</h3>
+    <div class="row">
+        <div class="col-md-4">
+
+            <label>Calle</label>
+            <input type="text" class="form-control" value="@user?.Person?.Address?.Street" />
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label>Nro</label>
+                    <input type="text" class="form-control" value="@user?.Person?.Address?.Number" />
+                </div>
+                <div class="col-md-4">
+
+                    <label>Piso</label>
+                    <input type="text" class="form-control" value="@user?.Person?.Address?.Floor" />
+                </div>
+                <div class="col-md-4">
+                    <label>Dpto</label>
+                    <input type="text" class="form-control" value="@user?.Person?.Address?.Apartment" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row pt-2">
+        <div class="col-md-4">
+
+            <label>Localidad</label>
+            <input type="text" class="form-control" value="@user?.Person?.Address?.City" />
+        </div>
+        <div class="col-md-4">
+
+            <label>Barrio</label>
+            <input type="text" class="form-control" value="@user?.Person?.Address?.Neiborhood" />
+        </div>
+
+    </div>
+
+</form>
+
+@code {
+
+    [Parameter]
+
+    public Users? user { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await _usersServices.GetByMailAsync(SignInManager.Context.User.Identity.Name);
+    }
+}

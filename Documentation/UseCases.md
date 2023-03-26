@@ -31,6 +31,7 @@ Diagramas de Secuencia
 
     
 - [US-001 - Commercial Offer](UserStories/US-001.md)
+- [US-002 - UserStory](UserStories/US-002.md)
 
 
 

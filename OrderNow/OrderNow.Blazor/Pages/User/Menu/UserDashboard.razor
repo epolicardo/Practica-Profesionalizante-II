@@ -1,6 +1,6 @@
 ﻿@inject SignInManager<Users> SignInManager
 @using Microsoft.AspNetCore.Identity
-<div class="row">
+<div class="row pt-4">
 
     <div class="col-md-4">
 
@@ -8,16 +8,9 @@
             <div class="card">
                 <h1>Ultimos visitados</h1>
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Comercio</th>
-
-                        </tr>
-                    </thead>
                     <tbody id="order-list-container">
                         @if (lastVisited != null)
                         {
-
                             @foreach (var business in lastVisited)
                             {
                             <td>@business.Business.Name</td>
@@ -29,17 +22,10 @@
         </div>
     </div>
     <div class="col-md-4">
-
         <div class="card-group">
             <div class="card">
                 <h1>Mis favoritos</h1>
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Comercio</th>
-              
-                        </tr>
-                    </thead>
                     <tbody id="order-list-container">
                         @if (favoriteBusinesses != null)
                         {
@@ -60,16 +46,9 @@
             <div class="card">
                 <h1>Recomendados</h1>
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Comercio</th>
-
-                        </tr>
-                    </thead>
                     <tbody id="order-list-container">
                         @if (suggestedBusinesses != null)
                         {
-
                             @foreach (var business in suggestedBusinesses)
                             {
                             <td>@business.Name</td>
@@ -83,7 +62,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Comercio</th>
+                <th>Mis productos favoritos</th>
 
             </tr>
         </thead>

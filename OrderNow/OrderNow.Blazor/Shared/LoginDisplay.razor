@@ -3,6 +3,7 @@
 @inject UserManager<Users> UserManager
 
 <AuthorizeView>
+     
     <Authorized>
         <a href="Identity/Account/Manage">Usuario logueado: @context.User.Identity.Name</a>
         <form method="post" action="Identity/Account/LogOut">
@@ -12,13 +13,9 @@
         {
             <a href="/business/dashboard/@contractURL">Perfil Comercial</a>
         }
-        @*
-        @if (@context.User.Identity.Name == user?.Email)
-        {
-        }*@
     </Authorized>
     <NotAuthorized>
-        <a href="Identity/Account/Register">Registrar</a>
+      @*  <a href="Identity/Account/Register">Registrar</a>*@
         <a href="Identity/Account/Login">Ingresar</a>
     </NotAuthorized>
 </AuthorizeView>
