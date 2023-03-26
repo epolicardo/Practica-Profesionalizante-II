@@ -12,7 +12,7 @@
 
         Task<List<UsersBusinesses>> GetLastVisitedBusinessesByUserAsync(string email);
 
-        Task<List<UsersBusinesses>> GetUserDataForLogin(string email);
+        Task<Users> GetUserDataForLogin(string email);
 
         Task GetUserProfileData(string email);
     }

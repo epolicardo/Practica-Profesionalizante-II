@@ -13,6 +13,9 @@
         {
             <a href="/business/dashboard/@contractURL">Perfil Comercial</a>
         }
+        @if(@user?.UserType == UserType.Administrator){
+             <a href="/admin/dashboard/">Admin</a>
+        }
     </Authorized>
     <NotAuthorized>
       @*  <a href="Identity/Account/Register">Registrar</a>*@
@@ -36,11 +39,12 @@
         var email = SignInManager.Context.User.Identity.Name;
         if (email != null)
         {
-            var Userbusiness = await _usersServices.GetUserDataForLogin(email);
-            foreach (var item in Userbusiness)
+            user = await _usersServices.GetUserDataForLogin(email);
+
+            if (user.AssosiatedBusiness!=null)
             {
-                contractURL = item.Business.ContractURL;
-                break;
+                
+                contractURL = user.AssosiatedBusiness.ContractURL;
             }
         }
     }

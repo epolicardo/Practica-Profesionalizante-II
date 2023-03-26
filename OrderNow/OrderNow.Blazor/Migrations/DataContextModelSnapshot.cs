@@ -199,7 +199,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.AdvertisingContracts", b =>
@@ -237,7 +237,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("BusinessId");
 
-                    b.ToTable("AdvertisingContracts");
+                    b.ToTable("AdvertisingContracts", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Businesses", b =>
@@ -326,7 +326,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Businesses");
+                    b.ToTable("Businesses", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Categories", b =>
@@ -346,7 +346,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Documents", b =>
@@ -379,7 +379,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("GeneratedById");
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.FavoriteProducts", b =>
@@ -409,7 +409,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("FavoriteProductsByUser");
+                    b.ToTable("FavoriteProductsByUser", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Groups", b =>
@@ -434,7 +434,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Ingredients", b =>
@@ -464,7 +464,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("RecipesId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderItem", b =>
@@ -494,7 +494,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItem", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderQueue", b =>
@@ -514,7 +514,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Queues");
+                    b.ToTable("Queues", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Orders", b =>
@@ -578,7 +578,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.PaymentMethods", b =>
@@ -608,7 +608,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentMethods");
+                    b.ToTable("PaymentMethods", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.People", b =>
@@ -641,7 +641,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("People");
+                    b.ToTable("People", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOption", b =>
@@ -661,7 +661,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductOption");
+                    b.ToTable("ProductOption", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOptions", b =>
@@ -694,7 +694,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("ProductOptions");
+                    b.ToTable("ProductOptions", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Products", b =>
@@ -780,7 +780,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Recipes", b =>
@@ -801,7 +801,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.SaleDetails", b =>
@@ -818,7 +818,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SaleDetails");
+                    b.ToTable("SaleDetails", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Sales", b =>
@@ -835,7 +835,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sales");
+                    b.ToTable("Sales", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Users", b =>
@@ -952,7 +952,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("UsersBusinesses");
+                    b.ToTable("UsersBusinesses", (string)null);
                 });
 
             modelBuilder.Entity("OrderNow.Common.Data.Entities.UsersOrders", b =>
@@ -980,7 +980,7 @@ namespace OrderNow.Blazor.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("UsersOrders");
+                    b.ToTable("UsersOrders", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

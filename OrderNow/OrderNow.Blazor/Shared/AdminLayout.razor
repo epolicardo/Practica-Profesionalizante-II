@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>Admin - OrderNow</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+     
+        <div class="page">
+            <div class="sidebar">
+                <AdminNavMenu />
+            </div>
+
+            <main>
+                <div class="top-row">
+                    <LoginDisplay />
+                </div>
+
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div>
+
+            <main>
+                <div class="top-row px-4">
+                    <a class="title">OrderNow</a>
+                    <LoginDisplay />
+                </div>
+
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>

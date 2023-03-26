@@ -17,10 +17,10 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public async Task GetUserProfileDataAsync(string email)
-        {
-            await _usersRepository.GetUserProfileData(email);
-        }
+        //public async Task GetUserProfileDataAsync(string email)
+        //{
+        //    await _usersRepository.GetUserProfileData(email);
+        //}
 
         //public async Task AddRelationUserBusiness(Guid user, Guid business)
         //{
@@ -50,7 +50,7 @@ namespace Services
             return true;
         }
 
-        public async Task<List<UsersBusinesses>> GetUserDataForLogin(string email)
+        public async Task<Users> GetUserDataForLogin(string email)
         {
             return await _usersRepository.GetUserDataForLogin(email);
         }
@@ -106,11 +106,6 @@ namespace Services
         }
 
         public Task<List<UsersBusinesses>> UpdateDateOfVisitToBusinessesByUserAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetUserProfileData(string email)
         {
             throw new NotImplementedException();
         }

@@ -96,7 +96,7 @@
 
             var email = SignInManager.Context.User.Identity.Name;
             var user = await _usersServices.GetUserDataForLogin(email);
-            Guid businessId = user[0].Business.Id;
+            Guid businessId = user.AssosiatedBusiness.Id;
 
             order = await _ordersServices.CreateOrderAsync(businessId, email);
         }

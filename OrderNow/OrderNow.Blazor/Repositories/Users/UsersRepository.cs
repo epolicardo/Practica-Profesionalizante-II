@@ -57,9 +57,9 @@ namespace Repositories
             return await _dataContext.Users?.Include(p => p.Person).FirstOrDefaultAsync(x => x.Email == email);
         }
 
-        public async Task<List<UsersBusinesses>> GetUserDataForLogin(string email)
+        public async Task<Users> GetUserDataForLogin(string email)
         {
-            return await _dataContext.UsersBusinesses.Include(x => x.Business).Where(x => x.Users.Email == email).AsNoTracking().ToListAsync();
+            return await _dataContext.Users.Include(x => x.AssosiatedBusiness).FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task GetUserProfileData(string email)
