@@ -11,23 +11,23 @@
     <div id="order-items-container">
         @if (order?.Items != null)
         {
-
-
             @foreach (OrderNow.Common.Data.Entities.OrderItem products in order?.Items)
             {
 
                 <OrderItem Item="@products"></OrderItem>
             }
         }
-
-
     </div>
     <div id="order-message-container">
         <MessageBox></MessageBox>
     </div>
     <div id="order-amount-container">
-
         <label id="label-total">Total $ 546.90</label>
+        <button disabled="@(IsConnected==false)"
+                id="payment-button" class="btn btn-primary"
+                @onclick=GoBack>
+            Agregar mas
+        </button>
         <button @onclick=UpdateOrderStatus disabled="@(IsConnected==false)"
                 id="payment-button" class="btn btn-primary">
             Pagar
@@ -60,25 +60,21 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         hubConnection = new HubConnectionBuilder()
         .WithUrl(_navMan.ToAbsoluteUri("/businesshub"))
         .WithAutomaticReconnect()
         .Build();
-
         order = await GetActiveOrder();
-
         await hubConnection.StartAsync();
-
     }
     private async Task UpdateOrderStatus()
     {
-        await _ordersServices.ChangeOrderStatusByIdAsync(order, OrderStatus.NotAssigned);
+        await _ordersServices.ChangeOrderStatusByIdAsync(order, order.OrderStatus);
         if (hubConnection is not null)
         {
             await hubConnection.SendAsync("OrderPlaced", order);
         }
-        _navMan.NavigateTo("/?contractUrl=pizzeria-popular-rc");
+        _navMan.NavigateTo($"/?contractUrl={@order.Business.ContractURL}");
     }
 
 
@@ -104,7 +100,10 @@
 
     }
 
-
+    public void GoBack()
+    {
+        _navMan.NavigateTo($"/menu/{@order.Business.ContractURL}");
+    }
 
     public async ValueTask DisposeAsync()
     {

@@ -1,8 +1,7 @@
-﻿using Controllers;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 
-namespace WebApi.Business
+namespace OrderNow.Blazor.Helpers.Business
 {
     public class EmailSender : IEmailSender
     {

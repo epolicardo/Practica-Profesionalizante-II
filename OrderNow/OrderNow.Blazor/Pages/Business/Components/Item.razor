@@ -4,15 +4,11 @@
         <p>
             @if (orderAttr?.User?.Person != null)
             {
-                @orderAttr?.User.Person.FirstName @orderAttr?.User?.Person?.LastName
-                ;
-
+                @orderAttr?.User.Person.FirstName  @orderAttr?.User?.Person?.LastName
             }
             else
             {
-
                 @orderAttr?.User?.Email
-                ;
             }
         </p>
     </td>
@@ -72,7 +68,7 @@
 
     public async Task<Orders> UpdateOrder(Orders order)
     {
-        var result = await _ordersServices.ChangeOrderStatusByIdAsync(order, OrderStatus.Completed);
+        var result = await _ordersServices.ChangeOrderStatusByIdAsync(order, order.OrderStatus);
 
         if (hubConnection is not null)
         {

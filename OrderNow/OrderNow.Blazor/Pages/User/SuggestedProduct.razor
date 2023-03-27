@@ -7,13 +7,13 @@
             <div id="suggested-item-title">
                 @product.Name
             </div>
+            <div class="suggested-item-img">
 
-            <div id="suggested-item-img-box">
-                <img id="suggested-item-img" src="@product.URLImage" alt="">
+           
             </div>
-
-            <div id="suggested-item-price">
-                <img id="heart-shape" src="/assets/imgs/Shape.png" alt="">
+         
+            <div id="suggested-item-price">             
+                    <a href="@SetAsFavorite" id="heart"></a>
                 <label id="suggested-item-label-price">
                     $ @product.Price
                 </label>
@@ -25,4 +25,19 @@
 @code {
     [ParameterAttribute]
     public Products? product { get; set; }
+
+    [Parameter]
+    public string? contractURL { get; set; }
+    public IEnumerable<Products>? products { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await _productsServices.SugestedProductsByBusiness(contractURL);
+
+    }
+
+    public void SetAsFavorite()
+    {
+        
+    }
 }

@@ -62,6 +62,7 @@
                 }
                 orderInDB.LastModified = _dateTimeProvider.UtcNow;
                 _dataContext.Update<Orders>(orderInDB);
+                order.OrderStatus = orderInDB.OrderStatus;
             }
             else
             {

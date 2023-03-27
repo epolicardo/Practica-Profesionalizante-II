@@ -29,12 +29,14 @@
             throw new NotImplementedException();
         }
 
+
+
         public async Task<Products> GetByIdAsync(Guid Id)
         {
             return await _productsRepository.GetByIdAsync(Id);
         }
 
-        public List<Products> ProductByName(string name) => _productsRepository.ProductByName(name);
+        public async Task<Products> GetFullProductById(Guid id) =>await _productsRepository.GetFullProductById(id);
 
         public double CalculateDiscounts(double precio, int cantidad, int lleva, int paga)
         {
@@ -57,9 +59,9 @@
             }
         }
 
-        public async Task<IEnumerable<Products>> SugestedProductsByBusiness(Guid businessId)
+        public async Task<IEnumerable<Products>> SugestedProductsByBusiness(string contractURL)
         {
-            return await _productsRepository.SugestedProductsByBusiness(businessId);
+            return await _productsRepository.SugestedProductsByBusiness(contractURL);
         }
 
         public Task<IEnumerable<Products>> ProductsByBusiness(Guid businessId)

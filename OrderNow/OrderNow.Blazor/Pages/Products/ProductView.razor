@@ -69,7 +69,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        product = await _productsServices.GetByIdAsync(Guid.Parse(productId));
+        product = await _productsServices.GetFullProductById(Guid.Parse(productId));
 
     }
 

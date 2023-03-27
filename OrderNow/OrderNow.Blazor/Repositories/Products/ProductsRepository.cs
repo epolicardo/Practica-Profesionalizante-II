@@ -42,6 +42,11 @@ namespace Repositories
             return a;
         }
 
+        public async Task<Products> GetFullProductById(Guid id)
+        {
+            var product = await _context.Products.Include(x=>x.Business).FirstOrDefaultAsync(x=>x.Id == id);
+            return product;
+        }
         public List<Products> ProductByName(string name)
         {
             var products = _context.Products
@@ -75,9 +80,9 @@ namespace Repositories
             //return _context.Products.SaveAsync();
         }
 
-        public async Task<IEnumerable<Products>> SugestedProductsByBusiness(Guid businessId)
+        public async Task<IEnumerable<Products>> SugestedProductsByBusiness(string contractURL)
         {
-            return await _context.Products.Include(x => x.Category).Where(x => x.Business.Id == businessId).Where(p => p.IsSuggested == true).ToListAsync();
+            return await _context.Products.Include(x => x.Category).Where(x => x.Business.ContractURL == contractURL).Where(p => p.IsSuggested == true).ToListAsync();
         }
 
         public List<Products> ProductsByBusinessByCategory(string URL, Categories Category)

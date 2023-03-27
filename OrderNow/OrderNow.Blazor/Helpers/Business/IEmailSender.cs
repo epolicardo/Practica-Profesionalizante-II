@@ -1,4 +1,4 @@
-﻿namespace Controllers
+﻿namespace OrderNow.Blazor.Helpers.Business
 {
     public interface IEmailSender
     {

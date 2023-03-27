@@ -16,12 +16,13 @@ namespace Services
 
         Task<Products> GetByIdAsync(Guid Id);
 
-        List<Products> ProductByName(string name);
 
         Task<IEnumerable<Products>> ProductsByBusiness(Guid businessId);
 
-        Task<IEnumerable<Products>> SugestedProductsByBusiness(Guid businessId);
+        Task<IEnumerable<Products>> SugestedProductsByBusiness(string contractUrl);
 
         Task<List<FavoriteProducts>> GetFavoriteProductsByUserAsync(string email);
+        Task<Products> GetFullProductById(Guid id);
+
     }
 }
