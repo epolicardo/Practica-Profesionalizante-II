@@ -19,9 +19,7 @@ try
 }
 catch (Exception ex)
 {
-    throw;
 }
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

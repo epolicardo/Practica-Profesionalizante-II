@@ -8,12 +8,9 @@ namespace Services
         private readonly IBusinessesRepository _businessesRepository;
         private readonly IUsersRepository _usersRepository;
 
-        private readonly DataContext _dataContext;
-
-        public BusinessesServices(IBusinessesRepository businessesRepository, DataContext dataContext, IUsersRepository usersRepository) : base(businessesRepository)
+        public BusinessesServices(IBusinessesRepository businessesRepository, IUsersRepository usersRepository) : base(businessesRepository)
         {
             _businessesRepository = businessesRepository;
-            _dataContext = dataContext;
             _usersRepository = usersRepository;
         }
 
@@ -22,6 +19,12 @@ namespace Services
             return await _businessesRepository.GetByURL(url);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<bool> SetAsFavorite(string url, Guid userId)
         {
             var business = await _businessesRepository.FindByConditionAsync(x => x.ContractURL.Equals(url));
@@ -35,17 +38,23 @@ namespace Services
                     UsersBusinesses favoriteBusiness = new UsersBusinesses();
                     favoriteBusiness.Business = business;
                     favoriteBusiness.Users = user;
-                    var res = await _dataContext.UsersBusinesses.AddAsync(favoriteBusiness);
-                    await _dataContext.SaveChangesAsync();
+                    //var res = await _dataContext.UsersBusinesses.AddAsync(favoriteBusiness);
+                    //await _dataContext.SaveChangesAsync();
                 }
                 return true;
             }
             return false;
         }
 
+        /// <summary>
+        /// Este metodo valida si un comercio existe.
+        /// </summary>
+        /// <param name="url">La URL del comercio a validar</param>
+        /// <returns>True si el comercio existe</returns>
         public async Task<bool> Exists(string url)
         {
-            return await _businessesRepository.ExistsAsync(url);
+            var t = await _businessesRepository.ExistsAsync(url);
+            return t;
         }
 
         public async Task<List<Businesses>> GetSuggestedBusinessesAsync()
