@@ -2,27 +2,27 @@
 
 namespace Repositories
 {
-    public interface IProductsRepository : IGenericRepository<Products>
+    public interface IProductsRepository : IGenericRepository<Product>
     {
-        Task<bool> CreateAsync(Products entity);
+        Task<bool> CreateAsync(Product entity);
 
-        Task<bool> EditAsync(Products entity);
+        Task<bool> EditAsync(Product entity);
 
-        Task<Products> FindByConditionAsync(Expression<Func<Products, bool>> predicate);
+        Task<Product> FindByConditionAsync(Expression<Func<Product, bool>> predicate);
 
-        Task<List<Products>> GetAll();
+        Task<List<Product>> GetAll();
 
-        Task<Products> GetByIdAsync(Guid Id);
+        Task<Product> GetByIdAsync(Guid Id);
 
-        List<Products> ProductByName(string name);
+        List<Product> ProductByName(string name);
 
-        Task<IEnumerable<Products>> ProductsByBusiness(Guid businessId);
+        Task<IEnumerable<Product>> ProductsByBusiness(Guid businessId);
 
         Task<List<FavoriteProducts>> GetFavoriteProductsByUserAsync(string email);
-        Task<Products> GetFullProductById(Guid id);
+        Task<Product> GetFullProductById(Guid id);
 
         Task<int> SaveAsync();
 
-        Task<IEnumerable<Products>> SugestedProductsByBusiness(string ContractURL);
+        Task<IEnumerable<Product>> SugestedProductsByBusiness(string ContractURL);
     }
 }

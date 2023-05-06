@@ -20,7 +20,7 @@
 
 //            var addressId = Guid.NewGuid();
 //            var addressStreet = "Colon";
-//            var addressDto = new Addresses
+//            var addressDto = new Address
 //            {
 //                Id = addressId,
 //                Street = addressStreet
@@ -57,8 +57,8 @@
 //        public void GetListAsync_ShouldReturnAllAddresses_WhenTheAddressesExists()
 //        {
 //            //Arrange
-//            List<Addresses> addressList = new List<Addresses>();
-//            addressList.Add(new Addresses
+//            List<Address> addressList = new List<Address>();
+//            addressList.Add(new Address
 //            {
 //                Street = "Diaguitas"
 //            });

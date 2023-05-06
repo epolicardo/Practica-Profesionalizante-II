@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace OrderNow.Blazor.Migrations
 {
+    /// <inheritdoc />
     public partial class _1 : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -19,6 +22,7 @@ namespace OrderNow.Blazor.Migrations
                     Apartment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Tower = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Neiborhood = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Observations = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -131,19 +135,6 @@ namespace OrderNow.Blazor.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SaleDetails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SaleDetails", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sales",
                 columns: table => new
                 {
@@ -209,7 +200,7 @@ namespace OrderNow.Blazor.Migrations
                     Aquired = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Expire = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Credits = table.Column<int>(type: "int", nullable: false),
-                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -271,9 +262,9 @@ namespace OrderNow.Blazor.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserType = table.Column<int>(type: "int", nullable: true),
-                    personId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    PersonId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AssosiatedBusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    GroupsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -293,13 +284,13 @@ namespace OrderNow.Blazor.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Groups_GroupsId",
-                        column: x => x.GroupsId,
+                        name: "FK_AspNetUsers_Groups_GroupId",
+                        column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_People_personId",
-                        column: x => x.personId,
+                        name: "FK_AspNetUsers_People_PersonId",
+                        column: x => x.PersonId,
                         principalTable: "People",
                         principalColumn: "Id");
                 });
@@ -335,6 +326,7 @@ namespace OrderNow.Blazor.Migrations
                     URLRegularImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContractURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PromoMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsFrachise = table.Column<bool>(type: "bit", nullable: false),
                     CUIT = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LegalName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -344,6 +336,10 @@ namespace OrderNow.Blazor.Migrations
                     ValidationExpires = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Score = table.Column<float>(type: "real", nullable: false),
                     Qualification = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
+                    IsPromoted = table.Column<bool>(type: "bit", nullable: false),
+                    PromotionStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PromotionEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PromotionCredits = table.Column<int>(type: "int", nullable: false),
                     UsersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -383,32 +379,6 @@ namespace OrderNow.Blazor.Migrations
                         column: x => x.GeneratedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FavoriteBusinessesByUser",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FavoriteBusinessesByUser", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FavoriteBusinessesByUser_AspNetUsers_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_FavoriteBusinessesByUser_Businesses_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -518,6 +488,8 @@ namespace OrderNow.Blazor.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LastVisit = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsFavorite = table.Column<bool>(type: "bit", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -572,6 +544,7 @@ namespace OrderNow.Blazor.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UsersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Added = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -596,7 +569,7 @@ namespace OrderNow.Blazor.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IngredientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    itemIngredientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<float>(type: "real", nullable: false),
                     RecipesId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -606,8 +579,8 @@ namespace OrderNow.Blazor.Migrations
                 {
                     table.PrimaryKey("PK_Ingredients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ingredients_Products_IngredientId",
-                        column: x => x.IngredientId,
+                        name: "FK_Ingredients_Products_itemIngredientId",
+                        column: x => x.itemIngredientId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -625,7 +598,7 @@ namespace OrderNow.Blazor.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Quantity = table.Column<float>(type: "real", nullable: false),
-                    OrdersId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -633,8 +606,8 @@ namespace OrderNow.Blazor.Migrations
                 {
                     table.PrimaryKey("PK_OrderItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItem_Orders_OrdersId",
-                        column: x => x.OrdersId,
+                        name: "FK_OrderItem_Orders_OrderId",
+                        column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -652,7 +625,7 @@ namespace OrderNow.Blazor.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OptionsId = table.Column<int>(type: "int", nullable: true),
-                    ProductsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -665,8 +638,8 @@ namespace OrderNow.Blazor.Migrations
                         principalTable: "ProductOption",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ProductOptions_Products_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_ProductOptions_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id");
                 });
@@ -714,14 +687,14 @@ namespace OrderNow.Blazor.Migrations
                 column: "AssosiatedBusinessId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_GroupsId",
+                name: "IX_AspNetUsers_GroupId",
                 table: "AspNetUsers",
-                column: "GroupsId");
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_personId",
+                name: "IX_AspNetUsers_PersonId",
                 table: "AspNetUsers",
-                column: "personId");
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -746,16 +719,6 @@ namespace OrderNow.Blazor.Migrations
                 column: "GeneratedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoriteBusinessesByUser_BusinessId",
-                table: "FavoriteBusinessesByUser",
-                column: "BusinessId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FavoriteBusinessesByUser_UsersId",
-                table: "FavoriteBusinessesByUser",
-                column: "UsersId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FavoriteProductsByUser_ProductId",
                 table: "FavoriteProductsByUser",
                 column: "ProductId");
@@ -766,9 +729,9 @@ namespace OrderNow.Blazor.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ingredients_IngredientId",
+                name: "IX_Ingredients_itemIngredientId",
                 table: "Ingredients",
-                column: "IngredientId");
+                column: "itemIngredientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ingredients_RecipesId",
@@ -776,9 +739,9 @@ namespace OrderNow.Blazor.Migrations
                 column: "RecipesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_OrdersId",
+                name: "IX_OrderItem_OrderId",
                 table: "OrderItem",
-                column: "OrdersId");
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_ProductId",
@@ -816,9 +779,9 @@ namespace OrderNow.Blazor.Migrations
                 column: "OptionsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductOptions_ProductsId",
+                name: "IX_ProductOptions_ProductId",
                 table: "ProductOptions",
-                column: "ProductsId");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BusinessId",
@@ -865,8 +828,7 @@ namespace OrderNow.Blazor.Migrations
                 table: "AdvertisingContracts",
                 column: "BusinessId",
                 principalTable: "Businesses",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUserClaims_AspNetUsers_UserId",
@@ -900,6 +862,7 @@ namespace OrderNow.Blazor.Migrations
                 principalColumn: "Id");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
@@ -928,9 +891,6 @@ namespace OrderNow.Blazor.Migrations
                 name: "Documents");
 
             migrationBuilder.DropTable(
-                name: "FavoriteBusinessesByUser");
-
-            migrationBuilder.DropTable(
                 name: "FavoriteProductsByUser");
 
             migrationBuilder.DropTable(
@@ -944,9 +904,6 @@ namespace OrderNow.Blazor.Migrations
 
             migrationBuilder.DropTable(
                 name: "Queues");
-
-            migrationBuilder.DropTable(
-                name: "SaleDetails");
 
             migrationBuilder.DropTable(
                 name: "Sales");

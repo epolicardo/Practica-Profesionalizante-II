@@ -1,15 +1,15 @@
 ﻿namespace Repositories
 {
-    public interface IOrdersRepository : IGenericRepository<Orders>
+    public interface IOrdersRepository : IGenericRepository<Order>
     {
-        void AddOrderItem(Orders order, OrderItem item);
+        void AddOrderItem(Order order, OrderItem item);
 
-        Task<Orders> ChangeOrderStatusByIdAsync(Orders order, OrderStatus orderStatus);
+        Task<Order> ChangeOrderStatusByIdAsync(Order order, OrderStatus orderStatus);
 
-        Task<Orders> CreateOrderAsync(string user, Guid business);
+        Task<Order> CreateOrderAsync(string user, Guid business);
 
-        Task<Orders> GetFullOrderById(Guid id);
+        Task<Order> GetFullOrderById(Guid id);
 
-        Task<List<Orders>> GetPendingOrdersByBusinessAsync(string businessId);
+        Task<List<Order>> GetPendingOrdersByBusinessAsync(string businessId);
     }
 }

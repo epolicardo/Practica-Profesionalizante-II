@@ -35,7 +35,7 @@ namespace OrderNow.API.Services.Auth
 
             //    AuthResult authenticationResult = new AuthResult
             //    {
-            //        Email = "User Registration Failed"
+            //        Email = "Users Registration Failed"
             //        //Errors = dictionary
             //    };
             //    return authenticationResult;
@@ -51,7 +51,7 @@ namespace OrderNow.API.Services.Auth
 
         //public AuthResult Login(LoginRequest request)
         //{
-        //    //Log.Information("User ingresado: {@Credenciales}", credentials.email);
+        //    //Log.Information("Users ingresado: {@Credenciales}", credentials.email);
         //    //Users identityUser;
         //    //AuthResult authorizationResult;
 

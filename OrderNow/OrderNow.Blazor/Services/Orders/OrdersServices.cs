@@ -1,6 +1,6 @@
 ﻿namespace Services
 {
-    public class OrdersServices : GenericServices<Orders>, IOrdersServices
+    public class OrdersServices : GenericServices<Order>, IOrdersServices
     {
         private readonly IBusinessesRepository _businessRepository;
         private readonly IOrdersRepository _ordersRepository;
@@ -47,31 +47,31 @@
             _ordersRepository.AddOrderItem(order, item);
         }
 
-        public async Task<Orders> ChangeOrderStatusByIdAsync(Orders order, OrderStatus orderStatus)
+        public async Task<Order> ChangeOrderStatusByIdAsync(Order order, OrderStatus orderStatus)
         {
             return await _ordersRepository.ChangeOrderStatusByIdAsync(order, orderStatus);
         }
 
-        public async Task<Orders> CreateOrderAsync(Guid businessId, string email)
+        public async Task<Order> CreateOrderAsync(Guid businessId, string email)
         {
             return await _ordersRepository.CreateOrderAsync(email, businessId);
         }
 
-        public async Task<Orders> GetFullOrderById(Guid id)
+        public async Task<Order> GetFullOrderById(Guid id)
         {
             return await _ordersRepository.GetFullOrderById(id);
         }
 
-        public async Task<List<Orders>> GetPendingOrdersByBusiness(string businessId)
+        public async Task<List<Order>> GetPendingOrdersByBusiness(string businessId)
         {
             return await _ordersRepository.GetPendingOrdersByBusinessAsync(businessId);
         }
 
-        public void ModifyProductInOrder(Orders orders, Products product, float quantity)
+        public void ModifyProductInOrder(Order orders, Product product, float quantity)
         {
         }
 
-        public void RemoveProductFromOrder(Orders orders, Products product, float quantity)
+        public void RemoveProductFromOrder(Order orders, Product product, float quantity)
         {
         }
     }

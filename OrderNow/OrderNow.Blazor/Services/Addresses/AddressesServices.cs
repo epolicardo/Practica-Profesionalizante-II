@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Services
 {
-    public class AddressesServices : GenericServices<Addresses>, IAddressesServices
+    public class AddressesServices : GenericServices<Address>, IAddressesServices
     {
         private readonly IAddressesRepository _addressesRepository;
         private readonly DataContext _dataContext;
@@ -14,22 +14,22 @@ namespace Services
             _addressesRepository = addressesRepository;
         }
 
-        public Task<bool> EditAsync(Addresses entity)
+        public Task<bool> EditAsync(Address entity)
         {
             return base.EditAsync(entity);
         }
 
-        public Task<Addresses> FindByConditionAsync(Expression<Func<Addresses, bool>> predicate)
+        public Task<Address> FindByConditionAsync(Expression<Func<Address, bool>> predicate)
         {
             return base.FindByConditionAsync(predicate);
         }
 
-        public Task<IEnumerable<Addresses>> GetAll()
+        public Task<IEnumerable<Address>> GetAll()
         {
             return base.GetAll();
         }
 
-        public Task<Addresses> GetByIdAsync(Guid Id)
+        public Task<Address> GetByIdAsync(Guid Id)
         {
             return base.GetByIdAsync(Id);
         }

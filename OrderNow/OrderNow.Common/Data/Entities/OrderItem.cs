@@ -4,7 +4,7 @@
 
     public class OrderItem : EntityBase
     {
-        public Products? Product { get; set; }
+        public Product? Product { get; set; }
         public float Quantity { get; set; } = 0;
     }
 }

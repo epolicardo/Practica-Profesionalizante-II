@@ -1,6 +1,6 @@
 ﻿namespace OrderNow.Common.Data.Entities
 {
-    public class AdvertisingContracts : EntityBase
+    public class AdvertisingContract : EntityBase
     {
         public string Name { get; set; }
 
@@ -10,6 +10,6 @@
         public DateTime Aquired { get; set; }
         public DateTime Expire { get; set; }
         public int Credits { get; set; }
-        public Businesses Business { get; set; }
+        public Business? Business { get; set; }
     }
 }

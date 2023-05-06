@@ -1,6 +1,6 @@
 ﻿namespace Repositories
 {
-    public class OrdersRepository : GenericRepository<Orders>, IOrdersRepository
+    public class OrdersRepository : GenericRepository<Order>, IOrdersRepository
     {
         private readonly DataContext _dataContext;
         private readonly IDateTimeProvider _dateTimeProvider;
@@ -11,7 +11,7 @@
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public void AddOrderItem(Orders order, OrderNow.Common.Data.Entities.OrderItem item)
+        public void AddOrderItem(Order order, OrderNow.Common.Data.Entities.OrderItem item)
         {
             try
             {
@@ -26,7 +26,7 @@
             }
         }
 
-        public async Task<Orders> ChangeOrderStatusByIdAsync(Orders order, OrderStatus orderStatus)
+        public async Task<Order> ChangeOrderStatusByIdAsync(Order order, OrderStatus orderStatus)
         {
             var orderInDB = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == order.Id);
 
@@ -61,7 +61,7 @@
                         break;
                 }
                 orderInDB.LastModified = _dateTimeProvider.UtcNow;
-                _dataContext.Update<Orders>(orderInDB);
+                _dataContext.Update<Order>(orderInDB);
                 order.OrderStatus = orderInDB.OrderStatus;
             }
             else
@@ -72,12 +72,12 @@
             return order;
         }
 
-        public async Task<Orders> CreateOrderAsync(string user, Guid businessId)
+        public async Task<Order> CreateOrderAsync(string user, Guid businessId)
         {
             var b = await _dataContext.Businesses.FindAsync(businessId);
             var u = await _dataContext.Users.FirstOrDefaultAsync(x => x.Email == user);
 
-            var order = new Orders
+            var order = new Order
             {
                 TableNro = 4,
                 Created = _dateTimeProvider.UtcNow,
@@ -99,7 +99,7 @@
             return order;
         }
 
-        public async Task<Orders> GetFullOrderById(Guid id)
+        public async Task<Order> GetFullOrderById(Guid id)
         {
             return await _dataContext.Orders
                 .Include(x => x.Items)
@@ -107,9 +107,9 @@
                 .SingleAsync(x => x.Id == id);
         }
 
-        public async Task<List<Orders>> GetPendingOrdersByBusinessAsync(string businessId)
+        public async Task<List<Order>> GetPendingOrdersByBusinessAsync(string businessId)
         {
-            //return  _context.Orders;
+            //return  _context.Order;
             var orders = await _dataContext.Orders
              .Where(s => s.Business.Id.ToString() == businessId)
              .Where(s => s.OrderStatus != OrderStatus.Completed && s.OrderStatus != OrderStatus.Canceled && s.OrderStatus != OrderStatus.NotAssigned)

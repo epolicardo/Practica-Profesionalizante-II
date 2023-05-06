@@ -1,4 +1,4 @@
-﻿@page "/admin/business"
+﻿@page "/admin/businesses"
 @layout AdminLayout
 
 @using OrderNow.Blazor.Pages.Business.Components
@@ -7,22 +7,47 @@
 
 <AuthorizeView>
     <Authorized>
+        @if (businesses != null && businesses.Any())
+        {
+            <div class="row pt-4">
 
-        <p>
+                @foreach (var business in businesses)
+                {
+                    <div class="card" style="width: 25rem; margin:1rem">
+                        <i class="bi bi-shop-window" style="font-size:3rem;"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">@business.Name</h5>
+                            <p class="card-text">@business.ContractURL</p>
+                            @if (@business.IsValidated)
+                            {
+                                <i class="bi bi-check2-circle" style="font-size:2rem;"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-circle"></i>
+                            }
 
-           ABM Businesses
-        </p>
+                            <a class="btn btn-outline-dark align-bottom" href="/abm/business"><i class="bi bi-check2-circle" style="font-size:2rem;"></i></a>
 
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        <a class="btn btn-outline-dark align-bottom" href="/abm/business">Nuevo Comercio</a>
     </Authorized>
     <NotAuthorized>
         <h1>Sin autorización para ver esta página</h1>
     </NotAuthorized>
 </AuthorizeView>
+
+
 @code {
     [Parameter]
     public string? contractURL { get; set; }
     [Parameter]
-    public Businesses? business { get; set; }
+    public IEnumerable<Business>? businesses { get; set; }
+    public Business business { get; set; } = new();
 
 
     public string ElapsedTime(DateTime createdAt)
@@ -34,10 +59,11 @@
     }
     protected override async Task OnInitializedAsync()
     {
-        business = await _businessesServices.GetBusinessIfActive(contractURL);
+        businesses = await _businessesServices.GetAll();
 
 
     }
+
 
 
 }

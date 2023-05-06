@@ -1,6 +1,6 @@
 ﻿namespace OrderNow.Common.Data.Entities
 {
-    public class PaymentMethods : EntityBase
+    public class PaymentMethod : EntityBase
     {
         public string Name { get; set; }
         public PaymentType Type { get; set; }

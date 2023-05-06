@@ -1,6 +1,6 @@
 ﻿namespace Repositories
 {
-    public interface IAddressesRepository : IGenericRepository<Addresses>
+    public interface IAddressesRepository : IGenericRepository<Address>
     {
     }
 }

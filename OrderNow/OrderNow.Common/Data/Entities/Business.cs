@@ -1,9 +1,9 @@
 ﻿namespace OrderNow.Common.Data.Entities
 {
-    public class Businesses : EntityBase
+    public class Business : EntityBase
     {
         public string Name { get; set; }
-        public Addresses? Address { get; set; }
+        public Address? Address { get; set; }
         public string? URLIconImage { get; set; }
         public string? URLRegularImage { get; set; }
         public string ContractURL { get; set; } // /pizzeria-popular

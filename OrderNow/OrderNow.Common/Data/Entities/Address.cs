@@ -1,6 +1,6 @@
 ﻿namespace OrderNow.Common.Data.Entities
 {
-    public class Addresses : EntityBase
+    public class Address : EntityBase
     {
         public string Street { get; set; } = String.Empty;
         public string Number { get; set; } = String.Empty;

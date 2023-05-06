@@ -7,58 +7,51 @@ namespace OrderNow.Tests.ModelTests
         [Fact]
         public void Products_Test()
         {
-            Products model = new Products() { }; GenericAssertion.ModelTestAssertion(model);
+            Product model = new Product() { }; GenericAssertion.ModelTestAssertion(model);
         }
 
         [Fact]
         public void Address_Test()
         {
-            Addresses model = new Addresses() { }; GenericAssertion.ModelTestAssertion(model);
+            Address model = new Address() { }; GenericAssertion.ModelTestAssertion(model);
         }
 
         [Fact]
         public void Categories_Test()
         {
-            Categories model = new Categories() { }; GenericAssertion.ModelTestAssertion(model);
+            Category model = new Category() { }; GenericAssertion.ModelTestAssertion(model);
         }
-
-       
 
         [Fact]
         public void Groups_Test()
         {
-            Groups model = new Groups() { }; GenericAssertion.ModelTestAssertion(model);
+            Group model = new Group() { }; GenericAssertion.ModelTestAssertion(model);
         }
 
-   
         [Fact]
         public void PaymentMethods_Test()
         {
-            PaymentMethods model = new PaymentMethods() { }; GenericAssertion.ModelTestAssertion(model);
+            PaymentMethod model = new PaymentMethod() { }; GenericAssertion.ModelTestAssertion(model);
         }
 
         [Fact]
         public void People_Test()
         {
-            People model = new People() { }; GenericAssertion.ModelTestAssertion(model);
+            Person model = new Person() { }; GenericAssertion.ModelTestAssertion(model);
         }
 
         [Fact]
         public void PublicityContract_Test()
         {
-            AdvertisingContracts model = new AdvertisingContracts() { }; GenericAssertion.ModelTestAssertion(model);
+            AdvertisingContract model = new AdvertisingContract() { }; GenericAssertion.ModelTestAssertion(model);
         }
 
         [Fact]
         public void Sales_Test()
         {
-            Sales model = new Sales() { }; GenericAssertion.ModelTestAssertion(model);
+            Sale model = new Sale() { }; GenericAssertion.ModelTestAssertion(model);
         }
-        [Fact]
-        public void SalesDetails_Test()
-        {
-            SaleDetails model = new SaleDetails() { }; GenericAssertion.ModelTestAssertion(model);
-        }
+
         [Fact]
         public void Users_Test()
         {

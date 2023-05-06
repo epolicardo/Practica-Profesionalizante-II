@@ -1,6 +1,6 @@
 ﻿namespace OrderNow.Common.Data.Entities
 {
-    public class People : EntityBase
+    public class Person : EntityBase
     {
         [Display(Name = "Nombre")]
         [MaxLength(50)]
@@ -12,7 +12,7 @@
 
         [Display(Name = "Domicilio")]
         [MaxLength(150)]
-        public Addresses? Address { get; set; }
+        public Address? Address { get; set; }
 
        
         [Display(Name = "Fecha Nacimiento")]

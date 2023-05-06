@@ -1,17 +1,17 @@
 ﻿namespace Services
 {
-    public interface IOrdersServices : IGenericServices<Orders>
+    public interface IOrdersServices : IGenericServices<Order>
     {
-        Task<Orders> GetByIdAsync(Guid id);
+        Task<Order> GetByIdAsync(Guid id);
 
-        Task<Orders> GetFullOrderById(Guid id);
+        Task<Order> GetFullOrderById(Guid id);
 
-        Task<Orders> CreateOrderAsync(Guid businessId, string email);
+        Task<Order> CreateOrderAsync(Guid businessId, string email);
 
-        Task<List<Orders>> GetPendingOrdersByBusiness(string businessId);
+        Task<List<Order>> GetPendingOrdersByBusiness(string businessId);
 
         Task AddProductToOrderAsync(Guid orderId, Guid productId, int quantity);
 
-        Task<Orders> ChangeOrderStatusByIdAsync(Orders order, OrderStatus orderStatus);
+        Task<Order> ChangeOrderStatusByIdAsync(Order order, OrderStatus orderStatus);
     }
 }

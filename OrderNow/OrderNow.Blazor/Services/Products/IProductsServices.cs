@@ -2,27 +2,27 @@
 
 namespace Services
 {
-    public interface IProductsServices : IGenericServices<Products>
+    public interface IProductsServices : IGenericServices<Product>
     {
         double CalculateDiscounts(double precio, int cantidad, int lleva, int paga);
 
-        Task<bool> CreateAsync(Products entity);
+        Task<bool> CreateAsync(Product entity);
 
-        Task<bool> EditAsync(Products entity);
+        Task<bool> EditAsync(Product entity);
 
-        Task<Products> FindByConditionAsync(Expression<Func<Products, bool>> predicate);
+        Task<Product> FindByConditionAsync(Expression<Func<Product, bool>> predicate);
 
-        Task<IEnumerable<Products>> GetAll();
+        Task<IEnumerable<Product>> GetAll();
 
-        Task<Products> GetByIdAsync(Guid Id);
+        Task<Product> GetByIdAsync(Guid Id);
 
 
-        Task<IEnumerable<Products>> ProductsByBusiness(Guid businessId);
+        Task<IEnumerable<Product>> ProductsByBusiness(Guid businessId);
 
-        Task<IEnumerable<Products>> SugestedProductsByBusiness(string contractUrl);
+        Task<IEnumerable<Product>> SugestedProductsByBusiness(string contractUrl);
 
         Task<List<FavoriteProducts>> GetFavoriteProductsByUserAsync(string email);
-        Task<Products> GetFullProductById(Guid id);
+        Task<Product> GetFullProductById(Guid id);
 
     }
 }

@@ -62,11 +62,11 @@
 
 @code {
     [ParameterAttribute]
-    public Orders? orderAttr { get; set; }
+    public Order? orderAttr { get; set; }
     private HubConnection? hubConnection;
 
 
-    public async Task<Orders> UpdateOrder(Orders order)
+    public async Task<Order> UpdateOrder(Order order)
     {
         var result = await _ordersServices.ChangeOrderStatusByIdAsync(order, order.OrderStatus);
 

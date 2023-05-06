@@ -12,13 +12,13 @@
 
         Task<Users> GetByMailAsync(string email);
 
-        Task<bool> SetFavoriteBusinessesByUserAsync(UsersBusinesses business);
+        Task<bool> SetFavoriteBusinessesByUserAsync(UserBusiness business);
 
-        Task<List<UsersBusinesses>> GetFavoriteBusinessesByUserAsync(string email);
+        Task<List<UserBusiness>> GetFavoriteBusinessesByUserAsync(string email);
 
-        Task<List<UsersBusinesses>> UpdateDateOfVisitToBusinessesByUserAsync(string email);
+        Task<List<UserBusiness>> UpdateDateOfVisitToBusinessesByUserAsync(string email);
 
-        Task<List<UsersBusinesses>> GetLastVisitedBusinessesByUserAsync(string email);
+        Task<List<UserBusiness>> GetLastVisitedBusinessesByUserAsync(string email);
 
         Task<Users> GetUserDataForLogin(string email);
     }

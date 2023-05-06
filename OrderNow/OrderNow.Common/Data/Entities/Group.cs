@@ -1,6 +1,6 @@
 ﻿namespace OrderNow.Common.Data.Entities
 {
-    public class Groups : EntityBase
+    public class Group : EntityBase
     {
         public string Name { get; set; }
 

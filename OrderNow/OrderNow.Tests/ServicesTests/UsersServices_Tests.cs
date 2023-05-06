@@ -18,7 +18,7 @@ namespace OrderNow.Tests.Services
         [Fact]
         public async Task AssingAFavoriteBusinessToAUser()
         {
-            var relation = new UsersBusinesses();
+            var relation = new UserBusiness();
             //Act
             var result = await _sut.SetFavoriteBusinessesByUserAsync(relation);
 
@@ -31,7 +31,7 @@ namespace OrderNow.Tests.Services
         {
             // UsersServices _sut = new UsersServices();
             var user = new Users();
-            var product = new Products();
+            var product = new Product();
             //Act
             var result = _sut.AssignFavoriteProductsToUsers(user, product);
 
@@ -56,11 +56,11 @@ namespace OrderNow.Tests.Services
                 Id = It.IsAny<string>(),
             };
 
-            this._userRepositoryMock.Setup(x => x.GetFavoriteBusinessesByUserAsync(user.Email)).ReturnsAsync(new List<UsersBusinesses>()
+            this._userRepositoryMock.Setup(x => x.GetFavoriteBusinessesByUserAsync(user.Email)).ReturnsAsync(new List<UserBusiness>()
             {
-                new UsersBusinesses
+                new UserBusiness
                 {
-                    Business = new Businesses()
+                    Business = new Business()
                     {
                         ContractURL = expected,
                     },
@@ -81,8 +81,8 @@ namespace OrderNow.Tests.Services
             //UsersServices _sut = new UsersServices();
 
             var user = new Users();
-            var product = new Products();
-            var order = new Orders();
+            var product = new Product();
+            var order = new Order();
             //Act
             var result = _sut.AddProductToOrder(user, order, product);
 

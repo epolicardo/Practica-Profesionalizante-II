@@ -14,44 +14,33 @@ namespace OrderNow.Tests.Services
 
         private readonly Mock<IDateTimeProvider> _mockDateTimeProvider = new Mock<IDateTimeProvider>();
 
-
         public OrdersServices_Tests()
         {
             _sut = new OrdersServices(_ordersRepositoryMock.Object, _usersRepositoryMock.Object, _businessRepositoryMock.Object, _productRepositoryMock.Object)
             {
-                
             };
             _mockDateTimeProvider.Setup(x => x.UtcNow).Returns(new DateTime(2021, 07, 20));
-
         }
-
-
-
-
-
 
         [Fact]
         public void CreateOrder_ShouldReturnANewOrder_WhenOrderIsCreatedAsync()
         {
-
-            Businesses business = new Businesses
+            Business business = new Business
             {
                 Id = Guid.NewGuid(),
-                Address = It.IsAny<Addresses>(),
+                Address = It.IsAny<Address>(),
                 ContractURL = It.IsAny<string>(),
-
             };
 
             Users users = new Users
             {
                 Email = It.IsAny<string>(),
                 Id = It.IsAny<string>(),
-
             };
-            _ordersRepositoryMock.Setup(x => x.CreateOrderAsync(users.Id, business.Id)).ReturnsAsync(new Orders());
+            _ordersRepositoryMock.Setup(x => x.CreateOrderAsync(users.Id, business.Id)).ReturnsAsync(new Order());
             var res = _sut.CreateOrderAsync(business.Id, users.Email);
 
-            res.Should().BeOfType<Orders>();
+            res.Should().BeOfType<Order>();
         }
 
         [Fact]
@@ -61,9 +50,6 @@ namespace OrderNow.Tests.Services
         [Fact]
         public void AddProductToOrderAsync_ShouldReturnOrderId_WhenOrderWasCreated()
         {
-
-
-
         }
 
         [Fact]
@@ -85,7 +71,5 @@ namespace OrderNow.Tests.Services
         [Fact]
         public void GetOrderById_ShouldReturnAnOrder_WhenOrderExists()
         { }
-
-
     }
 }

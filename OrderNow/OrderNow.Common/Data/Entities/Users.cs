@@ -7,10 +7,10 @@ namespace OrderNow.Common.Data.Entities
     public class Users : IdentityUser
     {
         public UserType? UserType { get; set; }
-        public People? Person { get; set; }
-        public IList<Businesses>? FavoriteBusiness { get; set; }
-        public IList<Products>? FavoriteProducts { get; set; }
-        public Businesses? AssosiatedBusiness{ get; set; }
+        public Person? Person { get; set; }
+        public IList<Business>? FavoriteBusiness { get; set; }
+        public IList<Product>? FavoriteProducts { get; set; }
+        public Business? AssosiatedBusiness{ get; set; }
         [NotMapped]
         public string Password { get; set; }
     }
@@ -19,6 +19,8 @@ namespace OrderNow.Common.Data.Entities
     {
         Administrator,
         Manager,
-        Colaborator
+        Colaborator,
+        User
+
     }
 }

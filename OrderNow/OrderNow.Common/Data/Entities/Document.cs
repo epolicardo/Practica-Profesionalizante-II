@@ -1,8 +1,8 @@
 namespace OrderNow.Common.Data.Entities
 {
-    public class Documents : EntityBase
+    public class Document : EntityBase
     {
-        public DocumentsType Type { get; set; }
+        public DocumentType Type { get; set; }
         public string DocumentPrefix { get; set; }
         public string DocumentNumber { get; set; }
         public Users GeneratedBy { get; set; }

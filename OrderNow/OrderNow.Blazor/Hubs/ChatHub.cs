@@ -9,7 +9,7 @@ namespace OrderNow.BlazorServer.Hubs
             return Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
-        public Task OrderPlaced(Orders order)
+        public Task OrderPlaced(Order order)
         {
             return Clients.All.SendAsync("NewOrder", order);
         }

@@ -1,11 +1,11 @@
 namespace Repositories
 {
-    public interface IBusinessesRepository : IGenericRepository<Businesses>
+    public interface IBusinessesRepository : IGenericRepository<Business>
     {
         Task<bool> ExistsAsync(string contractURL);
 
-        Task<Businesses> GetByURL(string url);
+        Task<Business> GetByURL(string url);
 
-        Task<List<Businesses>> GetSuggestedBusinessesAsync();
+        Task<List<Business>> GetSuggestedBusinessesAsync();
     }
 }

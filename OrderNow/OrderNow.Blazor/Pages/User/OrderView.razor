@@ -42,7 +42,7 @@
     private HubConnection? hubConnection;
     private List<string> messages = new();
 
-    private Orders order;
+    private Order order;
     private string? userInput;
     private string? messageInput;
 
@@ -78,7 +78,7 @@
     }
 
 
-    public async Task<Orders> GetActiveOrder()
+    public async Task<Order> GetActiveOrder()
     {
         if (order != null)
             return order;

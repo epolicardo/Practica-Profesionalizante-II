@@ -1,9 +1,9 @@
 ﻿namespace Services
 {
-    public interface IBusinessesServices : IGenericServices<Businesses>
+    public interface IBusinessesServices : IGenericServices<Business>
     {
-        Task<Businesses> GetBusinessIfActive(string url);
+        Task<Business> GetBusinessIfActive(string url);
 
-        Task<List<Businesses>> GetSuggestedBusinessesAsync();
+        Task<List<Business>> GetSuggestedBusinessesAsync();
     }
 }

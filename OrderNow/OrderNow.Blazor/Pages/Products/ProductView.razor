@@ -64,8 +64,8 @@
     [Parameter]
     public string? productId { get; set; }
 
-    public Products? product { get; set; }
-    private Orders order;
+    public Product? product { get; set; }
+    private Order order;
 
     protected override async Task OnInitializedAsync()
     {
@@ -100,7 +100,7 @@
 
             }
 
-        var o = await _protectedSessionStore.GetAsync<Orders>("orderSession");
+        var o = await _protectedSessionStore.GetAsync<Order>("orderSession");
         order = o.Value;
         if (order == null)
         {

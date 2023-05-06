@@ -1,6 +1,6 @@
 namespace OrderNow.Common.Data.Entities
 {
-    public enum DocumentsType
+    public enum DocumentType
     {
         Factura = 1,
         Remito = 2,

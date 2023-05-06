@@ -1,6 +1,6 @@
 ﻿namespace Services
 {
-    public class ProductsServices : GenericServices<Products>, IProductsServices
+    public class ProductsServices : GenericServices<Product>, IProductsServices
     {
         private readonly IProductsRepository _productsRepository;
 
@@ -9,34 +9,34 @@
             _productsRepository = productsRepository;
         }
 
-        public Task<bool> CreateAsync(Products entity)
+        public Task<bool> CreateAsync(Product entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> EditAsync(Products entity)
+        public Task<bool> EditAsync(Product entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Products> FindByConditionAsync(System.Linq.Expressions.Expression<Func<Products, bool>> predicate)
+        public Task<Product> FindByConditionAsync(System.Linq.Expressions.Expression<Func<Product, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Products>> GetAll()
+        public Task<IEnumerable<Product>> GetAll()
         {
             throw new NotImplementedException();
         }
 
 
 
-        public async Task<Products> GetByIdAsync(Guid Id)
+        public async Task<Product> GetByIdAsync(Guid Id)
         {
             return await _productsRepository.GetByIdAsync(Id);
         }
 
-        public async Task<Products> GetFullProductById(Guid id) =>await _productsRepository.GetFullProductById(id);
+        public async Task<Product> GetFullProductById(Guid id) =>await _productsRepository.GetFullProductById(id);
 
         public double CalculateDiscounts(double precio, int cantidad, int lleva, int paga)
         {
@@ -59,12 +59,12 @@
             }
         }
 
-        public async Task<IEnumerable<Products>> SugestedProductsByBusiness(string contractURL)
+        public async Task<IEnumerable<Product>> SugestedProductsByBusiness(string contractURL)
         {
             return await _productsRepository.SugestedProductsByBusiness(contractURL);
         }
 
-        public Task<IEnumerable<Products>> ProductsByBusiness(Guid businessId)
+        public Task<IEnumerable<Product>> ProductsByBusiness(Guid businessId)
         {
             return _productsRepository.ProductsByBusiness(businessId);
         }

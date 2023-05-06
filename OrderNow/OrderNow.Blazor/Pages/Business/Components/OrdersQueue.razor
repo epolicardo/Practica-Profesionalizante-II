@@ -16,7 +16,7 @@
         @if (orders != null)
         {
 
-            @foreach (Orders order in orders)
+            @foreach (Order order in orders)
             {
                 <Item orderAttr=order></Item>
             }
@@ -30,7 +30,7 @@
     public string? TableName { get; set; }
 
     [ParameterAttribute]
-    public Businesses? Businesses { get; set; }
+    public Business? Businesses { get; set; }
     [ParameterAttribute]
     public string? itemCount { get; set; }
 
@@ -38,7 +38,7 @@
 
     private HubConnection? hubConnection;
     private List<string> messages = new();
-    private List<Orders> orders = new List<Orders>();
+    private List<Order> orders = new List<Order>();
     private string? userInput;
     private string? messageInput;
 
@@ -53,7 +53,7 @@
         orders = await GetPendingOrders();
 
         //Client to receive messages
-        hubConnection.On<Orders>("NewOrder", (order) =>
+        hubConnection.On<Order>("NewOrder", (order) =>
             {
                 foreach (var orderInList in orders)
                 {
@@ -71,14 +71,14 @@
                 InvokeAsync(StateHasChanged);
             });
 
-        hubConnection.On<Orders>("UpdatedOrder", (order) =>
+        hubConnection.On<Order>("UpdatedOrder", (order) =>
         {
             InvokeAsync(StateHasChanged);
         });
         await hubConnection.StartAsync();
 
     }
-    public async Task<List<Orders>> GetPendingOrders()
+    public async Task<List<Order>> GetPendingOrders()
     {
 
         var businessId = Businesses?.Id.ToString();

@@ -1,6 +1,6 @@
 ﻿namespace Services
 {
-    public interface IAddressesServices : IGenericServices<Addresses>
+    public interface IAddressesServices : IGenericServices<Address>
     {
     }
 }

@@ -16,7 +16,7 @@ namespace OrderNow
 
             if (!context.Businesses.Any())
             {
-                Businesses businesses = new Businesses
+                Business businesses = new Business
                 {
                     Name = "Pizzeria Popular Rio Ceballos",
                     ValidationExpires = DateTime.UtcNow,
@@ -26,13 +26,13 @@ namespace OrderNow
                     LegalName = "Pizzerias Populares S.R.L. ",
                     Phone = "3513432192"
                 };
-                businesses.Address = new Addresses()
+                businesses.Address = new Address()
                 {
                     Street = "Ruta E-53",
                     Number = "Km 22.5",
                     City = "Río Ceballos"
                 };
-                Businesses businesses1 = new Businesses
+                Business businesses1 = new Business
                 {
                     Name = "Pizzeria Popular Unquillo",
                     ValidationExpires = DateTime.UtcNow,
@@ -42,7 +42,7 @@ namespace OrderNow
                     LegalName = "Pizzerias Populares S.R.L. ",
                     Phone = "3513234292"
                 };
-                businesses1.Address = new Addresses()
+                businesses1.Address = new Address()
                 {
                     Street = "Ruta E-57",
                     Number = "Km 12.5",
@@ -54,13 +54,13 @@ namespace OrderNow
                 context.Businesses.Add(businesses);
                 context.Businesses.Add(businesses1);
 
-                Categories categories = new Categories()
+                Category categories = new Category()
                 {
                     Name = "Generics"
                 };
-                Categories categories1 = new Categories()
+                Category categories1 = new Category()
                 {
-                    Name = "Ingredients"
+                    Name = "Ingredient"
                 };
 
                 context.Categories.Add(categories);
@@ -68,41 +68,41 @@ namespace OrderNow
 
                 if (!context.Products.Any())
                 {
-                    Products products = new Products
+                    Product products = new Product
                     {
                         Name = "Coca Cola Lata 354cc",
                         EAN = "1236789786989765432",
                         Business = businesses
                     };
 
-                    Products products1 = new Products
+                    Product products1 = new Product
                     {
                         Name = "Sprite Lata 354cc",
                         EAN = "12368979653424",
                         Business = businesses
                     };
-                    Products products2 = new Products
+                    Product products2 = new Product
                     {
                         Name = "Fanta Lata 354cc",
                         EAN = "567897689678936346",
                         Business = businesses,
                         IsSuggested = true
                     };
-                    Products products3 = new Products
+                    Product products3 = new Product
                     {
                         Name = "Stella 354 cc",
                         EAN = "1798986789432",
                         Business = businesses
                     };
 
-                    Products products4 = new Products
+                    Product products4 = new Product
                     {
                         Name = "Quilmes Lata 354cc",
                         EAN = "12234523455432",
                         Business = businesses
                     };
 
-                    Products muza = new Products()
+                    Product muza = new Product()
                     {
                         Name = "Queso Muzarella",
                         IsSelleable = false,
@@ -115,15 +115,15 @@ namespace OrderNow
                     context.Products.Add(products4);
                     context.Products.Add(muza);
 
-                    Ingredients ingredients = new Ingredients()
+                    Ingredient ingredients = new Ingredient()
                     {
-                        Ingredient = muza,
+                        itemIngredient = muza,
                         Quantity = 1,
                     };
                     Recipes recipes = new Recipes()
                     {
                         Name = "Pizza Muzarella",
-                        Ingredients = new List<Ingredients> {
+                        Ingredients = new List<Ingredient> {
                             ingredients,
                             ingredients,
                             ingredients

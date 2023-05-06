@@ -2,7 +2,7 @@
 
 namespace Repositories
 {
-    public class AddressesRepository : GenericRepository<Addresses>, IAddressesRepository
+    public class AddressesRepository : GenericRepository<Address>, IAddressesRepository
     {
         private readonly DataContext _ApplicationDbContext;
 
@@ -11,27 +11,27 @@ namespace Repositories
             _ApplicationDbContext = ApplicationDbContext;
         }
 
-        public async Task<bool> CreateAsync(Addresses entity)
+        public async Task<bool> CreateAsync(Address entity)
         {
             return await base.CreateAsync(entity);
         }
 
-        public Task<bool> EditAsync(Addresses entity)
+        public Task<bool> EditAsync(Address entity)
         {
             return base.EditAsync(entity);
         }
 
-        public Task<Addresses> FindByConditionAsync(System.Linq.Expressions.Expression<Func<Addresses, bool>> predicate)
+        public Task<Address> FindByConditionAsync(System.Linq.Expressions.Expression<Func<Address, bool>> predicate)
         {
             return base.FindByConditionAsync(predicate);
         }
 
-        public Task<List<Addresses>> GetAll()
+        public Task<List<Address>> GetAll()
         {
             return base.GetAll();
         }
 
-        public Task<Addresses> GetByIdAsync(Guid Id)
+        public Task<Address> GetByIdAsync(Guid Id)
         {
             return base.GetByIdAsync(Id);
         }

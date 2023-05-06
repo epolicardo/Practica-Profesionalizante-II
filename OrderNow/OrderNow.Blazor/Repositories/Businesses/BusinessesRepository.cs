@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Repositories
 {
-    public class BusinessesRepository : GenericRepository<Businesses>, IBusinessesRepository
+    public class BusinessesRepository : GenericRepository<Business>, IBusinessesRepository
     {
         private readonly DataContext _context;
 
@@ -12,17 +12,17 @@ namespace Repositories
             _context = context;
         }
 
-        public async Task<List<Businesses>> GetSuggestedBusinessesAsync()
+        public async Task<List<Business>> GetSuggestedBusinessesAsync()
         {
             return await _context.Businesses.Where(x => x.IsPromoted == true && x.PromotionCredits > 0).ToListAsync();
         }
 
-        public async Task<bool> CreateAsync(Businesses entity)
+        public async Task<bool> CreateAsync(Business entity)
         {
             return await base.CreateAsync(entity);
         }
 
-        public Task<bool> EditAsync(Businesses entity)
+        public Task<bool> EditAsync(Business entity)
         {
             return base.EditAsync(entity);
         }
@@ -32,22 +32,22 @@ namespace Repositories
             return await _context.Businesses.FirstOrDefaultAsync(x => x.ContractURL == url) != null ? true : false;
         }
 
-        public Task<Businesses> FindByConditionAsync(Expression<Func<Businesses, bool>> predicate)
+        public Task<Business> FindByConditionAsync(Expression<Func<Business, bool>> predicate)
         {
             return base.FindByConditionAsync(predicate);
         }
 
-        public Task<List<Businesses>> GetAll()
+        public Task<List<Business>> GetAll()
         {
             return base.GetAll();
         }
 
-        public Task<Businesses> GetByIdAsync(Guid Id)
+        public Task<Business> GetByIdAsync(Guid Id)
         {
             return base.GetByIdAsync(Id);
         }
 
-        public async Task<Businesses> GetByURL(string url)
+        public async Task<Business> GetByURL(string url)
 
         {
             return _context.Businesses.Include(x => x.Address).FirstOrDefaultAsync(x => x.ContractURL == url).GetAwaiter().GetResult();

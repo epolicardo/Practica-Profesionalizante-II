@@ -12,15 +12,15 @@ using OrderNow.Blazor.Data;
 namespace OrderNow.Blazor.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221201224652_2")]
-    partial class _2
+    [Migration("20230505233111_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -162,7 +162,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Addresses", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -183,6 +183,9 @@ namespace OrderNow.Blazor.Migrations
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Neiborhood")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -202,7 +205,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.AdvertisingContracts", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.AdvertisingContract", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -211,7 +214,7 @@ namespace OrderNow.Blazor.Migrations
                     b.Property<DateTime>("Aquired")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("BusinessId")
+                    b.Property<Guid?>("BusinessId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
@@ -240,7 +243,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("AdvertisingContracts");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Businesses", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Business", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -266,6 +269,9 @@ namespace OrderNow.Blazor.Migrations
                     b.Property<bool>("IsFrachise")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsPromoted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsValidated")
                         .HasColumnType("bit");
 
@@ -286,6 +292,15 @@ namespace OrderNow.Blazor.Migrations
 
                     b.Property<string>("PromoMessage")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PromotionCredits")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PromotionEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PromotionStart")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Qualification")
                         .HasColumnType("decimal(20,0)");
@@ -317,7 +332,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Businesses");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Categories", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -337,7 +352,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Documents", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Document", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -370,38 +385,14 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Documents");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.FavoriteBusiness", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("FavoriteBusinessesByUser");
-                });
-
             modelBuilder.Entity("OrderNow.Common.Data.Entities.FavoriteProducts", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Added")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -424,7 +415,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("FavoriteProductsByUser");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Groups", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Group", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -449,7 +440,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Ingredients", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Ingredient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -457,9 +448,6 @@ namespace OrderNow.Blazor.Migrations
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("IngredientId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
@@ -470,66 +458,19 @@ namespace OrderNow.Blazor.Migrations
                     b.Property<Guid?>("RecipesId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("itemIngredientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IngredientId");
-
                     b.HasIndex("RecipesId");
+
+                    b.HasIndex("itemIngredientId");
 
                     b.ToTable("Ingredients");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("OrdersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<float>("Quantity")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrdersId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItem");
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderQueue", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MyProperty")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Queues");
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Orders", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -593,7 +534,57 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.PaymentMethods", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Quantity")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItem");
+                });
+
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderQueue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MyProperty")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Queues");
+                });
+
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.PaymentMethod", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -623,7 +614,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("PaymentMethods");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.People", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Person", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -656,60 +647,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOption", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Aplicable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Option")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductOption");
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOptions", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OptionsId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OptionsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ProductOptions");
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Products", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -795,6 +733,59 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Aplicable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Option")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductOption");
+                });
+
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOptions", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OptionsId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OptionsId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductOptions");
+                });
+
             modelBuilder.Entity("OrderNow.Common.Data.Entities.Recipes", b =>
                 {
                     b.Property<Guid>("Id")
@@ -816,24 +807,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.SaleDetails", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SaleDetails");
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Sales", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Sale", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -850,90 +824,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Users", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("AssosiatedBusinessId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("GroupsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<int?>("UserType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("personId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssosiatedBusinessId");
-
-                    b.HasIndex("GroupsId");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("personId");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.UsersBusinesses", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.UserBusiness", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -945,7 +836,13 @@ namespace OrderNow.Blazor.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsFavorite")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastVisit")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UsersId")
@@ -961,7 +858,7 @@ namespace OrderNow.Blazor.Migrations
                     b.ToTable("UsersBusinesses");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.UsersOrders", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.UserOrder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -987,6 +884,89 @@ namespace OrderNow.Blazor.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("UsersOrders");
+                });
+
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Users", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("AssosiatedBusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PersonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int?>("UserType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssosiatedBusinessId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1040,20 +1020,18 @@ namespace OrderNow.Blazor.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.AdvertisingContracts", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.AdvertisingContract", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Businesses", "Business")
+                    b.HasOne("OrderNow.Common.Data.Entities.Business", "Business")
                         .WithMany()
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BusinessId");
 
                     b.Navigation("Business");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Businesses", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Business", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Addresses", "Address")
+                    b.HasOne("OrderNow.Common.Data.Entities.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
@@ -1064,7 +1042,7 @@ namespace OrderNow.Blazor.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Documents", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Document", b =>
                 {
                     b.HasOne("OrderNow.Common.Data.Entities.Users", "GeneratedBy")
                         .WithMany()
@@ -1073,26 +1051,9 @@ namespace OrderNow.Blazor.Migrations
                     b.Navigation("GeneratedBy");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.FavoriteBusiness", b =>
-                {
-                    b.HasOne("OrderNow.Common.Data.Entities.Businesses", "Business")
-                        .WithMany()
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrderNow.Common.Data.Entities.Users", "Users")
-                        .WithMany()
-                        .HasForeignKey("UsersId");
-
-                    b.Navigation("Business");
-
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("OrderNow.Common.Data.Entities.FavoriteProducts", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Products", "Product")
+                    b.HasOne("OrderNow.Common.Data.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1107,37 +1068,24 @@ namespace OrderNow.Blazor.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Ingredients", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Ingredient", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Products", "Ingredient")
-                        .WithMany()
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("OrderNow.Common.Data.Entities.Recipes", null)
                         .WithMany("Ingredients")
                         .HasForeignKey("RecipesId");
 
-                    b.Navigation("Ingredient");
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderItem", b =>
-                {
-                    b.HasOne("OrderNow.Common.Data.Entities.Orders", null)
-                        .WithMany("Items")
-                        .HasForeignKey("OrdersId");
-
-                    b.HasOne("OrderNow.Common.Data.Entities.Products", "Product")
+                    b.HasOne("OrderNow.Common.Data.Entities.Product", "itemIngredient")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("itemIngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("itemIngredient");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Orders", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Order", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Businesses", "Business")
+                    b.HasOne("OrderNow.Common.Data.Entities.Business", "Business")
                         .WithMany()
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1147,7 +1095,7 @@ namespace OrderNow.Blazor.Migrations
                         .WithMany()
                         .HasForeignKey("ModifiedById");
 
-                    b.HasOne("OrderNow.Common.Data.Entities.PaymentMethods", "PaymentMethod")
+                    b.HasOne("OrderNow.Common.Data.Entities.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId");
 
@@ -1164,35 +1112,35 @@ namespace OrderNow.Blazor.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.People", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.OrderItem", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Addresses", "Address")
+                    b.HasOne("OrderNow.Common.Data.Entities.Order", null)
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("OrderNow.Common.Data.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Person", b =>
+                {
+                    b.HasOne("OrderNow.Common.Data.Entities.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOptions", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Product", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.ProductOption", "Options")
-                        .WithMany()
-                        .HasForeignKey("OptionsId");
-
-                    b.HasOne("OrderNow.Common.Data.Entities.Products", null)
-                        .WithMany("OptionsList")
-                        .HasForeignKey("ProductsId");
-
-                    b.Navigation("Options");
-                });
-
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Products", b =>
-                {
-                    b.HasOne("OrderNow.Common.Data.Entities.Businesses", "Business")
+                    b.HasOne("OrderNow.Common.Data.Entities.Business", "Business")
                         .WithMany()
                         .HasForeignKey("BusinessId");
 
-                    b.HasOne("OrderNow.Common.Data.Entities.Categories", "Category")
+                    b.HasOne("OrderNow.Common.Data.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
@@ -1211,28 +1159,22 @@ namespace OrderNow.Blazor.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Users", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.ProductOptions", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Businesses", "AssosiatedBusiness")
+                    b.HasOne("OrderNow.Common.Data.Entities.ProductOption", "Options")
                         .WithMany()
-                        .HasForeignKey("AssosiatedBusinessId");
+                        .HasForeignKey("OptionsId");
 
-                    b.HasOne("OrderNow.Common.Data.Entities.Groups", null)
-                        .WithMany("Integrantes")
-                        .HasForeignKey("GroupsId");
+                    b.HasOne("OrderNow.Common.Data.Entities.Product", null)
+                        .WithMany("OptionsList")
+                        .HasForeignKey("ProductId");
 
-                    b.HasOne("OrderNow.Common.Data.Entities.People", "person")
-                        .WithMany()
-                        .HasForeignKey("personId");
-
-                    b.Navigation("AssosiatedBusiness");
-
-                    b.Navigation("person");
+                    b.Navigation("Options");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.UsersBusinesses", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.UserBusiness", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Businesses", "Business")
+                    b.HasOne("OrderNow.Common.Data.Entities.Business", "Business")
                         .WithMany()
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1249,9 +1191,9 @@ namespace OrderNow.Blazor.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.UsersOrders", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.UserOrder", b =>
                 {
-                    b.HasOne("OrderNow.Common.Data.Entities.Orders", "Orders")
+                    b.HasOne("OrderNow.Common.Data.Entities.Order", "Orders")
                         .WithMany()
                         .HasForeignKey("OrdersId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1268,17 +1210,36 @@ namespace OrderNow.Blazor.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Groups", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Users", b =>
+                {
+                    b.HasOne("OrderNow.Common.Data.Entities.Business", "AssosiatedBusiness")
+                        .WithMany()
+                        .HasForeignKey("AssosiatedBusinessId");
+
+                    b.HasOne("OrderNow.Common.Data.Entities.Group", null)
+                        .WithMany("Integrantes")
+                        .HasForeignKey("GroupId");
+
+                    b.HasOne("OrderNow.Common.Data.Entities.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId");
+
+                    b.Navigation("AssosiatedBusiness");
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Group", b =>
                 {
                     b.Navigation("Integrantes");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Orders", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Order", b =>
                 {
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("OrderNow.Common.Data.Entities.Products", b =>
+            modelBuilder.Entity("OrderNow.Common.Data.Entities.Product", b =>
                 {
                     b.Navigation("OptionsList");
                 });

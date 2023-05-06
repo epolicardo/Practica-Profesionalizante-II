@@ -21,7 +21,7 @@ namespace OrderNow.Tests.Services
         [InlineData("pizzeria-popular-ric", false)]
         public async Task BusinessExists_ShouldReturnTrue_WhenBusinessExists(string URL, bool expected)
         {
-            var business = new Businesses()
+            var business = new Business()
             {
                 CUIT = "20307821959",
                 IsFrachise = true,

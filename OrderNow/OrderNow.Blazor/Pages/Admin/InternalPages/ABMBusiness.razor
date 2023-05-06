@@ -1,0 +1,165 @@
+﻿@page "/abm/business"
+@inject SignInManager<Users> SignInManager
+@using Microsoft.AspNetCore.Identity
+@using OrderNow.Common.Data.DTOs;
+
+<h3 class="pt-4">Gestion de comercios</h3>
+
+
+<EditForm Model="dto" OnSubmit=@(()=>SubmitNewBusiness())>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>Nombre del comercio</label>
+            <InputText class="form-control" @bind-Value=dto.Business.Name />
+        </div>
+        <div class="col-md-4">
+            <label>URL de acceso</label>
+            <InputText class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.ContractURL />
+        </div>
+
+        <div class="col-md-4">
+            <label>Imagen principal</label>
+            <InputText class="form-control" @bind-Value=dto.Business.URLRegularImage />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Mensaje promocional</label>
+            <InputText class="form-control"   @bind-Value=dto.Business.PromoMessage />
+        </div>
+
+        <div class="col-md-4">
+            <label>Correo electrónico</label>
+            <InputText class="form-control"   @bind-Value=dto.Business.Email />
+        </div>
+
+        <div class="col-md-2">
+            <label>Franquicia?</label>
+            <InputCheckbox class="form-check" @bind-Value=dto.Business.IsFrachise />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Razon Social</label>
+            <InputText class="form-control"   @bind-Value=dto.Business.LegalName />
+        </div>
+
+        <div class="col-md-4">
+            <label>Teléfono</label>
+            <InputText class="form-control" placeholder="1234567890" @bind-Value=dto.Business.Phone />
+        </div>
+
+        <div class="col-md-4">
+            <label>Formas de Pago</label>
+            <InputSelect class="form-control"  @bind-Value=dto.Business.PaymentsType />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Validado?</label>
+            <InputCheckbox class="form-check"   @bind-Value=dto.Business.IsValidated />
+        </div>
+
+        <div class="col-md-2">
+            <label>Fecha de validación</label>
+            <InputDate class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.ValidationTime />
+        </div>
+
+        <div class="col-md-2">
+            <label>Fecha de vencimiento de validación</label>
+            <InputDate class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.ValidationExpires />
+        </div>
+
+        <div class="col-md-2">
+            <label>Puntaje</label>
+            <InputNumber class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.Score />
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-2">
+            <label>Promocionado?</label>
+            <InputCheckbox class="form-check" @bind-Value=dto.Business.IsPromoted />
+        </div>
+        <div class="col-md-2">
+            <label>Creditos Promocionales</label>
+            <InputNumber class="form-control"  @bind-Value=dto.Business.PromotionCredits />
+        </div>
+        <div class="col-md-2">
+            <label>CUIT</label>
+            <InputText class="form-control"  placeholder="00-00000000-0" @bind-Value=dto.Business.CUIT />
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+
+            <label>Inicio Promo</label>
+            <InputDate class="form-control" @bind-Value=dto.Business.PromotionStart />
+        </div>
+        <div class="col-md-2">
+            <label>Fin Promo</label>
+            <InputDate class="form-control" @bind-Value=dto.Business.PromotionEnd />
+        </div>
+    </div>
+
+
+    <h3 class="pt-4">Domicilio</h3>
+    <div class="row">
+        <div class="col-md-4">
+
+            <label>Calle</label>
+            <InputText class="form-control" @bind-Value=dto.Address.Street />
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label>Nro</label>
+                    <InputText class="form-control" @bind-Value=dto.Address.Number />
+                </div>
+                <div class="col-md-4">
+
+                    <label>Piso</label>
+                    <InputText class="form-control" @bind-Value=dto.Address.Floor />
+                </div>
+                <div class="col-md-4">
+                    <label>Dpto</label>
+                    <InputText class="form-control" @bind-Value=dto.Address.Apartment />
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row pt-2">
+        <div class="col-md-4">
+
+            <label>Ciudad</label>
+            <InputText class="form-control" @bind-Value=dto.Address.City />
+        </div>
+        <div class="col-md-4">
+
+            <label>Barrio</label>
+            <InputText class="form-control" @bind-Value=dto.Address.Neiborhood />
+        </div>
+
+    </div>
+    <button type="submit">Enviar</button>
+</EditForm>
+
+@code {
+
+    public BusinessDTO dto { get; set; } = new();
+
+    [Parameter]
+
+    public Users? user { get; set; }
+
+
+    public async Task SubmitNewBusiness()
+    {
+
+    }
+
+}

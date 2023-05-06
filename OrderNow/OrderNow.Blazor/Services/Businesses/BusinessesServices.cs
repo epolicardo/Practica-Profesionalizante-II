@@ -3,7 +3,7 @@ using System.Security.Policy;
 
 namespace Services
 {
-    public class BusinessesServices : GenericServices<Businesses>, IBusinessesServices
+    public class BusinessesServices : GenericServices<Business>, IBusinessesServices
     {
         private readonly IBusinessesRepository _businessesRepository;
         private readonly IUsersRepository _usersRepository;
@@ -14,37 +14,12 @@ namespace Services
             _usersRepository = usersRepository;
         }
 
-        public async Task<Businesses> GetBusinessIfActive(string url)
+        public async Task<Business> GetBusinessIfActive(string url)
         {
             return await _businessesRepository.GetByURL(url);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public async Task<bool> SetAsFavorite(string url, Guid userId)
-        {
-            var business = await _businessesRepository.FindByConditionAsync(x => x.ContractURL.Equals(url));
-
-            if (business != null)
-            {
-                var user = await _usersRepository.GetByIdAsync(userId);
-
-                if (user != null)
-                {
-                    UsersBusinesses favoriteBusiness = new UsersBusinesses();
-                    favoriteBusiness.Business = business;
-                    favoriteBusiness.Users = user;
-                    //var res = await _dataContext.UsersBusinesses.AddAsync(favoriteBusiness);
-                    //await _dataContext.SaveChangesAsync();
-                }
-                return true;
-            }
-            return false;
-        }
+     
 
         /// <summary>
         /// Este metodo valida si un comercio existe.
@@ -57,7 +32,7 @@ namespace Services
             return t;
         }
 
-        public async Task<List<Businesses>> GetSuggestedBusinessesAsync()
+        public async Task<List<Business>> GetSuggestedBusinessesAsync()
         {
             return await _businessesRepository.GetSuggestedBusinessesAsync();
         }
