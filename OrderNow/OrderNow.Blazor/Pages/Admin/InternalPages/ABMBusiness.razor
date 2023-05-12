@@ -6,89 +6,89 @@
 <h3 class="pt-4">Gestion de comercios</h3>
 
 
-<EditForm Model="dto" OnSubmit=@(()=>SubmitNewBusiness())>
+<EditForm Model="business" OnSubmit=@(()=>SubmitNewBusiness())>
 
     <div class="row">
         <div class="col-md-4">
             <label>Nombre del comercio</label>
-            <InputText class="form-control" @bind-Value=dto.Business.Name />
+            <InputText class="form-control" @bind-Value=business.Name />
         </div>
         <div class="col-md-4">
             <label>URL de acceso</label>
-            <InputText class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.ContractURL />
+            <InputText class="form-control" placeholder="mi-comercio" @bind-Value=business.ContractURL />
         </div>
 
         <div class="col-md-4">
             <label>Imagen principal</label>
-            <InputText class="form-control" @bind-Value=dto.Business.URLRegularImage />
+            <InputText class="form-control" @bind-Value=business.URLRegularImage />
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <label>Mensaje promocional</label>
-            <InputText class="form-control"   @bind-Value=dto.Business.PromoMessage />
+            <InputText class="form-control"   @bind-Value=business.PromoMessage />
         </div>
 
         <div class="col-md-4">
             <label>Correo electrónico</label>
-            <InputText class="form-control"   @bind-Value=dto.Business.Email />
+            <InputText class="form-control"   @bind-Value=business.Email />
         </div>
 
         <div class="col-md-2">
             <label>Franquicia?</label>
-            <InputCheckbox class="form-check" @bind-Value=dto.Business.IsFrachise />
+            <InputCheckbox class="form-check" @bind-Value=business.IsFrachise />
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <label>Razon Social</label>
-            <InputText class="form-control"   @bind-Value=dto.Business.LegalName />
+            <InputText class="form-control"   @bind-Value=business.LegalName />
         </div>
 
         <div class="col-md-4">
             <label>Teléfono</label>
-            <InputText class="form-control" placeholder="1234567890" @bind-Value=dto.Business.Phone />
+            <InputText class="form-control" placeholder="1234567890" @bind-Value=business.Phone />
         </div>
 
         <div class="col-md-4">
             <label>Formas de Pago</label>
-            <InputSelect class="form-control"  @bind-Value=dto.Business.PaymentsType />
+            <InputSelect class="form-control"  @bind-Value=business.PaymentsType />
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
             <label>Validado?</label>
-            <InputCheckbox class="form-check"   @bind-Value=dto.Business.IsValidated />
+            <InputCheckbox class="form-check"   @bind-Value=business.IsValidated />
         </div>
 
         <div class="col-md-2">
             <label>Fecha de validación</label>
-            <InputDate class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.ValidationTime />
+            <InputDate class="form-control" placeholder="mi-comercio" @bind-Value=business.ValidationTime />
         </div>
 
         <div class="col-md-2">
             <label>Fecha de vencimiento de validación</label>
-            <InputDate class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.ValidationExpires />
+            <InputDate class="form-control" placeholder="mi-comercio" @bind-Value=business.ValidationExpires />
         </div>
 
         <div class="col-md-2">
             <label>Puntaje</label>
-            <InputNumber class="form-control" placeholder="mi-comercio" @bind-Value=dto.Business.Score />
+            <InputNumber class="form-control" placeholder="mi-comercio" @bind-Value=business.Score />
         </div>
     </div>
     <div class="row">
 
         <div class="col-md-2">
             <label>Promocionado?</label>
-            <InputCheckbox class="form-check" @bind-Value=dto.Business.IsPromoted />
+            <InputCheckbox class="form-check" @bind-Value=business.IsPromoted />
         </div>
         <div class="col-md-2">
             <label>Creditos Promocionales</label>
-            <InputNumber class="form-control"  @bind-Value=dto.Business.PromotionCredits />
+            <InputNumber class="form-control"  @bind-Value=business.PromotionCredits />
         </div>
         <div class="col-md-2">
             <label>CUIT</label>
-            <InputText class="form-control"  placeholder="00-00000000-0" @bind-Value=dto.Business.CUIT />
+            <InputText class="form-control"  placeholder="00-00000000-0" @bind-Value=business.CUIT />
         </div>
         <div class="col-md-4"></div>
     </div>
@@ -96,11 +96,11 @@
         <div class="col-md-2">
 
             <label>Inicio Promo</label>
-            <InputDate class="form-control" @bind-Value=dto.Business.PromotionStart />
+            <InputDate class="form-control" @bind-Value=business.PromotionStart />
         </div>
         <div class="col-md-2">
             <label>Fin Promo</label>
-            <InputDate class="form-control" @bind-Value=dto.Business.PromotionEnd />
+            <InputDate class="form-control" @bind-Value=business.PromotionEnd />
         </div>
     </div>
 
@@ -110,23 +110,23 @@
         <div class="col-md-4">
 
             <label>Calle</label>
-            <InputText class="form-control" @bind-Value=dto.Address.Street />
+            <InputText class="form-control" @bind-Value=business.Address.Street />
         </div>
         <div class="col-md-4">
             <div class="row">
 
                 <div class="col-md-4">
                     <label>Nro</label>
-                    <InputText class="form-control" @bind-Value=dto.Address.Number />
+                    <InputText class="form-control" @bind-Value=business.Address.Number />
                 </div>
                 <div class="col-md-4">
 
                     <label>Piso</label>
-                    <InputText class="form-control" @bind-Value=dto.Address.Floor />
+                    <InputText class="form-control" @bind-Value=business.Address.Floor />
                 </div>
                 <div class="col-md-4">
                     <label>Dpto</label>
-                    <InputText class="form-control" @bind-Value=dto.Address.Apartment />
+                    <InputText class="form-control" @bind-Value=business.Address.Apartment />
                 </div>
             </div>
         </div>
@@ -136,12 +136,12 @@
         <div class="col-md-4">
 
             <label>Ciudad</label>
-            <InputText class="form-control" @bind-Value=dto.Address.City />
+            <InputText class="form-control" @bind-Value=business.Address.City />
         </div>
         <div class="col-md-4">
 
             <label>Barrio</label>
-            <InputText class="form-control" @bind-Value=dto.Address.Neiborhood />
+            <InputText class="form-control" @bind-Value=business.Address.Neiborhood />
         </div>
 
     </div>
@@ -150,16 +150,20 @@
 
 @code {
 
-    public BusinessDTO dto { get; set; } = new();
+    public Business business { get; set; } = new();
 
     [Parameter]
 
     public Users? user { get; set; }
 
+    protected override void OnInitialized()
+    {
+        business.Address = new Address();
 
+    }
     public async Task SubmitNewBusiness()
     {
-
+        _businessesServices.CreateAsync(business);
     }
 
 }

@@ -15,10 +15,11 @@
         <h3>@business?.Address?.City</h3>
     </div>
     <div id="favorite-shape">
-        <img src="/assets/imgs/Shape.png" alt="">
-    </div>
-    <a id="personal-attention-request" href="">Solicitar atención</a>
+        <a @onclick="SetAsFavorite">
 
+        <i class="@favorite" style="font-size:4rem"></i>
+        </a>
+    </div>
     <a id="access-button" href="/menu/@contractURL">Ingresar</a>
 
 </div>
@@ -29,6 +30,7 @@
     public string? contractURL { get; set; }
     public Common.Data.Entities.Business? business { get; set; }
     public string? backgroundImageURL { get; set; }
+    public string? favorite { get; set; }
 
 
 
@@ -37,13 +39,25 @@
     {
 
         business = await _businessesServices.GetBusinessIfActive(contractURL);
-
+               //TODO 
+               // Buscar el usuario y comercio, para permitir ver si es favorito.
+               // Buscar en el usuario si el comercio está marcado como favorito
 
     }
 
 
+    public async Task SetAsFavorite()
+    {
+        if (favorite.Equals("bi bi-suit-heart-fill"))
+        {
+            favorite = "bi bi-suit-heart";
+        }
+        else
+        {
+            favorite = "bi bi-suit-heart-fill";
+        }
 
-
+    }
 
 
 

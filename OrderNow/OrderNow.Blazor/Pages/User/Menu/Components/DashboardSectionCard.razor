@@ -1,0 +1,32 @@
+﻿<div class="card-group">
+    <div class="card">
+        <h2 class="card-header" style="text-align: center;">@Title</h2>
+        @if (lastVisited != null)
+        {
+
+            @foreach (var item in lastVisited)
+            {
+                <div class="card" style="width: 30rem; margin:1rem">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-shop-window m-4" style="font-size:2rem;"></i>
+                            @item.Business.Name
+                            <a href="/business/@item.Business.ContractURL">
+                                <i class="bi bi-arrow-right-square " style="font-size:2rem; margin-left:50px;"></i>
+                            </a>
+                        </h5>
+                        <p class="card-text">@item.Business.Address?.Street @item.Business.Address?.Number</p>
+
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+@code {
+    [Parameter]
+    public List<UserBusiness>? lastVisited { get; set; }
+    [ParameterAttribute]
+    public string? Title { get; set; }
+
+}

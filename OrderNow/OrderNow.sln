@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.Utilities", "Order
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.Blazor", "OrderNow.Blazor\OrderNow.Blazor.csproj", "{44F7D340-F416-4F65-9A3F-878834BEAD19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderNow.IntegrationTests", "OrderNow.IntegrationTests\OrderNow.IntegrationTests.csproj", "{D04F16B8-9B89-4DFC-BA4D-7D2872458DA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNow.IntegrationTests", "OrderNow.IntegrationTests\OrderNow.IntegrationTests.csproj", "{D04F16B8-9B89-4DFC-BA4D-7D2872458DA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

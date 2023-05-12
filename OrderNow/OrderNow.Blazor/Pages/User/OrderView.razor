@@ -102,7 +102,7 @@
 
     public void GoBack()
     {
-        _navMan.NavigateTo($"/menu/{@order.Business.ContractURL}");
+        _navMan.NavigateTo($"/menu/{@order.Business?.ContractURL}");
     }
 
     public async ValueTask DisposeAsync()

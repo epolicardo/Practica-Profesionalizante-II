@@ -2,17 +2,12 @@
 @page "/menu/{contractURL}"
 
 <div id="section-title-bar">
-    Cervezas sugeridas
+    Productos sugeridos
 </div>
 <div id="suggested-section-items">
     <SuggestedProductsSection contractURL=@contractURL></SuggestedProductsSection>
 </div>
-<div id="section-title-bar">
-    Pastas sugeridas
-</div>
-<div id="suggested-section-items">
-    <SuggestedProductsSection contractURL=@contractURL></SuggestedProductsSection>
-</div>
+
 
 @code {
     [Parameter]

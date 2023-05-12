@@ -10,13 +10,51 @@
 
         <p>
 
-        Usted es administrador.
-        Puede: 
-        Agregar un comercio
-        Editar un comercio
-        Gestionar contratos de publicidad
+            Usted es administrador.
+            Puede:
+            Agregar un comercio
+            Editar un comercio
+            Gestionar contratos de publicidad
         </p>
-
+        <div class="container">
+            <h1>Dashboard</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Usuarios activos</h5>
+                            <p class="card-text">Mostrar aquí el número de usuarios activos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Usuarios logueados</h5>
+                            <p class="card-text">Mostrar aquí el número de usuarios logueados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Usuarios dados de alta en los últimos 30 días</h5>
+                            <p class="card-text">Mostrar aquí la cantidad de usuarios dados de alta en los últimos 30 días.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Órdenes generadas en las últimas 24 horas</h5>
+                            <p class="card-text">Mostrar aquí la cantidad de órdenes generadas en las últimas 24 horas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </Authorized>
     <NotAuthorized>
         <h1>Sin autorización para ver esta página</h1>
@@ -36,12 +74,27 @@
         var m = startTime.Subtract(createdAt).Minutes.ToString("00");
         return $"{h}:{m}";
     }
+
     protected override async Task OnInitializedAsync()
     {
         business = await _businessesServices.GetBusinessIfActive(contractURL);
 
+        var user = await _usersServices.GetByIdAsync(Guid.NewGuid());
+
+        if (true)
+        {
+
+
+            Console.WriteLine($"Usuarios activos: {user}");
+        }
+
+        else
+        {
+            Console.WriteLine($"Error al obtener los usuarios activos. Código de estado: {user}");
+        }
+
+
+
 
     }
-
-
 }
