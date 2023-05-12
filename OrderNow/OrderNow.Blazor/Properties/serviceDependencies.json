@@ -1,18 +1,14 @@
 {
   "dependencies": {
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:DefaultConnection",
-      "dynamicId": null
-    },
     "signalr1": {
       "type": "signalr",
       "connectionId": "Azure:SignalR:ConnectionString",
       "dynamicId": null
     },
-    "mssql2": {
+    "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:Conexion_Hangfire"
+      "connectionId": "ConnectionStrings:Conexion",
+      "dynamicId": null
     }
   }
 }
